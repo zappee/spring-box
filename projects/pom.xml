@@ -19,8 +19,8 @@
         <version>3.4.4</version>
     </parent>
 
-    <groupId>com.remal.gombi</groupId>
-    <artifactId>gombi</artifactId>
+    <groupId>com.remal.springbox</groupId>
+    <artifactId>spring-box</artifactId>
     <version>0.7.1</version>
     <packaging>pom</packaging>
 
@@ -96,8 +96,8 @@
             </dependency>
             <!-- remal dependencies -->
             <dependency>
-                <groupId>com.remal.gombi</groupId>
-                <artifactId>remal-gombi-commons</artifactId>
+                <groupId>com.remal.springbox</groupId>
+                <artifactId>spring-box-commons</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- lombok library -->
@@ -188,13 +188,13 @@
     </build>
 
     <modules>
-        <module>remal-gombi-commons</module>
-        <module>remal-gombi-hazelcast-counter</module>
-        <module>remal-gombi-hazelcast-demo</module>
-        <module>remal-gombi-kafka-consumer</module>
-        <module>remal-gombi-kafka-player</module>
-        <module>remal-gombi-kafka-producer</module>
-        <module>remal-gombi-user-service</module>
-        <module>remal-gombi-welcome-service</module>
+        <module>spring-box-commons</module>
+        <module>spring-box-hazelcast-counter</module>
+        <module>spring-box-hazelcast-demo</module>
+        <module>spring-box-kafka-consumer</module>
+        <module>spring-box-kafka-player</module>
+        <module>spring-box-kafka-producer</module>
+        <module>spring-box-user-service</module>
+        <module>spring-box-welcome-service</module>
     </modules>
 </project>

@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="kafka-player" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="com.remal.gombi.kafka.player.Application" />
-    <module name="remal-gombi-kafka-player" />
+    <option name="MAIN_CLASS_NAME" value="com.remal.springbox.kafka.player.Application" />
+    <module name="spring-box-kafka-player" />
     <option name="PROGRAM_PARAMETERS" value="--sql-port 14415 --sql-database default_db --sql-command &quot;SELECT user_id, payload, created_in_utc FROM event&quot; --sql-user application --sql-password password --kafka-host localhost --kafka-port 13053 --kafka-topic incoming" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="com.remal.gombi.kafka.player.*" />
+        <option name="PATTERN" value="com.remal.springbox.kafka.player.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
