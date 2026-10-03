@@ -1,10 +1,10 @@
 # ******************************************************************************
-# Remal Base Docker image build file.
+# Remal Spring-Box Base Docker image build file.
 #
 # Since:  May 2023
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Author: Arnold Somogyi <arnold.somogyi@gmail.com>
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+# Copyright (c) 2020-2026 Remal Software and Arnold Somogyi All rights reserved
 # ******************************************************************************
 ARG IMAGE_FROM="unknown"
 FROM ${IMAGE_FROM}
@@ -41,7 +41,7 @@ RUN set -ue; \
     apk add --no-cache bash coreutils; \
     sed -i 's|/bin/ash|/bin/bash|' /etc/passwd; \
     printf "%s\n" "source ~/.bashrc" >> ~/.profile; \
-    printf "%s\n\n" "Welcome to Remal docker container!" > /etc/motd
+    printf "%s\n\n" "Welcome to Remal Spring-Box docker container!" > /etc/motd
 
 # installing and configuring ssh-server that will listen on port 22
 RUN set -ue; \

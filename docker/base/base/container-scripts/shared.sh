@@ -3,9 +3,9 @@
 # Shared, common bash functions.
 #
 # Since:  April 2023
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Author: Arnold Somogyi <arnold.somogyi@gmail.com>
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+# Copyright (c) 2020-2026 Remal Software and Arnold Somogyi All rights reserved
 # ******************************************************************************
 
 # ------------------------------------------------------------------------------
@@ -221,7 +221,7 @@ function show_ready_message() {
   printf "%s | [DEBUG] | '_ \ / _\` / __|  | '_ \ / _ \/ _ \ '_ \   / __| __/ _\` | \'__| __/ _ \/ _\` |\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG] | | | | (_| \__ \  | |_) |  __/  __/ | | |  \__ \ || (_| | |  | ||  __/ (_| |\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG] |_| |_|\__,_|___/  |_.__/ \___|\___|_| |_|  |___/\__\__,_|_|   \__\___|\__,_|\n" "$(date +"%Y-%m-%d %H:%M:%S")"
-  printf "%s | [DEBUG] Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG] Copyright (c) 2020-2026 Remal Software and Arnold Somogyi All rights reserved\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 }
 
 # ------------------------------------------------------------------------------

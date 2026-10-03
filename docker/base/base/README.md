@@ -22,4 +22,4 @@ This image is an official Remal Docker image, used as a base image of the subseq
 | 22             | SSH         |
 
 ## 4) License and Copyright
-Copyright (c) 2020-2026 Remal Software, Arnold SOMOGYI. All rights reserved.
+Copyright (c) 2020-2026 Remal Software, Arnold Somogyi. All rights reserved.
