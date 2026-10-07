@@ -1,16 +1,17 @@
-# ******************************************************************************
-# Remal OpenJDK 17 Docker image build file.
+# *******************************************************************************
+# Remal Spring-Box - OpenJDK 17 Docker image build file.
 #
 # Since:  January 2023
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Author: Arnold Somogyi <arnold.somogyi@gmail.com>
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
-# ******************************************************************************
+# Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.
+# *******************************************************************************
 ARG IMAGE_FROM="unknown"
 FROM ${IMAGE_FROM}
 
 EXPOSE 22/tcp
 EXPOSE 1331/tcp
+EXPOSE 8000/tcp
 
 ARG IMAGE_NAME="N/A"
 ARG IMAGE_TAG="N/A"
@@ -33,16 +34,17 @@ LABEL "com.remal.image.name"="$IMAGE_NAME" \
 
 # install openssl and openjdk
 RUN set -ue; \
-    apk add --no-cache openssl; \
-	apk add --no-cache java-cacerts openjdk17-jdk; \
+    apk add --no-cache \
+      openssl \
+	  java-cacerts \
+      openjdk17-jdk; \
 	java -version; \
 	javac -version; \
     printf "export %s=\"%s\"\n" "JAVA_HOME" "$JAVA_HOME" >> /etc/profile
 
 # create some directories to share logs betweeen the container and the host machine
 RUN set -ue; \
-	mkdir -p /logs; \
-    mkdir -p /heap-dump
+	mkdir -p /logs /heap-dump
 
-ONBUILD COPY container-scripts/init/* /docker.init/
-ONBUILD COPY container-scripts/startup/* /docker.startup/
+ONBUILD COPY container-scripts/init/ /docker.init/
+ONBUILD COPY container-scripts/startup/ /docker.startup/
