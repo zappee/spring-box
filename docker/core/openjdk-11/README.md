@@ -1,25 +1,18 @@
-# Remal Image: OpenJDK 11
+# Remal Spring-Box - OpenJDK 11 image
 
 ## 1) Overview
-This image is an official Remal Docker image, used as a base image of the subsequent docker images.
+This is an official _Remal Spring-Box_ Docker image, designed to serve as the foundational base layer for all subsequent downstream Docker images.
 
 ## 2) Image details
-* based on the latest [Remal Base](../../base/base) image
-* `bash` and `sh`, bash is the default
-* customized bash prompt that shows the container name and version
-* bash aliases: `ll` and `ls`
-* `ssh` running on port 22
-* password of the `root` user is set to `password`
-* `OpenJDK 11`
-* `OpenSSH` tool
-* `head.sh` and `tail.sh` bash scripts that can be used in the child containers to execute custom commands
-* `shutdown-actions.sh` bash script that is executed automatically before the container shuts down
+* **Base image:** Built on top of the latest [Remal Spring-Box Base image](../../base/base).
+* **OpenJDK:** Installed **OpenJDK 11** for Java applications.
+* **OpenSSL integration:** Installed **OpenSSL 11** cryptographic library for securing general network traffic.
+* **java-cacerts package:** This installed package is an essential utility in Alpine Linux designed to manage and update the Java keystore (cacerts) automatically based on the system's root certificates.
 
-## 3) Ports used by the image
-
-| container port | description |
-|----------------|-------------|
-| 22             | SSH         |
+## 3) Exposed ports
+* **22 (TCP):** Secure Shell (SSH) management access
+* **1331 (TCP):** Readiness signal port
+* **8000 (TCP):** JVM debug port
 
 ## 4) License and Copyright
-Copyright (c) 2020-2026 Remal Software, Arnold SOMOGYI. All rights reserved.
+Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.
