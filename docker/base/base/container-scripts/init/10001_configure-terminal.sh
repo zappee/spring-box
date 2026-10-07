@@ -1,12 +1,12 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Bash environment configuration in Docker environment.
+# Bash environment configuration for Docker environment.
 #
 # Since:  May 2023
 # Author: Arnold Somogyi <arnold.somogyi@gmail.com>
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold Somogyi All rights reserved
-# ******************************************************************************
+# Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved,
+# *******************************************************************************
 . /shared.sh
 log_start "$0"
 {

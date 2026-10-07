@@ -1,30 +1,31 @@
 #!/bin/bash -ue
-# ******************************************************************************
-# Remal Docker entrypoint file.
+# *******************************************************************************
+# Remal Spring-Box Docker image entrypoint file.
 #
 # Since:  January 2023
 # Author: Arnold Somogyi <arnold.somogyi@gmail.com>
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold Somogyi All rights reserved
-# ******************************************************************************
+# Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.
+# *******************************************************************************
 . /shared.sh
-trap "shutdown_trap; exit" SIGINT SIGTERM SIGHUP
+trap "shutdown_trap; exit 0" SIGINT SIGTERM SIGHUP
 
 printf "%s | [INFO ] starting OpenSSH Daemon as a background process...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
-/usr/sbin/sshd -e
+/usr/sbin/sshd -e -D &
 
-if [ "$(is_first_startup)" == "true" ]; then
-  printf "%s | [DEBUG] this is the first startup, so let's run some tasks before continue\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+if [ "$(is_first_startup)" = "true" ]; then
+  printf "%s | [DEBUG] First startup detected, running first-time initialization tasks...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   /bin/run-parts --exit-on-error /docker.init
 fi
 
-printf "%s | [DEBUG] executing the startup scripts...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+printf "%s | [DEBUG] Executing container startup scripts...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 /bin/run-parts --exit-on-error /docker.startup
 
 set_container_up_state
+printf "%s | [INFO]  Container is fully running.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 
-# keep alive the container
-# the control must be in this script otherwise the 'trap' wont work
+# Keep container running.
+# Control must stay in this script, or the 'trap' will fail.
 while true; do
   tail -f /dev/null & wait ${!}
 done
