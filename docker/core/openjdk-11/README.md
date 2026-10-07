@@ -1,7 +1,7 @@
 # Remal Spring-Box - OpenJDK 11 image
 
 ## 1) Overview
-This is an official _Remal Spring-Box_ Docker core base image, designed to serve as the foundational base layer for all subsequent downstream Docker images.
+This is an official _Remal Spring-Box_ Docker core image, designed to serve as the foundational base layer for all subsequent downstream Docker images.
 
 ## 2) Image details
 * **Base image:** Built on top of the latest [Remal Spring-Box Base image](../../base/base).
