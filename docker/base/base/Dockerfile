@@ -39,6 +39,7 @@ RUN set -ue; \
         socat \
         bash \
         coreutils \
+        curl \
         sshpass \
         openssh; \
     sed -i 's|/bin/ash|/bin/bash|' /etc/passwd; \

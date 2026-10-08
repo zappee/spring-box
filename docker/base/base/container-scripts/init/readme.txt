@@ -1,2 +1,2 @@
-Files in this directory are executed automatically during the FIRST container startup.
-Scripts must be set as executable (`chmod +x *.sh`), and they will be run in alphabetical order by the `run-parts` utility.
+Scripts in `docker.init` directory run only ONCE during the container's very first boot (in alphabetical order).
+They will be skipped on subsequent container restarts. Scripts must be set as executable (`chmod +x *.sh`).
