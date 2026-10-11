@@ -178,6 +178,7 @@ function docker_containers_list {
       --all \
       --filter "label=com.remal.image.vendor=Remal" \
       --format "{{.ID}}\t{{.Names}}\t{{.Image}}\t{{.CreatedAt}}\t{{.Status}}" \
+      | column -t -s $'\t' \
       | sort -k 2
   fi
 }
@@ -230,7 +231,8 @@ function docker_images_list {
   docker images \
     --filter "label=com.remal.image.vendor=Remal" \
     --format "{{.Size}}\t{{.Repository}}:{{.Tag}}\t{{.CreatedSince}}\t{{.ID}}" \
-    | column -t -s $'\t' | sort -k 2
+    | column -t -s $'\t' \
+    | sort -k 2
 }
 
 # ------------------------------------------------------------------------------
