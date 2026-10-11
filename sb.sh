@@ -236,6 +236,20 @@ function docker_images_list {
 }
 
 # ------------------------------------------------------------------------------
+# Remove all existing Docker volumes.
+# ------------------------------------------------------------------------------
+function docker_volumes_remove {
+  local _style_reset="\033[0m"
+  local _style_text="\e[38;5;226m"
+  local _separator="--------------------------------------------------------------------------------"
+  printf "%b%s\n" "$_style_text" "$_separator"
+  printf "%s\n" "Removing all Docker volumes..."
+  printf "%s%b\n" "$_separator" "$_style_reset"
+
+  docker volume prune -a --force
+}
+
+# ------------------------------------------------------------------------------
 # Extracts the image name from a delimited label string.
 #
 # Arguments:
@@ -339,10 +353,11 @@ function show_help() {
     print_subtask "e5" "$(get_name "$LABEL_JAVA_25_POSTGRES_RUNNER")"
     print_task_full_name "s" "start Docker environment"
     print_subtask "s1" "Demo Docker stack"
-    print_task_full_name "v" "List Remal containers"
-    print_task_full_name "w" "List Remal images"
-    print_task_full_name "x" "Remove all Remal containers"
-    print_task_full_name "y" "Remove all Remal images"
+    print_task_full_name "u" "List Remal Docker containers"
+    print_task_full_name "v" "List Remal Docker images"
+    print_task_full_name "w" "Remove all Remal Docker containers"
+    print_task_full_name "x" "Remove all Remal Docker images"
+    print_task_full_name "y" "Remove all Docker Volumes"
     print_task_full_name "z" "Show running container logs"
     printf "\n%s\n" "Credits:"
     printf "  %s\n" "Contact:   arnold.somogyi@gmail.com"
@@ -454,10 +469,11 @@ for TASK in "${FINAL_TASK_LIST[@]}"; do
     e4) docker_image_build "$LABEL_JAVA_25_RUNNER" ;;
     e5) docker_image_build "$LABEL_JAVA_25_POSTGRES_RUNNER" ;;
     s1) demo_start "projects" ;;
-    v)  docker_containers_list ;;
-    w)  docker_images_list ;;
-    x)  docker_containers_remove ;;
-    y)  docker_images_remove ;;
+    u)  docker_containers_list ;;
+    v)  docker_images_list ;;
+    w)  docker_containers_remove ;;
+    x)  docker_images_remove ;;
+    y)  docker_volumes_remove ;;
     z)  docker_container_logs ;;
     *)  echo "Warning: Skipped unknown task '$TASK'" ;;
   esac
