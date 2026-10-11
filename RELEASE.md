@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 #### Updates
 * [#44](https://github.com/zappee/springbox/issues/44): Rename the project name from Gombi to Spring-Box
+* [#46](https://github.com/zappee/springbox/issues/46): Set the build number to 0.8.0
 
 #### Deprecated
 * `springbox/projects`: The dependencies for the Java projects are currently outdated. As a solo maintainer, I cannot prioritize updating them at this time. Contributions and Pull Requests to update these examples are highly welcome!

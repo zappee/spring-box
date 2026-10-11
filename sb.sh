@@ -16,7 +16,7 @@
 # Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
 # ******************************************************************************
 BUILD_TYPE="slim"
-IMAGE_TAG="0.7.1"
+IMAGE_TAG="0.8.0"
 PUSH_IMAGE="false"
 ENVIRONMENT_FILE="remal.com..env"
 
