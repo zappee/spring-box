@@ -183,6 +183,7 @@ services:
             - $HOME/Java/springbox/volumes/kafka-consumer-service-1/jar-to-run:/jar-to-run
             - $HOME/Java/springbox/volumes/kafka-consumer-service-1/logs:/logs
             - $HOME/Java/springbox/volumes/kafka-consumer-service-1/heap-dump:/heap-dump
+            - kafka-consumer-service-1-data:/var/lib/postgresql/data
         depends_on:
             kafka-4:
                 condition: service_healthy
@@ -639,9 +640,13 @@ services:
             resources:
                 limits:
                     memory: 64M
+
 volumes:
     user-service-1-data:
         driver: local
 
     user-service-2-data:
+        driver: local
+
+    kafka-consumer-service-1-data:
         driver: local
