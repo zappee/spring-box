@@ -2,9 +2,9 @@
 # Remal Gafana Monitoring System Docker image build file.
 #
 # Since:  April 2024
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Author: Arnold Somogyi <arnold.somogyi@gmail.com>
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+# Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.
 # ******************************************************************************
 ARG IMAGE_FROM="unknown"
 ARG BUILD_TYPE="fat"

@@ -89,8 +89,11 @@ rectangle "Apache Tomcat 9"                                                     
 rectangle "ForgeRock Directory Services"                                            as ds              <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
 rectangle "ForgeRock Access Management"                                             as am              <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
 rectangle "<b>HashiCorp Vault\nspringbox-vault"                                     as vault           <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
-rectangle "<b>HashiCorp Consul for OpenJDK 21\nspringbox-consul-for-openjdk-21"     as consul_21       <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
-rectangle "<b>HashiCorp Consul for OpenJDK 25\nspringbox-consul-for-openjdk-25"     as consul_25       <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
+
+##rectangle "<b>HashiCorp Consul for OpenJDK 21\nspringbox-consul-for-openjdk-21"     as consul_21       <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
+##rectangle "<b>HashiCorp Consul for OpenJDK 25\nspringbox-consul-for-openjdk-25"     as consul_25       <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
+rectangle "<b>HashiCorp Consul"     as consul       <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
+
 rectangle "<b>OpenJDK-21 Runner\nspringbox-openjdk-21-runner"                       as java_runner_21  <<$APP_IMAGE>>      <<STYLE_APP>>
 rectangle "<b>OpenJDK-21 Runner + PostgreSQL\nspringbox-openjdk-21-postgres-runner" as java_runner_21p <<$APP_IMAGE>>      <<STYLE_APP>>
 rectangle "<b>OpenJDK-21 Omni Runner\nspringbox-openjdk-21-omni-runner"             as java_runner_21o <<$APP_IMAGE>>      <<STYLE_APP>>
@@ -111,13 +114,14 @@ base -------> prometheus
 base -------> grafana
 java11 --> tomcat9
 java17 --> ds
-java21 --> consul_21
+##java21 --> consul_21
 java21 --> hazelcast
 tomcat9 --> am
-consul_21 --> java_runner_21
+##consul_21 --> java_runner_21
 java_runner_21 --> java_runner_21p
 java_runner_21p --> java_runner_21o
-java25 --> consul_25
-consul_25 --> java_runner_25
+##java25 --> consul_25
+java25 --> consul
+##consul_25 --> java_runner_25
 java_runner_25 --> java_runner_25p
 @enduml

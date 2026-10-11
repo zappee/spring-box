@@ -1,6 +1,6 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# File copier for Remal Gombi project.
+# File copier for Remal Spring Box project.
 #
 # The install binary files are big so we keep these files out of the source code
 # repository. In the Git repo we only keep zero length marker files as
@@ -17,12 +17,12 @@
 #    default: 0
 #
 # Since:  February 2024
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Author: Arnold Somogyi <arnold.somogyi@gmail.com>
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+# Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.
 # ******************************************************************************
 REMAL_BINARY_HOME="$HOME/Applications/tomcat/apache-tomcat-10.1.33/webapps/docker-build"
-PROJECT_HOME="$HOME/Java/gombi"
+PROJECT_HOME="$HOME/Java/spring-box"
 
 BINARIES=(
   "DS-7.3.0.zip;docker/infrastructure/forgerock-ds/bin"

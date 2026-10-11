@@ -8,8 +8,9 @@ All notable changes to this project will be documented in this file.
 * Improved documentation.
 * Improved logging messages.
 * Improved shell scripts.
-* Reduced the number of image layers.
+* Reduced the number of image layers by improving how to install packages using the `apt install` command.
 * Updated `alpine` image version from `3.23.3` to `3.24.2` in the `base` image.
+* Remove HashiCorp from the Java Runner images as it is 
 
 #### Deprecated
 * `spring-box/projects`: The dependencies used in the example Java projects and code are outdated and must be updated.
@@ -143,7 +144,7 @@ If you have three or more nodes, you can use the default settings, otherwise you
 * Update Grafana to  version 11.4.0
 * Update Prometheus to version 3.0.1
 * Improved releasing process: the same image tag is used everywhere
-* Improved the way the key and value pairs are imported into the KV store in the `java-21-runner` image
+* Improved the way the key and value pairs are imported into the KV store in the `openjdk-21-runner` image
 * Fix for parallel EsyRSA execution issue, [#1279](https://github.com/OpenVPN/easy-rsa/issues/1279)
 * Fixed missing SAN issue in generated certificate: `failed to verify certificate: x509: certificate relies on legacy Common Name field, use SANs instead`
 * Fixed a problem where Grafana did not install the first time the container was launched.

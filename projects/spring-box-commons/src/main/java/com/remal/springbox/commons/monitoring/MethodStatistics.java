@@ -1,8 +1,8 @@
 /*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+ *  Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.
  *
  *  Since:  March 2024
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+ *  Author: Arnold Somogyi <arnold.somogyi@gmail.com>
  *
  *  Description:
  *     Custom annotation to log the execution time of a method.

@@ -23,7 +23,7 @@ This image is an official Remal Docker image, used as a base image of the subseq
 | JAVA_OPTIONS | `-Xms512m -Xmx512m -XX:+UseParallelGC` | Server startup configuration. |
 
 ## 5) License and Copyright
-Copyright (c) 2020-2026 Remal Software, Arnold SOMOGYI. All rights reserved.
+Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.
 
 ## Annex 1) Access log customization
 The configured `localhost_access_log.YYYY-MM-DD.txt` logfile pattern layout configuration:

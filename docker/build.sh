@@ -3,22 +3,22 @@
 # Remal Docker image builder.
 #
 # Since:  January 2023
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
-#
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+# Author: Arnold Somogyi <arnold.somogyi@gmail.com>
 #
 # Usage:
 #    $ ./build.sh <image-source-dir>
 #
 #    where the source-dir must point to the directory that holds the image
 #    source code
+#
+# Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.
 # ******************************************************************************
 
 # ------------------------------------------------------------------------------
-# Build the Docker image.
+# Build the Docker image using specified build arguments.
 # ------------------------------------------------------------------------------
 function docker_build() {
-  show_build_info "The following build arguments will be used"
+  show_build_info "Build arguments"
 
   docker build \
     --build-arg "BUILDKIT_DOCKERFILE_CHECK=skip=SecretsUsedInArgOrEnv" \
@@ -38,9 +38,15 @@ function docker_build() {
 # Remove all unused docker containers and images.
 # ------------------------------------------------------------------------------
 function docker_prune() {
+  local bold_style="\033[1m"
+  local default_style="\033[0m"
+
+  printf "%b" "$bold_style"
   printf -- "------------------------------------------------------------------------\n"
-  printf "cleaning up unused Docker images and containers...\n"
+  printf "Cleaning up unused Docker images and containers...\n"
   printf -- "------------------------------------------------------------------------\n"
+  printf "%b" "$default_style"
+
   docker ps --filter status=exited --filter status=created --quiet | xargs -r docker rm --volumes
   docker image prune --force
 }

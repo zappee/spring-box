@@ -1,13 +1,13 @@
-# Remal Gombi Platform
+# Remal Spring Box Platform
 
 ## 1) Overview
-The Remal-Gombi is an open source development platform that provides a ready-for-use development environment best fits best for Spring Boot development and supports Java 23.
+The Remal Spring Box is an open source development platform that provides a ready-for-use development environment best fits best for Spring Boot development and supports Java 23.
 
-The Gombi Platform that developers use to build applications can also be used in a production environment without modification. It is fully horizontally scalable, uses secure communication channels between the building boxes and provides a full Private Certificate Authority server to issue, renew and revoke server certificates signed by the organisation's root CA.
+The Spring Box Platform that developers use to build applications can also be used in a production environment without modification. It is fully horizontally scalable, uses secure communication channels between the building boxes and provides a full Private Certificate Authority server to issue, renew and revoke server certificates signed by the organisation's root CA.
 
 It also supports advanced real-time monitoring capabilities with time- and counter-based metrics that can be used by the operation teams or managers to measure/present SLAs. Fully customisable charts can easily show the frequency of service calls (e.g. REST endpoints) or the serving time of requests for any service in the Platform.
 
-The services provided by the Gombi Platform support rapid development for start-ups, small and medium-sized companies. With the Gombi Platform, IT teams can quickly deliver the IT solutions that what the business needs, and later, as the business evolves, the services and building blocks can be easily improved and replaced with zero downtime.
+The services provided by the Spring Box Platform support rapid development for start-ups, small and medium-sized companies. With the Spring Box Platform, IT teams can quickly deliver the IT solutions that what the business needs, and later, as the business evolves, the services and building blocks can be easily improved and replaced with zero downtime.
 
 The platform is best suited for building microservices with Java and Spring Boot.
 
@@ -39,7 +39,7 @@ The platform is best suited for building microservices with Java and Spring Boot
 * Open source Access Management solution supporting authentication and authorisation such as OAUTH, SSO, federation, self-registration via Google, Facebook, Twitter, GitHub, etc.
 
 
-* Collect and display events that occur across the Gombi Platform, such as user clicks, service call details, user request and response times
+* Collect and display events that occur across the Spring Box Platform, such as user clicks, service call details, user request and response times
 
 
 * Monitoring of Kafka topic message streams
@@ -58,18 +58,18 @@ The platform is best suited for building microservices with Java and Spring Boot
 1. Start a `Tomcat`.
 2. Download the installation files from [here](https://drive.google.com/drive/u/0/folders/1RUkp1vwSX0aTdlQ2zgyOUKQexHovHY77) and copy them under the `$TOMCAT_HOME/webapps/docker-build/` directory.
 3. Use the `./update-binaries.sh 1` command to copy the installation files into the image build directories.
-4. Build the Docker images using the `./gombi.sh abcdeu` command.
+4. Build the Docker images using the `./start.sh abcdeu` command.
 
 ### 4.2) Build the Java projects
 
-    $ cd gombi/projects
+    $ cd spring-box/projects
     $ mvn clean package 
 
 
 ### 4.3) Start the sample docker stack
 
-    $ cd gombi/projects
-    $ ./gombi.sh i1
+    $ cd spring-box/projects
+    $ ./spring-box.sh i1
 
 
 ## 5) Monitoring
@@ -113,7 +113,7 @@ You can open a bug report or submit a new pull request with new features, fixes 
   ![PayPal, USD](docs/buy-me-a-coffee/paypal-usd.png)
 
 ## 7) License and Copyright
-Copyright (c) 2020-2026 Remal Software, Arnold SOMOGYI. All rights reserved.
+Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.
 
 ## Appendix 1) Service registry screenshot
 ![Service registry](docs/diagrams/images/service-registry.png)

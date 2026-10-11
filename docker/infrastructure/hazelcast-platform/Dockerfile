@@ -2,7 +2,7 @@
 # Remal Hazelcast Platform Docker image build file.
 #
 # Since:  August 2024
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Author: Arnold Somogyi <arnold.somogyi@gmail.com>
 #
 # Hazelcast ports:
 #    -  5555: hazelcast public address of a member
@@ -10,7 +10,7 @@
 #    - 54327: used to discover Hazelcast members
 #    - 34500: hazelcast outbound-port
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+# Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.
 # ******************************************************************************
 ARG IMAGE_FROM="unknown"
 ARG BUILD_TYPE="fat"
@@ -37,7 +37,7 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     HAZELCAST_HOME="/opt/hazelcast" \
     HAZELCAST_CONFIG_TEMPLATE_DIR="/tmp/hazelcast-config-template" \
     HAZELCAST_INSTALL_KIT="hazelcast-5.6.0-slim.tar.gz" \
-    HAZELCAST_CLUSTER_NAME="gombi-dev"
+    HAZELCAST_CLUSTER_NAME="springbox-dev"
 
 # set image metadata
 LABEL "com.remal.image.name"="$IMAGE_NAME" \
@@ -45,11 +45,6 @@ LABEL "com.remal.image.name"="$IMAGE_NAME" \
       "com.remal.image.author"="$IMAGE_AUTHOR" \
       "com.remal.image.description"="$IMAGE_DESCRIPTION" \
       "com.remal.image.vendor"="Remal"
-
-# installing tools and settin up bash as a default shell
-RUN set -ue; \
-    apk add --no-cache curl
-
 
 # fat image
 FROM base AS base-fat
@@ -60,7 +55,6 @@ RUN set -ue; \
     mkdir -p "$HAZELCAST_HOME"; \
     tar -xvf "/tmp/$HAZELCAST_INSTALL_KIT" --strip-components=1 -C "$HAZELCAST_HOME"; \
     rm -f "/tmp/$HAZELCAST_INSTALL_KIT"
-
 
 # slim image
 FROM base AS base-slim
@@ -73,8 +67,17 @@ RUN set -ue; \
     tar -xvf "/tmp/$HAZELCAST_INSTALL_KIT" --strip-components=1 -C "$HAZELCAST_HOME"; \
     rm -f "/tmp/$HAZELCAST_INSTALL_KIT"
 
-
 # final image
 FROM base-${BUILD_TYPE}
+
+# ONBUILD COPY trigger fires behind the scenes.
+# When this image is built, Docker looks back and says, "Ah, the parent image left a hidden note for
+# me. It says I must automatically copy the scripts from my 'init' and 'startup' folder."
+
+
+# Behind the scenes, Docker automatically runs the copy trigger here.
+# It grabs "04-extended-addons" and puts it in the folder.
+
+
 COPY container-scripts/hazelcast-functions.sh /
 COPY config/hazelcast.xml "$HAZELCAST_CONFIG_TEMPLATE_DIR"/

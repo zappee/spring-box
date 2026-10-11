@@ -7,4 +7,4 @@ _______  _____  _______ _______ _  _  _ _______  ______ _______
 ______| |_____| |          |    |__|__| |     | |    \_ |______
 ${AnsiColor.BRIGHT_YELLOW}
 :: ${application.title} :: ${application.version} ::
-Copyright (c) 2020-2026 REMAL SOFTWARE and Arnold SOMOGYI All rights reserved
+Copyright (c) 2020-2026 REMAL SOFTWARE and Arnold Somogyi All rights reserved

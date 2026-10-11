@@ -27,7 +27,7 @@ Access Management admin user:
     ~~~~
 
 ## 4) License and Copyright
-Copyright (c) 2020-2026 Remal Software, Arnold SOMOGYI. All rights reserved.
+Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.
 
 ## Annex 1) Manual installation of ForgeRock Access Management
 Open the AM web console in a web browser: [https://am.hello.com:13024/openam](https://am.hello.com:13024/openam), then follow the instructions.

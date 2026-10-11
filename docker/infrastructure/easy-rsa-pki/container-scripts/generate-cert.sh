@@ -3,7 +3,7 @@
 # Remal Certificate generator.
 #
 # Since:  March 2023
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Author: Arnold Somogyi <arnold.somogyi@gmail.com>
 #
 # Usage: generate-cert.sh <cert-type> <domain> [san]
 #    cert-type: server, client, serverClient
@@ -14,7 +14,7 @@
 #    san:       Subject Alternative Name of the certificate, optional
 #               e.g. "DNS:pki.hello.com,DNS:localhost,IP:127.0.0.1"
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+# Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.
 # ******************************************************************************
 . /shared.sh
 

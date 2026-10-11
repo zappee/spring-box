@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+  ~  Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.
   ~
   ~  Since:  February 2024
-  ~  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+  ~  Author: Arnold Somogyi <arnold.somogyi@gmail.com>
   ~
   ~  Description:
   ~     Application POM.
@@ -15,7 +15,7 @@
 
     <artifactId>spring-box-commons</artifactId>
     <name>springbox-commons</name>
-    <description>Common functions used by the Remal Gombi projects.</description>
+    <description>Common functions used by the Remal Spring Box projects.</description>
     <packaging>jar</packaging>
 
     <parent>

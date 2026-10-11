@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<mlt LC_NUMERIC="C" producer="main_bin" root="/home/soma/Videos/remal-gombi" version="7.30.0">
+<mlt LC_NUMERIC="C" producer="main_bin" root="/home/soma/Videos/spring-box" version="7.30.0">
  <profile colorspace="709" description="4K DCI 2160p 30 fps" display_aspect_den="135" display_aspect_num="256" frame_rate_den="1" frame_rate_num="30" height="2160" progressive="1" sample_aspect_den="1" sample_aspect_num="1" width="4096"/>
  <producer id="producer3" in="00:00:00.000" out="00:10:29.233">
   <property name="length">18878</property>
@@ -50,13 +50,13 @@
   &lt;position x="1827" y="1739">
    &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content alignment="1" box-height="150" box-width="1872.33" font="Noto Sans" font-color="230,81,0,255" font-italic="0" font-outline="0" font-outline-color="0,0,0,255" font-pixel-size="110" font-underline="0" font-weight="700" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">https://github.com/zappee/gombi&lt;/content>
+  &lt;content alignment="1" box-height="150" box-width="1872.33" font="Noto Sans" font-color="230,81,0,255" font-italic="0" font-outline="0" font-outline-color="0,0,0,255" font-pixel-size="110" font-underline="0" font-weight="700" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">https://github.com/zappee/spring-box&lt;/content>
  &lt;/item>
  &lt;item type="QGraphicsTextItem" z-index="1001">
   &lt;position x="1429" y="1462">
    &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content alignment="2" box-height="273" box-width="2267.52" font="Noto Sans" font-color="230,81,0,255" font-italic="0" font-pixel-size="200" font-underline="0" font-weight="900" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">Remal Gombi Platform&lt;/content>
+  &lt;content alignment="2" box-height="273" box-width="2267.52" font="Noto Sans" font-color="230,81,0,255" font-italic="0" font-pixel-size="200" font-underline="0" font-weight="900" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">Remal Spring Box Platform&lt;/content>
  &lt;/item>
  &lt;startviewport rect="0,0,4096,2160"/>
  &lt;endviewport rect="0,0,4096,2160"/>
@@ -101,7 +101,7 @@
  <producer id="producer2" in="00:00:00.000" out="00:00:35.267">
   <property name="length">1059</property>
   <property name="eof">pause</property>
-  <property name="resource">media/pictures/logo-gombi.png</property>
+  <property name="resource">media/pictures/logo-spring-box.png</property>
   <property name="ttl">25</property>
   <property name="aspect_ratio">1</property>
   <property name="meta.media.progressive">1</property>
@@ -119,7 +119,7 @@
   <property name="kdenlive:file_size">40957</property>
   <property name="kdenlive:file_hash">deca0020d89e255d6ad6d87d34bf6f6c</property>
   <property name="kdenlive:monitorPosition">104</property>
-  <property name="kdenlive:clipname">Logo - gombi</property>
+  <property name="kdenlive:clipname">Logo - spring-box</property>
  </producer>
  <producer id="producer5" in="00:00:00.000" out="00:00:04.967">
   <property name="length">150</property>
@@ -346,7 +346,7 @@ fugiat nulla pariatur.&lt;/content>
   &lt;position x="1095" y="340">
    &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content alignment="0" box-height="137" box-width="1342.23" font="Noto Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="100" font-underline="0" font-weight="700" letter-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">The Remal Gombi Platform&lt;/content>
+  &lt;content alignment="0" box-height="137" box-width="1342.23" font="Noto Sans" font-color="255,255,255,255" font-italic="0" font-pixel-size="100" font-underline="0" font-weight="700" letter-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">The Remal Spring Box Platform&lt;/content>
  &lt;/item>
  &lt;item type="QGraphicsTextItem" z-index="0">
   &lt;position x="630" y="340">
@@ -757,7 +757,7 @@ fugiat nulla pariatur.&lt;/content>
  <producer id="producer21" in="00:00:00.000" out="00:10:30.267">
   <property name="length">18909</property>
   <property name="eof">pause</property>
-  <property name="resource">media/pictures/logo-gombi-transparent.png</property>
+  <property name="resource">media/pictures/logo-spring-box-transparent.png</property>
   <property name="ttl">25</property>
   <property name="aspect_ratio">1</property>
   <property name="meta.media.progressive">1</property>
@@ -774,7 +774,7 @@ fugiat nulla pariatur.&lt;/content>
   <property name="kdenlive:clip_type">2</property>
   <property name="kdenlive:file_size">41054</property>
   <property name="kdenlive:file_hash">f292ad871fb3f3c6dd6a50ebe6c4bdb2</property>
-  <property name="kdenlive:clipname">Logo - gombi - transparent</property>
+  <property name="kdenlive:clipname">Logo - spring-box - transparent</property>
   <property name="kdenlive:monitorPosition">29</property>
  </producer>
  <producer id="producer27" in="00:00:00.000" out="00:00:19.033">
@@ -878,7 +878,7 @@ fugiat nulla pariatur.&lt;/content>
   &lt;position x="320" y="500">
    &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content alignment="1" box-height="408" box-width="3412.83" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="100" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">The Remal-Gombi is an open source development platform that provides
+  &lt;content alignment="1" box-height="408" box-width="3412.83" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="100" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">The Remal Spring Box is an open source development platform that provides
  a ready-for-use development environment best fits best for Spring Boot
  development and supports Java 23.&lt;/content>
  &lt;/item>
@@ -950,7 +950,7 @@ fugiat nulla pariatur.&lt;/content>
   &lt;position x="320" y="1000">
    &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content alignment="1" box-height="816" box-width="3428.09" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="100" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">The Gombi Platform that developers use to build applications can also be
+  &lt;content alignment="1" box-height="816" box-width="3428.09" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="100" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">The Spring Box Platform that developers use to build applications can also be
 used in a production environment without modification. It is fully
 horizontally scalable, uses secure communication channels between the
 building boxes and provides a full Private Certificate Authority server to
@@ -1172,8 +1172,8 @@ time of requests for any service in the Platform.&lt;/content>
   &lt;position x="320" y="1310">
    &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content alignment="0" box-height="680" box-width="3567.39" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="100" font-underline="0" font-weight="400" letter-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">The services provided by the Gombi Platform support rapid development
-for start-ups, small and medium-sized companies. With the Gombi Platform,
+  &lt;content alignment="0" box-height="680" box-width="3567.39" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="100" font-underline="0" font-weight="400" letter-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">The services provided by the Spring Box Platform support rapid development
+for start-ups, small and medium-sized companies. With the Spring Box Platform,
 IT teams can quickly deliver the IT solutions that what the business needs,
 and later, as the business evolves, the services and building blocks can be
 easily improved and replaced with zero downtime.&lt;/content>
@@ -2443,7 +2443,7 @@ Spring Boot.&lt;/content>
   &lt;position x="470" y="1200">
    &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content alignment="1" box-height="272" box-width="3327.41" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="100" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">• Collect and display events that occur across the Gombi Platform, such
+  &lt;content alignment="1" box-height="272" box-width="3327.41" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="100" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">• Collect and display events that occur across the Spring Box Platform, such
   as user clicks, service call details, user request and response times&lt;/content>
  &lt;/item>
  &lt;startviewport rect="0,0,4096,2160"/>
@@ -2843,7 +2843,7 @@ images&lt;/content>
   &lt;position x="3299" y="1150">
    &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content alignment="4" box-height="136" box-width="334.766" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="50" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">Remal Gombi
+  &lt;content alignment="4" box-height="136" box-width="334.766" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="50" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">Remal Spring Box
 images&lt;/content>
  &lt;/item>
  &lt;startviewport rect="0,0,4096,2160"/>
@@ -2866,7 +2866,7 @@ images&lt;/content>
  <producer id="producer65" in="00:00:00.000" out="00:00:04.967">
   <property name="length">00:00:05.000</property>
   <property name="eof">pause</property>
-  <property name="resource">media/pictures/diagram-docker-images-highlighted-remal-base.png</property>
+  <property name="resource">media/pictures/diagram-docker-images-highlighted-springbox-base.png</property>
   <property name="ttl">25</property>
   <property name="aspect_ratio">1</property>
   <property name="meta.media.progressive">1</property>
@@ -2884,7 +2884,7 @@ images&lt;/content>
   <property name="kdenlive:file_size">340767</property>
   <property name="kdenlive:clipname">Diagram - docker images - highlighted - remal base</property>
   <property name="kdenlive:monitorPosition">0</property>
-  <property name="kdenlive:originalurl">media/pictures/diagram-docker-images-highlighted-remal-base.png</property>
+  <property name="kdenlive:originalurl">media/pictures/diagram-docker-images-highlighted-springbox-base.png</property>
   <property name="kdenlive:proxy">-</property>
   <property name="kdenlive:file_hash">44f78101689e14fafce73fb38c790aba</property>
  </producer>
@@ -2903,7 +2903,7 @@ images&lt;/content>
   &lt;position x="2900" y="640">
    &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content alignment="4" box-height="136" box-width="334.766" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="50" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">Remal Gombi
+  &lt;content alignment="4" box-height="136" box-width="334.766" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="50" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">Remal Spring Box
 BASE image&lt;/content>
  &lt;/item>
  &lt;startviewport rect="0,0,4096,2160"/>
@@ -2961,7 +2961,7 @@ BASE image&lt;/content>
   &lt;position x="2900" y="870">
    &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content alignment="4" box-height="136" box-width="334.766" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="50" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">Remal Gombi
+  &lt;content alignment="4" box-height="136" box-width="334.766" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="50" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">Remal Spring Box
 CORE images&lt;/content>
  &lt;/item>
  &lt;startviewport rect="0,0,4096,2160"/>
@@ -3019,7 +3019,7 @@ CORE images&lt;/content>
   &lt;position x="3050" y="1250">
    &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content alignment="4" box-height="136" box-width="334.766" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="50" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">Remal Gombi
+  &lt;content alignment="4" box-height="136" box-width="334.766" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="50" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">Remal Spring Box
 INFRA images&lt;/content>
  &lt;/item>
  &lt;startviewport rect="0,0,4096,2160"/>
@@ -3077,7 +3077,7 @@ INFRA images&lt;/content>
   &lt;position x="2550" y="1450">
    &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content alignment="4" box-height="136" box-width="334.766" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="50" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">Remal Gombi
+  &lt;content alignment="4" box-height="136" box-width="334.766" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="50" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">Remal Spring Box
 APP images&lt;/content>
  &lt;/item>
  &lt;startviewport rect="0,0,4096,2160"/>
@@ -3135,7 +3135,7 @@ APP images&lt;/content>
   &lt;position x="3500" y="1830">
    &lt;transform>1,0,0,0,1,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content alignment="4" box-height="136" box-width="511.078" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="50" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">Remal Gombi
+  &lt;content alignment="4" box-height="136" box-width="511.078" font="Noto Sans" font-color="0,0,0,255" font-italic="0" font-pixel-size="50" font-underline="0" font-weight="400" letter-spacing="0" line-spacing="0" shadow="0;#64000000;3;3;3" tab-width="80" typewriter="0;2;1;0;0">Remal Spring Box
 MONITORING images&lt;/content>
  &lt;/item>
  &lt;startviewport rect="0,0,4096,2160"/>
@@ -3336,7 +3336,7 @@ MONITORING images&lt;/content>
   &lt;position x="1415" y="720">
    &lt;transform>0.122163,0,0,0,0.122163,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content url="/home/soma/Videos/remal-gombi/media/pictures/video-extract-01-gombi-build-git-clone.png"/>
+  &lt;content url="/home/soma/Videos/spring-box/media/pictures/video-extract-01-spring-box-build-git-clone.png"/>
  &lt;/item>
  &lt;item type="QGraphicsTextItem" z-index="2">
   &lt;position x="320" y="800">
@@ -3376,7 +3376,7 @@ MONITORING images&lt;/content>
   &lt;position x="1415" y="1110">
    &lt;transform>0.122163,0,0,0,0.122163,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content url="/home/soma/Videos/remal-gombi/media/pictures/video-extract-02-gombi-build-start tomcat.png"/>
+  &lt;content url="/home/soma/Videos/spring-box/media/pictures/video-extract-02-spring-box-build-start tomcat.png"/>
  &lt;/item>
  &lt;item type="QGraphicsTextItem" z-index="3">
   &lt;position x="320" y="1200">
@@ -3416,7 +3416,7 @@ MONITORING images&lt;/content>
   &lt;position x="3335" y="720">
    &lt;transform>0.122163,0,0,0,0.122163,0,0,0,1&lt;/transform>
   &lt;/position>
-  &lt;content url="/home/soma/Videos/remal-gombi/media/pictures/video-extract-04-gombi-build-update install kits.png"/>
+  &lt;content url="/home/soma/Videos/spring-box/media/pictures/video-extract-04-spring-box-build-update install kits.png"/>
  &lt;/item>
  &lt;item type="QGraphicsTextItem" z-index="4">
   &lt;position x="2200" y="800">
@@ -3484,7 +3484,7 @@ MONITORING images&lt;/content>
  <chain id="chain44" out="00:01:16.033">
   <property name="length">2282</property>
   <property name="eof">pause</property>
-  <property name="resource">media/videos/01 - gombi build - git clone.mkv</property>
+  <property name="resource">media/videos/01 - spring-box build - git clone.mkv</property>
   <property name="mlt_service">avformat-novalidate</property>
   <property name="meta.media.nb_streams">2</property>
   <property name="meta.media.0.stream.type">video</property>
@@ -3539,7 +3539,7 @@ MONITORING images&lt;/content>
   <property name="kdenlive:file_size">23840970</property>
   <property name="kdenlive:file_hash">04df03592ce329cea168c7103f4e25ee</property>
   <property name="kdenlive:audio_max1">1</property>
-  <property name="kdenlive:clipname">Video - gombi build - 01 git clone</property>
+  <property name="kdenlive:clipname">Video - spring-box build - 01 git clone</property>
   <property name="kdenlive:monitorPosition">556</property>
  </chain>
  <producer id="producer93" in="00:00:00.000" out="00:01:11.267">
@@ -3563,7 +3563,7 @@ MONITORING images&lt;/content>
  <chain id="chain45" out="00:01:31.700">
   <property name="length">2752</property>
   <property name="eof">pause</property>
-  <property name="resource">media/videos/02 - gombi build - start tomcat.mkv</property>
+  <property name="resource">media/videos/02 - spring-box build - start tomcat.mkv</property>
   <property name="mlt_service">avformat-novalidate</property>
   <property name="meta.media.nb_streams">2</property>
   <property name="meta.media.0.stream.type">video</property>
@@ -3618,7 +3618,7 @@ MONITORING images&lt;/content>
   <property name="kdenlive:file_size">29012146</property>
   <property name="kdenlive:file_hash">2150952520545732fa82ff8ceadb169d</property>
   <property name="kdenlive:audio_max1">1</property>
-  <property name="kdenlive:clipname">Video - gombi build - 02 start tomcat</property>
+  <property name="kdenlive:clipname">Video - spring-box build - 02 start tomcat</property>
   <property name="kdenlive:monitorPosition">459</property>
  </chain>
  <producer id="producer92" in="00:00:00.000" out="00:02:36.533">
@@ -3816,7 +3816,7 @@ available via HTTP.&lt;/content>
  <chain id="chain59" out="00:08:14.100">
   <property name="length">14824</property>
   <property name="eof">pause</property>
-  <property name="resource">media/videos/03 - gombi build - download install kits.mkv</property>
+  <property name="resource">media/videos/03 - spring-box build - download install kits.mkv</property>
   <property name="mlt_service">avformat-novalidate</property>
   <property name="meta.media.nb_streams">2</property>
   <property name="meta.media.0.stream.type">video</property>
@@ -3871,7 +3871,7 @@ available via HTTP.&lt;/content>
   <property name="kdenlive:file_size">154815744</property>
   <property name="kdenlive:file_hash">80cd39117d45902c3fd0bb6bd6fcaf00</property>
   <property name="kdenlive:audio_max1">1</property>
-  <property name="kdenlive:clipname">Video - gombi build - 03 download install kits</property>
+  <property name="kdenlive:clipname">Video - spring-box build - 03 download install kits</property>
   <property name="kdenlive:monitorPosition">0</property>
  </chain>
  <chain id="chain60" out="00:00:18.200">
@@ -6766,7 +6766,7 @@ available via HTTP.&lt;/content>
  <producer id="producer89" in="00:00:00.000" out="00:00:54.300">
   <property name="length">1630</property>
   <property name="eof">pause</property>
-  <property name="resource">1.400000:media/videos/01 - gombi build - git clone.mkv</property>
+  <property name="resource">1.400000:media/videos/01 - spring-box build - git clone.mkv</property>
   <property name="aspect_ratio">1</property>
   <property name="meta.media.nb_streams">2</property>
   <property name="meta.media.0.stream.type">video</property>
@@ -6801,7 +6801,7 @@ available via HTTP.&lt;/content>
   <property name="audio_index">1</property>
   <property name="video_index">0</property>
   <property name="warp_speed">1.4</property>
-  <property name="warp_resource">media/videos/01 - gombi build - git clone.mkv</property>
+  <property name="warp_resource">media/videos/01 - spring-box build - git clone.mkv</property>
   <property name="mlt_service">timewarp</property>
   <property name="kdenlive:control_uuid">{13ee9b59-1ccb-4821-9409-189a8762d690}</property>
   <property name="vstream">0</property>
@@ -6825,7 +6825,7 @@ available via HTTP.&lt;/content>
  <producer id="producer90" in="00:00:00.000" out="00:01:10.533">
   <property name="length">2117</property>
   <property name="eof">pause</property>
-  <property name="resource">1.300000:media/videos/02 - gombi build - start tomcat.mkv</property>
+  <property name="resource">1.300000:media/videos/02 - spring-box build - start tomcat.mkv</property>
   <property name="aspect_ratio">1</property>
   <property name="meta.media.nb_streams">2</property>
   <property name="meta.media.0.stream.type">video</property>
@@ -6860,7 +6860,7 @@ available via HTTP.&lt;/content>
   <property name="audio_index">1</property>
   <property name="video_index">0</property>
   <property name="warp_speed">1.3</property>
-  <property name="warp_resource">media/videos/02 - gombi build - start tomcat.mkv</property>
+  <property name="warp_resource">media/videos/02 - spring-box build - start tomcat.mkv</property>
   <property name="mlt_service">timewarp</property>
   <property name="kdenlive:control_uuid">{01b46870-0f77-4c7d-8e59-b368a193625f}</property>
   <property name="vstream">0</property>
@@ -6884,7 +6884,7 @@ available via HTTP.&lt;/content>
  <producer id="producer91" in="00:00:00.000" out="00:00:45.833">
   <property name="length">1376</property>
   <property name="eof">pause</property>
-  <property name="resource">2.000000:media/videos/02 - gombi build - start tomcat.mkv</property>
+  <property name="resource">2.000000:media/videos/02 - spring-box build - start tomcat.mkv</property>
   <property name="aspect_ratio">1</property>
   <property name="meta.media.nb_streams">2</property>
   <property name="meta.media.0.stream.type">video</property>
@@ -6919,7 +6919,7 @@ available via HTTP.&lt;/content>
   <property name="audio_index">1</property>
   <property name="video_index">0</property>
   <property name="warp_speed">2</property>
-  <property name="warp_resource">media/videos/02 - gombi build - start tomcat.mkv</property>
+  <property name="warp_resource">media/videos/02 - spring-box build - start tomcat.mkv</property>
   <property name="mlt_service">timewarp</property>
   <property name="kdenlive:control_uuid">{01b46870-0f77-4c7d-8e59-b368a193625f}</property>
   <property name="vstream">0</property>
@@ -6943,7 +6943,7 @@ available via HTTP.&lt;/content>
  <producer id="producer94" in="00:00:00.000" out="00:05:29.400">
   <property name="length">9883</property>
   <property name="eof">pause</property>
-  <property name="resource">1.500000:media/videos/03 - gombi build - download install kits.mkv</property>
+  <property name="resource">1.500000:media/videos/03 - spring-box build - download install kits.mkv</property>
   <property name="aspect_ratio">1</property>
   <property name="meta.media.nb_streams">2</property>
   <property name="meta.media.0.stream.type">video</property>
@@ -6978,7 +6978,7 @@ available via HTTP.&lt;/content>
   <property name="audio_index">1</property>
   <property name="video_index">0</property>
   <property name="warp_speed">1.5</property>
-  <property name="warp_resource">media/videos/03 - gombi build - download install kits.mkv</property>
+  <property name="warp_resource">media/videos/03 - spring-box build - download install kits.mkv</property>
   <property name="mlt_service">timewarp</property>
   <property name="kdenlive:control_uuid">{6afebae9-415f-449d-80f1-d218889a4c0c}</property>
   <property name="vstream">0</property>
@@ -7002,7 +7002,7 @@ available via HTTP.&lt;/content>
  <producer id="producer95" in="00:00:00.000" out="00:05:29.400">
   <property name="length">9883</property>
   <property name="eof">pause</property>
-  <property name="resource">1.500000:media/videos/03 - gombi build - download install kits.mkv</property>
+  <property name="resource">1.500000:media/videos/03 - spring-box build - download install kits.mkv</property>
   <property name="aspect_ratio">1</property>
   <property name="meta.media.nb_streams">2</property>
   <property name="meta.media.0.stream.type">video</property>
@@ -7037,7 +7037,7 @@ available via HTTP.&lt;/content>
   <property name="audio_index">1</property>
   <property name="video_index">0</property>
   <property name="warp_speed">1.5</property>
-  <property name="warp_resource">media/videos/03 - gombi build - download install kits.mkv</property>
+  <property name="warp_resource">media/videos/03 - spring-box build - download install kits.mkv</property>
   <property name="mlt_service">timewarp</property>
   <property name="kdenlive:control_uuid">{6afebae9-415f-449d-80f1-d218889a4c0c}</property>
   <property name="vstream">0</property>
@@ -7061,7 +7061,7 @@ available via HTTP.&lt;/content>
  <chain id="chain53" out="00:08:14.100">
   <property name="length">14824</property>
   <property name="eof">pause</property>
-  <property name="resource">media/videos/03 - gombi build - download install kits.mkv</property>
+  <property name="resource">media/videos/03 - spring-box build - download install kits.mkv</property>
   <property name="mlt_service">avformat-novalidate</property>
   <property name="seekable">1</property>
   <property name="format">3</property>
@@ -7077,7 +7077,7 @@ available via HTTP.&lt;/content>
   <property name="kdenlive:file_size">154815744</property>
   <property name="kdenlive:file_hash">80cd39117d45902c3fd0bb6bd6fcaf00</property>
   <property name="kdenlive:audio_max1">1</property>
-  <property name="kdenlive:clipname">Video - gombi build - 03 download install kits</property>
+  <property name="kdenlive:clipname">Video - spring-box build - 03 download install kits</property>
   <property name="kdenlive:monitorPosition">0</property>
   <property name="meta.media.nb_streams">2</property>
   <property name="meta.media.0.stream.type">video</property>
@@ -7125,7 +7125,7 @@ available via HTTP.&lt;/content>
  <producer id="producer98" in="00:00:00.000" out="00:00:50.333">
   <property name="length">1512</property>
   <property name="eof">pause</property>
-  <property name="resource">2.000000:media/videos/04 - gombi build - update install kits.mkv</property>
+  <property name="resource">2.000000:media/videos/04 - spring-box build - update install kits.mkv</property>
   <property name="aspect_ratio">1</property>
   <property name="meta.media.nb_streams">2</property>
   <property name="meta.media.0.stream.type">video</property>
@@ -7160,7 +7160,7 @@ available via HTTP.&lt;/content>
   <property name="audio_index">1</property>
   <property name="video_index">0</property>
   <property name="warp_speed">2</property>
-  <property name="warp_resource">media/videos/04 - gombi build - update install kits.mkv</property>
+  <property name="warp_resource">media/videos/04 - spring-box build - update install kits.mkv</property>
   <property name="mlt_service">timewarp</property>
   <property name="kdenlive:control_uuid">{15f8dcc1-dc96-4d1b-a8b0-df0a91c4bdbd}</property>
   <property name="vstream">0</property>
@@ -7184,7 +7184,7 @@ available via HTTP.&lt;/content>
  <chain id="chain52" out="00:03:03.400">
   <property name="length">5503</property>
   <property name="eof">pause</property>
-  <property name="resource">media/videos/05 - gombi build - docker build.mkv</property>
+  <property name="resource">media/videos/05 - spring-box build - docker build.mkv</property>
   <property name="mlt_service">avformat-novalidate</property>
   <property name="seekable">1</property>
   <property name="format">3</property>
@@ -7200,7 +7200,7 @@ available via HTTP.&lt;/content>
   <property name="kdenlive:file_size">57561732</property>
   <property name="kdenlive:file_hash">2233ae2ef8ca04f0621fd87f5c9231d2</property>
   <property name="kdenlive:audio_max1">1</property>
-  <property name="kdenlive:clipname">Video - gombi build - 05 docker build</property>
+  <property name="kdenlive:clipname">Video - spring-box build - 05 docker build</property>
   <property name="meta.media.nb_streams">2</property>
   <property name="meta.media.0.stream.type">video</property>
   <property name="meta.media.0.stream.frame_rate">50</property>
@@ -7247,7 +7247,7 @@ available via HTTP.&lt;/content>
  <producer id="producer99" in="00:00:00.000" out="00:01:13.333">
   <property name="length">2201</property>
   <property name="eof">pause</property>
-  <property name="resource">2.500000:media/videos/05 - gombi build - docker build.mkv</property>
+  <property name="resource">2.500000:media/videos/05 - spring-box build - docker build.mkv</property>
   <property name="aspect_ratio">1</property>
   <property name="meta.media.nb_streams">2</property>
   <property name="meta.media.0.stream.type">video</property>
@@ -7282,7 +7282,7 @@ available via HTTP.&lt;/content>
   <property name="audio_index">1</property>
   <property name="video_index">0</property>
   <property name="warp_speed">2.5</property>
-  <property name="warp_resource">media/videos/05 - gombi build - docker build.mkv</property>
+  <property name="warp_resource">media/videos/05 - spring-box build - docker build.mkv</property>
   <property name="mlt_service">timewarp</property>
   <property name="kdenlive:control_uuid">{5c6b7f5b-c987-4107-b7fd-4bc8469e4e43}</property>
   <property name="vstream">0</property>
@@ -8435,7 +8435,7 @@ available via HTTP.&lt;/content>
  <chain id="chain61" out="00:01:40.733">
   <property name="length">3023</property>
   <property name="eof">pause</property>
-  <property name="resource">media/videos/04 - gombi build - update install kits.mkv</property>
+  <property name="resource">media/videos/04 - spring-box build - update install kits.mkv</property>
   <property name="mlt_service">avformat-novalidate</property>
   <property name="meta.media.nb_streams">2</property>
   <property name="meta.media.0.stream.type">video</property>
@@ -8490,13 +8490,13 @@ available via HTTP.&lt;/content>
   <property name="kdenlive:file_size">31572086</property>
   <property name="kdenlive:file_hash">0c16689404da63521f6f9b7add31c1fb</property>
   <property name="kdenlive:audio_max1">1</property>
-  <property name="kdenlive:clipname">Video - gombi build - 04 update install kits</property>
+  <property name="kdenlive:clipname">Video - spring-box build - 04 update install kits</property>
   <property name="kdenlive:monitorPosition">0</property>
  </chain>
  <chain id="chain62" out="00:03:03.400">
   <property name="length">5503</property>
   <property name="eof">pause</property>
-  <property name="resource">media/videos/05 - gombi build - docker build.mkv</property>
+  <property name="resource">media/videos/05 - spring-box build - docker build.mkv</property>
   <property name="mlt_service">avformat-novalidate</property>
   <property name="meta.media.nb_streams">2</property>
   <property name="meta.media.0.stream.type">video</property>
@@ -8551,7 +8551,7 @@ available via HTTP.&lt;/content>
   <property name="kdenlive:file_size">57561732</property>
   <property name="kdenlive:file_hash">2233ae2ef8ca04f0621fd87f5c9231d2</property>
   <property name="kdenlive:audio_max1">1</property>
-  <property name="kdenlive:clipname">Video - gombi build - 05 docker build</property>
+  <property name="kdenlive:clipname">Video - spring-box build - 05 docker build</property>
   <property name="kdenlive:monitorPosition">0</property>
  </chain>
  <playlist id="main_bin">
@@ -8644,14 +8644,14 @@ available via HTTP.&lt;/content>
   <property name="kdenlive:docproperties.rendertcoverlay">0</property>
   <property name="kdenlive:docproperties.rendertctype">-1</property>
   <property name="kdenlive:docproperties.rendertwopass">0</property>
-  <property name="kdenlive:docproperties.renderurl">remal-gombi-0.6.0.mp4</property>
+  <property name="kdenlive:docproperties.renderurl">spring-box-0.6.0.mp4</property>
   <property name="kdenlive:docproperties.seekOffset">7500</property>
   <property name="kdenlive:docproperties.sessionid">{dfbf0e16-bef0-4cd1-b54e-f4367876c252}</property>
   <property name="kdenlive:docproperties.uuid">{ef5bd0fb-d293-4a83-a997-eea662af5c75}</property>
   <property name="kdenlive:docproperties.version">1.1</property>
   <property name="kdenlive:docmetadata.meta.attr.author.markup">arnold.somogyi@gmail.com</property>
   <property name="kdenlive:docmetadata.meta.attr.copyright.markup">Remal Software</property>
-  <property name="kdenlive:docmetadata.meta.attr.title.markup">Remal Gombi Platform</property>
+  <property name="kdenlive:docmetadata.meta.attr.title.markup">Remal Spring Box Platform</property>
   <property name="kdenlive:docmetadata.meta.attr.year.markup">2025</property>
   <property name="kdenlive:expandedFolders"/>
   <property name="kdenlive:binZoom">4</property>
