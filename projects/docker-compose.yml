@@ -32,9 +32,9 @@ services:
                 limits:
                     memory: 384M
         volumes:
-            - $HOME/Java/gombi/volumes/user-service-1/jar-to-run:/jar-to-run
-            - $HOME/Java/gombi/volumes/user-service-1/logs:/logs
-            - $HOME/Java/gombi/volumes/user-service-1/heap-dump:/heap-dump
+            - $HOME/Java/springbox/volumes/user-service-1/jar-to-run:/jar-to-run
+            - $HOME/Java/springbox/volumes/user-service-1/logs:/logs
+            - $HOME/Java/springbox/volumes/user-service-1/heap-dump:/heap-dump
             - user-service-1-data:/var/lib/postgresql/data
 
     user-service-2:
@@ -69,9 +69,9 @@ services:
                 limits:
                     memory: 384M
         volumes:
-            - $HOME/Java/gombi/volumes/user-service-2/jar-to-run:/jar-to-run
-            - $HOME/Java/gombi/volumes/user-service-2/logs:/logs
-            - $HOME/Java/gombi/volumes/user-service-2/heap-dump:/heap-dump
+            - $HOME/Java/springbox/volumes/user-service-2/jar-to-run:/jar-to-run
+            - $HOME/Java/springbox/volumes/user-service-2/logs:/logs
+            - $HOME/Java/springbox/volumes/user-service-2/heap-dump:/heap-dump
             - user-service-2-data:/var/lib/postgresql/data
 
     # ----- welcome-services ----------------------------------------------------------------------
@@ -102,9 +102,9 @@ services:
                 limits:
                     memory: 256M
         volumes:
-            - $HOME/Java/gombi/volumes/welcome-service-1/jar-to-run:/jar-to-run
-            - $HOME/Java/gombi/volumes/welcome-service-1/logs:/logs
-            - $HOME/Java/gombi/volumes/welcome-service-1/heap-dump:/heap-dump
+            - $HOME/Java/springbox/volumes/welcome-service-1/jar-to-run:/jar-to-run
+            - $HOME/Java/springbox/volumes/welcome-service-1/logs:/logs
+            - $HOME/Java/springbox/volumes/welcome-service-1/heap-dump:/heap-dump
 
     # ----- kafka-producer-services ---------------------------------------------------------------
     kafka-producer-service-1:
@@ -134,9 +134,9 @@ services:
                 limits:
                     memory: 256M
         volumes:
-                - $HOME/Java/gombi/volumes/kafka-producer-service-1/jar-to-run:/jar-to-run
-                - $HOME/Java/gombi/volumes/kafka-producer-service-1/logs:/logs
-                - $HOME/Java/gombi/volumes/kafka-producer-service-1/heap-dump:/heap-dump
+                - $HOME/Java/springbox/volumes/kafka-producer-service-1/jar-to-run:/jar-to-run
+                - $HOME/Java/springbox/volumes/kafka-producer-service-1/logs:/logs
+                - $HOME/Java/springbox/volumes/kafka-producer-service-1/heap-dump:/heap-dump
         depends_on:
             kafka-4:
                 condition: service_healthy
@@ -180,9 +180,9 @@ services:
                 limits:
                     memory: 384M
         volumes:
-            - $HOME/Java/gombi/volumes/kafka-consumer-service-1/jar-to-run:/jar-to-run
-            - $HOME/Java/gombi/volumes/kafka-consumer-service-1/logs:/logs
-            - $HOME/Java/gombi/volumes/kafka-consumer-service-1/heap-dump:/heap-dump
+            - $HOME/Java/springbox/volumes/kafka-consumer-service-1/jar-to-run:/jar-to-run
+            - $HOME/Java/springbox/volumes/kafka-consumer-service-1/logs:/logs
+            - $HOME/Java/springbox/volumes/kafka-consumer-service-1/heap-dump:/heap-dump
         depends_on:
             kafka-4:
                 condition: service_healthy
@@ -206,7 +206,7 @@ services:
         environment:
             PKI_HOST: pki.${DOMAIN_NAME}
             CONSUL_SERVER_HOSTNAME: consul.${DOMAIN_NAME}
-            HAZELCAST_CLUSTER_NAME: gombi-dev
+            HAZELCAST_CLUSTER_NAME: springbox-dev
             HAZELCAST_CLUSTER_MEMBERS: hazelcast-1.${DOMAIN_NAME}, hazelcast-2.${DOMAIN_NAME}
             JAVA_OPTS: >
                 -XX:+UseContainerSupport
@@ -223,9 +223,9 @@ services:
                 limits:
                     memory: 256M
         volumes:
-            - $HOME/Java/gombi/volumes/hazelcast-counter-service-1/jar-to-run:/jar-to-run
-            - $HOME/Java/gombi/volumes/hazelcast-counter-service-1/logs:/logs
-            - $HOME/Java/gombi/volumes/hazelcast-counter-service-1/heap-dump:/heap-dump
+            - $HOME/Java/springbox/volumes/hazelcast-counter-service-1/jar-to-run:/jar-to-run
+            - $HOME/Java/springbox/volumes/hazelcast-counter-service-1/logs:/logs
+            - $HOME/Java/springbox/volumes/hazelcast-counter-service-1/heap-dump:/heap-dump
 
     hazelcast-counter-service-2:
         image: remal-java-25-runner:0.7.1
@@ -239,7 +239,7 @@ services:
         environment:
             PKI_HOST: pki.${DOMAIN_NAME}
             CONSUL_SERVER_HOSTNAME: consul.${DOMAIN_NAME}
-            HAZELCAST_CLUSTER_NAME: gombi-dev
+            HAZELCAST_CLUSTER_NAME: springbox-dev
             HAZELCAST_CLUSTER_MEMBERS: hazelcast-1.${DOMAIN_NAME}, hazelcast-2.${DOMAIN_NAME}
             JAVA_OPTS: >
                 -XX:+UseContainerSupport
@@ -256,9 +256,9 @@ services:
                 limits:
                     memory: 256M
         volumes:
-            - $HOME/Java/gombi/volumes/hazelcast-counter-service-2/jar-to-run:/jar-to-run
-            - $HOME/Java/gombi/volumes/hazelcast-counter-service-2/logs:/logs
-            - $HOME/Java/gombi/volumes/hazelcast-counter-service-2/heap-dump:/heap-dump
+            - $HOME/Java/springbox/volumes/hazelcast-counter-service-2/jar-to-run:/jar-to-run
+            - $HOME/Java/springbox/volumes/hazelcast-counter-service-2/logs:/logs
+            - $HOME/Java/springbox/volumes/hazelcast-counter-service-2/heap-dump:/heap-dump
 
     # ----- Hashicorp Consul ----------------------------------------------------------------------
     consul:
@@ -321,7 +321,7 @@ services:
             - "13073:5701" # Hazelcast client port
         environment:
             - PKI_HOST=pki.${DOMAIN_NAME}
-            - HAZELCAST_CLUSTER_NAME=gombi-dev
+            - HAZELCAST_CLUSTER_NAME=springbox-dev
         deploy:
             resources:
                 limits:
@@ -337,7 +337,7 @@ services:
             - "13063:5701" # Hazelcast client port
         environment:
             - PKI_HOST=pki.${DOMAIN_NAME}
-            - HAZELCAST_CLUSTER_NAME=gombi-dev
+            - HAZELCAST_CLUSTER_NAME=springbox-dev
         deploy:
             resources:
                 limits:

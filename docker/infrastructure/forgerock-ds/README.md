@@ -77,7 +77,7 @@ fs.inotify.max_user_watches = 524288
       ...
       --env DS_CONFIG_BACKUP=true \
       --env LDAP_BACKUP=true \
-      --volume "$HOME/dev/workspace/java/remal/gombi/docker/forgerock/forgerock-ds/backup:/opt/opendj/backup" \
+      --volume "$HOME/java/springbox/forgerock/forgerock-ds/backup:/opt/opendj/backup" \
   ~~~
   Stop the container:
   ~~~
@@ -93,7 +93,7 @@ fs.inotify.max_user_watches = 524288
           ...
           --env CONFIG_RESTORE_FROM=forgerock-ds-conf-2023-01-18_11.48.34.tar.gz \
           --env LDAP_RESTORE_FROM=forgerock-ds-ldap-2023-01-18_11.48.34.tar.gz \
-          --volume "$HOME/dev/workspace/java/remal/gombi/docker/forgerock/forgerock-ds/backup:/opt/opendj/backup" \
+          --volume "$HOME/java/springbox/forgerock/forgerock-ds/backup:/opt/opendj/backup" \
       ~~~
 
 ## 4) Explore the LDAP

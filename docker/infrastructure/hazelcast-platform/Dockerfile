@@ -37,7 +37,7 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     HAZELCAST_HOME="/opt/hazelcast" \
     HAZELCAST_CONFIG_TEMPLATE_DIR="/tmp/hazelcast-config-template" \
     HAZELCAST_INSTALL_KIT="hazelcast-5.6.0-slim.tar.gz" \
-    HAZELCAST_CLUSTER_NAME="gombi-dev"
+    HAZELCAST_CLUSTER_NAME="springbox-dev"
 
 # set image metadata
 LABEL "com.remal.image.name"="$IMAGE_NAME" \
