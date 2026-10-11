@@ -1,13 +1,20 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Environment file to define variables used during the Docker image build.
+# Set environment variables, used during the Docker image build process.
 #
-# Since:  January 2023
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Credits:
+#   Contact:   arnold.somogyi@gmail.com
+#   Copyright: Copyright (c) 2020-2026 Remal Software
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+#   This work is licensed under the Creative Commons Attribution-
+#   NonCommercial 4.0 International License. To view a copy of this license,
+#   visit: https://creativecommons.org
+#
+#   You are free to share and adapt the material for personal or hobby
+#   purposes, provided you give appropriate credit and do not use the material
+#   for commercial gain.
 # ******************************************************************************
-export IMAGE_FROM="remal-openjdk-11:$1"
-export IMAGE_NAME="remal-tomcat-9"
-export IMAGE_AUTHOR="Arnold SOMOGYI <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Apache Tomcat 9 Docker image"
+export IMAGE_FROM="springbox-openjdk-11:$1"
+export IMAGE_NAME="springbox-tomcat-9"
+export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
+export IMAGE_DESCRIPTION="Remal Spring-Box - Apache Tomcat 9 image"
