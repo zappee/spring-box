@@ -1,2 +1,2 @@
-Files in this directory are executed when the container starts.
-The scripts must be executable (chmod +x *.sh) and they are executed in alphabetical order.
+Scripts in `docker.startup` directory run EVERY time (in alphabetical order) the container starts up, including after restarts and reboots.
+Scripts must be set as executable (`chmod +x *.sh`).

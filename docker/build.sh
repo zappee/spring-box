@@ -35,12 +35,12 @@ function docker_build() {
 }
 
 # ------------------------------------------------------------------------------
-# Remove all unused docker containers and images.
+# Remove unused Docker resources.
 # ------------------------------------------------------------------------------
 function docker_prune() {
-  printf -- "------------------------------------------------------------------------\n"
-  printf "cleaning up unused Docker images and containers...\n"
-  printf -- "------------------------------------------------------------------------\n"
+  printf "%s\n" "$SEPARATOR"
+  printf "%s\n" "Removing unused Docker resources..."
+  printf "%s\n" "$SEPARATOR"
   docker ps --filter status=exited --filter status=created --quiet | xargs -r docker rm --volumes
   docker image prune --force
 }
@@ -108,6 +108,7 @@ IMAGE_SRC="$PATH_OF_CURRENT_SCRIPT/$1"
 BUILD_TYPE="$2"
 IMAGE_TAG="$3"
 PUSH_IMAGE="$4"
+SEPARATOR="--------------------------------------------------------------------------------"
 
 validate_arguments "$@"
 set_context

@@ -1,14 +1,14 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Remal Docker Image build file.
+# Remal Spring-Box utility.
 #
-# Usage: $ ./remal.sh
-#        $ ./remal.sh <command>
+# Usage: sb.sh
+#        sb.sh <command>
 #
 # Accepted values:
 #    BUILD_TYPE:       slim | fat
 #    PUSH_IMAGE:       true | false
-#    ENVIRONMENT_FILE; .env.hello.com | .env.remal.com
+#    ENVIRONMENT_FILE; remal.com.env
 #
 # Since:  January 2023
 # Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
@@ -18,7 +18,7 @@
 BUILD_TYPE="slim"
 IMAGE_TAG="0.7.1"
 PUSH_IMAGE="false"
-ENVIRONMENT_FILE=".env.hello.com"
+ENVIRONMENT_FILE="remal.com..env"
 
 WORKSPACE="${REMAL_HOME:-$(pwd)}"
 COMMAND="${1:-}"
@@ -36,18 +36,20 @@ LABEL_HCP_VAULT="HashiCorp Vault;infrastructure/hcp-vault"
 LABEL_HCP_CONSUL_21="HashiCorp Consul for Java 21;infrastructure/hcp-consul-for-java-21"
 LABEL_HCP_CONSUL_25="HashiCorp Consul for Java 25;infrastructure/hcp-consul-for-java-25"
 LABEL_HAZELCAST_PLATFORM="Hazelcast Platform;infrastructure/hazelcast-platform"
-LABEL_PROMETHEUS="Remal Prometheus;monitoring/prometheus"
-LABEL_GRAFANA="Remal Grafana;monitoring/grafana"
-LABEL_JAVA_21_RUNNER="Remal Java 21 Runner;application/java-21-runner"
-LABEL_JAVA_21_POSTGRES_RUNNER="Remal Java 21 with Postgres Runner;application/java-21-postgres-runner"
-LABEL_JAVA_21_OMNI_RUNNER="Remal Java-21 OMNI Runner;application/java-21-omni-runner"
-LABEL_JAVA_25_RUNNER="Remal Java 25 Runner;application/java-25-runner"
-LABEL_JAVA_25_POSTGRES_RUNNER="Remal Java 25 with Postgres Runner;application/java-25-postgres-runner"
+LABEL_PROMETHEUS="Prometheus;monitoring/prometheus"
+LABEL_GRAFANA="Grafana;monitoring/grafana"
+LABEL_JAVA_21_RUNNER="Java 21 Runner;application/java-21-runner"
+LABEL_JAVA_21_POSTGRES_RUNNER="Java 21 with Postgres Runner;application/java-21-postgres-runner"
+LABEL_JAVA_21_OMNI_RUNNER="Java-21 OMNI Runner;application/java-21-omni-runner"
+LABEL_JAVA_25_RUNNER="Java 25 Runner;application/java-25-runner"
+LABEL_JAVA_25_POSTGRES_RUNNER="Java 25 with Postgres Runner;application/java-25-postgres-runner"
 
-COLOR_GREEN="\e[38;5;118m"
-COLOR_YELLOW="\e[38;5;226m"
+STYLE_TASK="\e[38;5;226m"
+STYLE_SUBTASK="\e[38;5;118m"
+STYLE_EXECUTION_TIME="\e[38;2;124;252;0m"
 STYLE_BOLD="\033[1m"
 STYLE_DEFAULT="\033[0m"
+SEPARATOR="--------------------------------------------------------------------------------"
 
 # ------------------------------------------------------------------------------
 # Initialize a directory used for sharing files between the container and the
@@ -68,7 +70,7 @@ function init_docker_volume {
   local logs_dir="$volume_home/logs"
   local heap_dump_dir="$volume_home/heap-dump"
 
-  printf -- "\n%b------------------------------------------------------------------------\n" "$COLOR_YELLOW"
+  printf -- "\n%b------------------------------------------------------------------------\n" "$STYLE_TASK"
   printf "initializing a Docker shared volume...\n"
   printf "     java project:   \"%s\"\n" "$java_project"
   printf "     container name: \"%s\"\n" "$container_name"
@@ -103,19 +105,19 @@ function demo_start {
   environment_file="$WORKSPACE/$relative_path_to_src/$ENVIRONMENT_FILE"
   docker_compose_file="$WORKSPACE/$relative_path_to_src/docker-compose.yml"
 
-  printf -- "\n%b------------------------------------------------------------------------\n" "$COLOR_YELLOW"
+  printf -- "\n%b------------------------------------------------------------------------\n" "$STYLE_TASK"
   printf "starting the '%s' docker stack...\n" "Demo"
   printf "       environment-file: '%s'\n" "$environment_file"
   printf "     docker-compose.yml: '%s'\n" "$docker_compose_file"
   printf -- "------------------------------------------------------------------------%b\n" "$STYLE_DEFAULT"
 
-  init_docker_volume "remal-gombi-user-service" "user-service-1"
-  init_docker_volume "remal-gombi-user-service" "user-service-2"
-  init_docker_volume "remal-gombi-welcome-service" "welcome-service-1"
-  init_docker_volume "remal-gombi-kafka-producer" "kafka-producer-service-1"
-  init_docker_volume "remal-gombi-kafka-consumer" "kafka-consumer-service-1"
-  init_docker_volume "remal-gombi-hazelcast-counter" "hazelcast-counter-service-1"
-  init_docker_volume "remal-gombi-hazelcast-counter" "hazelcast-counter-service-2"
+  init_docker_volume "remal-springbox-user-service" "user-service-1"
+  init_docker_volume "remal-springbox-user-service" "user-service-2"
+  init_docker_volume "remal-springbox-welcome-service" "welcome-service-1"
+  init_docker_volume "remal-springbox-kafka-producer" "kafka-producer-service-1"
+  init_docker_volume "remal-springbox-kafka-consumer" "kafka-consumer-service-1"
+  init_docker_volume "remal-springbox-hazelcast-counter" "hazelcast-counter-service-1"
+  init_docker_volume "remal-springbox-hazelcast-counter" "hazelcast-counter-service-2"
   docker compose --env-file="$environment_file" -f "$docker_compose_file" up
 }
 
@@ -123,7 +125,7 @@ function demo_start {
 # Show the logs of running Docker containers.
 # ------------------------------------------------------------------------------
 function docker_container_logs {
-  printf -- "\n%b------------------------------------------------------------------------\n" "$COLOR_YELLOW"
+  printf -- "\n%b------------------------------------------------------------------------\n" "$STYLE_TASK"
   printf "showing the containers' logs...\n"
   printf -- "------------------------------------------------------------------------%b\n" "$STYLE_DEFAULT"
 
@@ -141,7 +143,7 @@ function docker_container_logs {
 # Stop and remove of all the running Remal Docker containers.
 # ------------------------------------------------------------------------------
 function docker_container_remove {
-  printf -- "\n%b------------------------------------------------------------------------\n" "$COLOR_YELLOW"
+  printf -- "\n%b------------------------------------------------------------------------\n" "$STYLE_TASK"
   printf "stopping and removing all the Remal Docker containers...\n"
   printf -- "------------------------------------------------------------------------%b\n" "$STYLE_DEFAULT"
 
@@ -159,20 +161,21 @@ function docker_container_remove {
 # Show the running docker containers' details.
 # ------------------------------------------------------------------------------
 function docker_container_show {
-  printf -- "\n%b------------------------------------------------------------------------\n" "$COLOR_YELLOW"
-  printf "running/terminated Remal Docker containers\n"
-  printf -- "------------------------------------------------------------------------%b\n" "$STYLE_DEFAULT"
+  printf "%b%s%b\n" "$STYLE_BOLD" "$SEPARATOR" "$STYLE_DEFAULT"
+  printf "%b%s\n" "$STYLE_BOLD" "List of Remal Docker containers"
+  printf "%b%s%b\n" "$STYLE_BOLD" "$SEPARATOR" "$STYLE_DEFAULT"
 
-  local running_containers_number
-  running_containers_number="$(docker ps -aq --filter "label=com.remal.image.vendor=Remal" | wc -l)"
+  local _running_containers_number
+  _running_containers_number="$(docker ps -aq --filter "label=com.remal.image.vendor=Remal" | wc -l)"
 
-  if [ "$running_containers_number" -eq 0 ]; then
-    printf "no running container\n"
+  if [ "$_running_containers_number" -eq 0 ]; then
+    printf "%s\n" "No running containers found"
   else
     docker container ls \
       --all \
       --filter "label=com.remal.image.vendor=Remal" \
-      --format "{{.ID}}\t{{.Names}}\t{{.Image}}\t{{.CreatedAt}}\t{{.Status}}" | sort -k 2
+      --format "{{.ID}}\t{{.Names}}\t{{.Image}}\t{{.CreatedAt}}\t{{.Status}}" \
+      | sort -k 2
   fi
 }
 
@@ -184,21 +187,21 @@ function docker_container_show {
 #    param 2: relative directory that points to the image source code
 # ------------------------------------------------------------------------------
 function docker_image_build {
-  local title="$1"
-  local relative_path_to_src="$2"
+  local _title="$1"
+  local _relative_path_to_src="$2"
 
-  printf -- "\n%b------------------------------------------------------------------------\n" "$COLOR_YELLOW"
-  printf "building '%s' docker image...\n" "$title"
-  printf -- "------------------------------------------------------------------------%b\n" "$STYLE_DEFAULT"
+  printf "%b%s%b\n" "$STYLE_TASK" "$SEPARATOR" "$STYLE_DEFAULT"
+  printf "%b%s%b\n" "$STYLE_TASK" "Building the $_title Docker image..." "$STYLE_DEFAULT"
+  printf "%b%s%b\n" "$STYLE_TASK" "$SEPARATOR" "$STYLE_DEFAULT"
 
-  docker/build.sh "$relative_path_to_src" "$BUILD_TYPE" "$IMAGE_TAG" "$PUSH_IMAGE"
+  docker/build.sh "$_relative_path_to_src" "$BUILD_TYPE" "$IMAGE_TAG" "$PUSH_IMAGE"
 }
 
 # ------------------------------------------------------------------------------
 # Remove all the Remal Docker images.
 # ------------------------------------------------------------------------------
 function docker_image_remove {
-  printf -- "\n%b------------------------------------------------------------------------\n" "$COLOR_YELLOW"
+  printf -- "\n%b------------------------------------------------------------------------\n" "$STYLE_TASK"
   printf "removing all the Remal Docker images...\n"
   printf -- "------------------------------------------------------------------------%b\n" "$STYLE_DEFAULT"
 
@@ -209,9 +212,9 @@ function docker_image_remove {
 # Show of all Remal Docker images.
 # ------------------------------------------------------------------------------
 function docker_image_show {
-  printf -- "\n%b------------------------------------------------------------------------\n" "$COLOR_YELLOW"
-  printf "Remal Docker images\n"
-  printf -- "------------------------------------------------------------------------%b\n" "$STYLE_DEFAULT"
+  printf "%b%s%b\n" "$STYLE_BOLD" "$SEPARATOR" "$STYLE_DEFAULT"
+  printf "%b%s%b\n" "$STYLE_BOLD" "List Remal Docker images" "$STYLE_DEFAULT"
+  printf "%b%s%b\n" "$STYLE_BOLD" "$SEPARATOR" "$STYLE_DEFAULT"
 
   docker images --filter "label=com.remal.image.vendor=Remal" --format "{{.Size}}\t{{.Repository}}:{{.Tag}}\t\t{{.CreatedSince}}\t{{.ID}}" | sort -k 2
 }
@@ -241,22 +244,26 @@ function get_path {
 }
 
 # ------------------------------------------------------------------------------
-# Show the execution time of the script.
+# Calculate and print script execution elapsed time.
 #
-# Parameters:
-#    param 1: start time
-#    param 2: command line arguments
+# Arguments:
+#    $1 - Start time timestamp (seconds)
 # ------------------------------------------------------------------------------
 function show_execution_time() {
   local start execution_time
   start="$1"
-  command="$2"
   execution_time=$(($(date +%s) - start))
 
-  if [ -n "$command" ]; then
-    printf "\n"
-    printf "execution time: %s day %s\n" "$(($(date -d@$execution_time -u +%d)-1))" "$(date -d@$execution_time -u +%H\ hour\ %M\ min\ %S\ sec)"
-  fi
+  local days hours mins secs elapsed
+  days=$((execution_time / 86400))
+  hours=$(( (execution_time % 86400) / 3600 ))
+  mins=$(( (execution_time % 3600) / 60 ))
+  secs=$(( execution_time % 60 ))
+  elapsed=$(printf "execution time: %d day(s) %02d hour(s) %02d minute(s) %02d second(s)" "$days" "$hours" "$mins" "$secs")
+
+  printf "\n%b%s%b\n" "$STYLE_EXECUTION_TIME" "$SEPARATOR" "$STYLE_DEFAULT"
+  printf "%b%s%b\n" "$STYLE_EXECUTION_TIME" "$elapsed" "$STYLE_DEFAULT"
+  printf "%b%s%b\n" "$STYLE_EXECUTION_TIME" "$SEPARATOR" "$STYLE_DEFAULT"
 }
 
 # ------------------------------------------------------------------------------
@@ -275,7 +282,7 @@ function show_help() {
     local script
     script="${0##*/}"
 
-    printf "%bRemal task runner.%b\n" "$COLOR_YELLOW" "$STYLE_DEFAULT"
+    printf "%bRemal Spring-Box utility.%b\n" "$STYLE_TASK" "$STYLE_DEFAULT"
     printf "   %bUsage:%b\n" "$STYLE_BOLD" "$STYLE_DEFAULT"
     printf "       %s <task><task>...\n\n" "$script"
     printf "   %bExamples:%b\n" "$STYLE_BOLD" "$STYLE_DEFAULT"
@@ -286,43 +293,50 @@ function show_help() {
     printf "      BUILD_TYPE: %s\n" "$BUILD_TYPE"
     printf "      WORKSPACE : %s\n\n" "$WORKSPACE"
     printf "   %bTasks%b:\n" "$STYLE_BOLD" "$STYLE_DEFAULT"
-    printf "      %ba:    build the %bBase%b image%b\n" "$COLOR_YELLOW" "$STYLE_BOLD" "$STYLE_DEFAULT$COLOR_YELLOW" "$STYLE_DEFAULT"
-    printf "        %ba1:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_BASE")" "$STYLE_DEFAULT"
-    printf "      %bb:    build of all %bCore%b images%b\n" "$COLOR_YELLOW" "$STYLE_BOLD" "$STYLE_DEFAULT$COLOR_YELLOW" "$STYLE_DEFAULT"
-    printf "        %bb1:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_JAVA_11")" "$STYLE_DEFAULT"
-    printf "        %bb2:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_JAVA_17")" "$STYLE_DEFAULT"
-    printf "        %bb3:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_JAVA_21")" "$STYLE_DEFAULT"
-    printf "        %bb4:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_JAVA_25")" "$STYLE_DEFAULT"
-    printf "      %bc:    build of all %bInfrastructure%b images%b\n" "$COLOR_YELLOW" "$STYLE_BOLD" "$STYLE_DEFAULT$COLOR_YELLOW" "$STYLE_DEFAULT"
-    printf "        %bc1:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_PKI")" "$STYLE_DEFAULT"
-    printf "        %bc2:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_TOMCAT_9")" "$STYLE_DEFAULT"
-    printf "        %bc3:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_FORGEROCK_DS")" "$STYLE_DEFAULT"
-    printf "        %bc4:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_FORGEROCK_AM")" "$STYLE_DEFAULT"
-    printf "        %bc5:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_HCP_VAULT")" "$STYLE_DEFAULT"
-    printf "        %bc6:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_HCP_CONSUL_21")" "$STYLE_DEFAULT"
-    printf "        %bc7:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_HCP_CONSUL_25")" "$STYLE_DEFAULT"
-    printf "        %bc8:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_HAZELCAST_PLATFORM")" "$STYLE_DEFAULT"
-    printf "      %bd:    build of all %bMonitoring%b images%b\n" "$COLOR_YELLOW" "$STYLE_BOLD" "$STYLE_DEFAULT$COLOR_YELLOW" "$STYLE_DEFAULT"
-    printf "        %bd1:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_PROMETHEUS")" "$STYLE_DEFAULT"
-    printf "        %bd2:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_GRAFANA")" "$STYLE_DEFAULT"
-    printf "      %be:    build of all %bApplication%b images%b\n" "$COLOR_YELLOW" "$STYLE_BOLD" "$STYLE_DEFAULT$COLOR_YELLOW" "$STYLE_DEFAULT"
-    printf "        %be1:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_JAVA_21_RUNNER")" "$STYLE_DEFAULT"
-    printf "        %be2:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_JAVA_21_POSTGRES_RUNNER")" "$STYLE_DEFAULT"
-    printf "        %be3:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_JAVA_21_OMNI_RUNNER")" "$STYLE_DEFAULT"
-    printf "        %be4:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_JAVA_25_RUNNER")" "$STYLE_DEFAULT"
-    printf "        %be5:   build %s image%b\n" "$COLOR_GREEN" "$(get_name "$LABEL_JAVA_25_POSTGRES_RUNNER")" "$STYLE_DEFAULT"
+    printf "      %ba:    build the %bBase%b image%b\n" "$STYLE_TASK" "$STYLE_BOLD" "$STYLE_DEFAULT$STYLE_TASK" "$STYLE_DEFAULT"
+    printf "        %ba1:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_BASE")" "$STYLE_DEFAULT"
+    printf "      %bb:    build of all %bCore%b images%b\n" "$STYLE_TASK" "$STYLE_BOLD" "$STYLE_DEFAULT$STYLE_TASK" "$STYLE_DEFAULT"
+    printf "        %bb1:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_JAVA_11")" "$STYLE_DEFAULT"
+    printf "        %bb2:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_JAVA_17")" "$STYLE_DEFAULT"
+    printf "        %bb3:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_JAVA_21")" "$STYLE_DEFAULT"
+    printf "        %bb4:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_JAVA_25")" "$STYLE_DEFAULT"
+    printf "      %bc:    build of all %bInfrastructure%b images%b\n" "$STYLE_TASK" "$STYLE_BOLD" "$STYLE_DEFAULT$STYLE_TASK" "$STYLE_DEFAULT"
+    printf "        %bc1:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_PKI")" "$STYLE_DEFAULT"
+    printf "        %bc2:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_TOMCAT_9")" "$STYLE_DEFAULT"
+    printf "        %bc3:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_FORGEROCK_DS")" "$STYLE_DEFAULT"
+    printf "        %bc4:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_FORGEROCK_AM")" "$STYLE_DEFAULT"
+    printf "        %bc5:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_HCP_VAULT")" "$STYLE_DEFAULT"
+    printf "        %bc6:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_HCP_CONSUL_21")" "$STYLE_DEFAULT"
+    printf "        %bc7:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_HCP_CONSUL_25")" "$STYLE_DEFAULT"
+    printf "        %bc8:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_HAZELCAST_PLATFORM")" "$STYLE_DEFAULT"
+    printf "      %bd:    build of all %bMonitoring%b images%b\n" "$STYLE_TASK" "$STYLE_BOLD" "$STYLE_DEFAULT$STYLE_TASK" "$STYLE_DEFAULT"
+    printf "        %bd1:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_PROMETHEUS")" "$STYLE_DEFAULT"
+    printf "        %bd2:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_GRAFANA")" "$STYLE_DEFAULT"
+    printf "      %be:    build of all %bApplication%b images%b\n" "$STYLE_TASK" "$STYLE_BOLD" "$STYLE_DEFAULT$STYLE_TASK" "$STYLE_DEFAULT"
+    printf "        %be1:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_JAVA_21_RUNNER")" "$STYLE_DEFAULT"
+    printf "        %be2:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_JAVA_21_POSTGRES_RUNNER")" "$STYLE_DEFAULT"
+    printf "        %be3:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_JAVA_21_OMNI_RUNNER")" "$STYLE_DEFAULT"
+    printf "        %be4:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_JAVA_25_RUNNER")" "$STYLE_DEFAULT"
+    printf "        %be5:   build %s image%b\n" "$STYLE_SUBTASK" "$(get_name "$LABEL_JAVA_25_POSTGRES_RUNNER")" "$STYLE_DEFAULT"
     printf "      ------------------------------------------------------------\n"
-    printf "      %bstart a Docker environment%b\n" "$COLOR_YELLOW" "$STYLE_DEFAULT"
-    printf "        %bi1:   start the 'Demo' Docker stack%b\n" "$COLOR_GREEN" "$STYLE_DEFAULT"
+    printf "      %bstart a Docker environment%b\n" "$STYLE_TASK" "$STYLE_DEFAULT"
+    printf "        %bi1:   start the 'Demo' Docker stack%b\n" "$STYLE_SUBTASK" "$STYLE_DEFAULT"
     printf "      ------------------------------------------------------------\n"
-    printf "      %bu:    list Remal Docker images%b\n" "$COLOR_YELLOW" "$STYLE_DEFAULT"
-    printf "      %bv:    list Remal Docker containers%b\n" "$COLOR_YELLOW" "$STYLE_DEFAULT"
-    printf "      %bw:    show Remal Docker containers' log%b\n" "$COLOR_YELLOW" "$STYLE_DEFAULT"
-    printf "      %bx:    remove of all Remal Docker containers%b\n" "$COLOR_YELLOW" "$STYLE_DEFAULT"
-    printf "      %by:    remove of all Remal Docker images%b\n" "$COLOR_YELLOW" "$STYLE_DEFAULT"
+    printf "      %b%s:    %s%b\n" "$STYLE_TASK" "v" "List Remal Docker containers" "$STYLE_DEFAULT"
+    printf "      %b%s:    %s%b\n" "$STYLE_TASK" "w" "List Remal Docker images" "$STYLE_DEFAULT"
+    printf "      %b%s:    %s%b\n" "$STYLE_TASK" "x" "Remove all Remal Docker containers" "$STYLE_DEFAULT"
+    printf "      %b%s:    %s%b\n" "$STYLE_TASK" "y" "Remove all Remal Docker images" "$STYLE_DEFAULT"
+    printf "      %b%s:    %s%b\n" "$STYLE_TASK" "z" "Show logs for all Remal Docker containers" "$STYLE_DEFAULT"
     printf "\n"
-    printf "Contact: arnold.somogyi@gmail.com\n"
-    printf "Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved\n"
+    printf "%b%s%b\n" "$STYLE_BOLD" "Credits:" "$STYLE_DEFAULT"
+    printf "  %s\n" "Contact:   arnold.somogyi@gmail.com"
+    printf "  %s\n\n" "Copyright: Copyright (c) 2020-2026 Remal Software"
+    printf "  %s\n" "This work is licensed under the Creative Commons Attribution-"
+    printf "  %s\n" "NonCommercial 4.0 International License. To view a copy of this license,"
+    printf "  %s\n\n" "visit: https://creativecommons.org"
+    printf "  %s\n" "You are free to share and adapt the material for personal or hobby"
+    printf "  %s\n" "purposes, provided you give appropriate credit and do not use the material"
+    printf "  %s\n" "for commercial gain."
   fi
 }
 
@@ -381,12 +395,6 @@ function is_task_invalid {
 show_help "$#"
 START=$(date +%s)
 
-# command executors
-if match "$COMMAND" "x";  then docker_container_remove; fi
-if match "$COMMAND" "y";  then docker_image_remove; fi
-
-# builder tasks
-# if is_task_invalid "$COMMAND" "a"; then show_invalid_task_error; fi
 if match "$COMMAND" "a1"; then docker_image_build "$(get_name "$LABEL_BASE")" "$(get_path "$LABEL_BASE")"; fi
 if match "$COMMAND" "b1"; then docker_image_build "$(get_name "$LABEL_JAVA_11")" "$(get_path "$LABEL_JAVA_11")"; fi
 if match "$COMMAND" "b2"; then docker_image_build "$(get_name "$LABEL_JAVA_17")" "$(get_path "$LABEL_JAVA_17")"; fi
@@ -407,15 +415,11 @@ if match "$COMMAND" "e2"; then docker_image_build "$(get_name "$LABEL_JAVA_21_PO
 if match "$COMMAND" "e3"; then docker_image_build "$(get_name "$LABEL_JAVA_21_OMNI_RUNNER")" "$(get_path "$LABEL_JAVA_21_OMNI_RUNNER")"; fi
 if match "$COMMAND" "e4"; then docker_image_build "$(get_name "$LABEL_JAVA_25_RUNNER")" "$(get_path "$LABEL_JAVA_25_RUNNER")"; fi
 if match "$COMMAND" "e5"; then docker_image_build "$(get_name "$LABEL_JAVA_25_POSTGRES_RUNNER")" "$(get_path "$LABEL_JAVA_25_POSTGRES_RUNNER")"; fi
-
-# command executors
-if match "$COMMAND" "u";  then docker_image_show; fi
-if match "$COMMAND" "v";  then docker_container_show; fi
-
-# docker runners
 if match "$COMMAND" "i1"; then demo_start "projects"; fi
+if match "$COMMAND" "v";  then docker_container_show; fi
+if match "$COMMAND" "w";  then docker_image_show; fi
+if match "$COMMAND" "x";  then docker_container_remove; fi
+if match "$COMMAND" "y";  then docker_image_remove; fi
+if match "$COMMAND" "z";  then docker_container_logs; fi
 
-if match "$COMMAND" "w";  then docker_container_logs; fi
-
-show_execution_time "$START" "$#"
-printf "Bye!\n"
+show_execution_time "$START"
