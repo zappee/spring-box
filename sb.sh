@@ -61,10 +61,10 @@ function init_docker_volume {
   local _logs_dir="$_volume_home/logs"
   local _heap_dump_dir="$_volume_home/heap-dump"
 
-  local _reset="\033[0m"
-  local _text="\e[38;5;226m"
+  local _style_reset="\033[0m"
+  local _style_text="\e[38;5;226m"
   local _separator="--------------------------------------------------------------------------------"
-  printf "%b%s\n" "$_text" "$_separator"
+  printf "%b%s\n" "$_style_text" "$_separator"
   printf "Initializing a Docker shared volume...\n"
   printf "   java project:   \"%s\"\n" "$_java_project"
   printf "   container name: \"%s\"\n" "$_container_name"
@@ -72,7 +72,7 @@ function init_docker_volume {
   printf "   copy jars to:   \"%s\"\n" "$_jar_dir"
   printf "   logs dir:       \"%s\"\n" "$_logs_dir"
   printf "   heap dump dir:  \"%s\"\n" "$_heap_dump_dir"
-  printf "%b%s\n" "$_text" "$_separator"
+  printf "%s%b\n" "$_separator" "$_style_reset"
 
   rm -rf "${_volume_home:?}/"* # to ensure this never expands to /*
   mkdir -p "$_jar_dir" "$_logs_dir" "$_heap_dump_dir"
@@ -95,11 +95,11 @@ function demo_start {
   local _environment_file="$WORKSPACE/$_relative_path_to_src/$ENVIRONMENT_FILE"
   local _compose_file="$WORKSPACE/$_relative_path_to_src/docker-compose.yml"
 
-  local _reset="\033[0m"
-  local _text="\e[38;5;226m"
+  local _style_reset="\033[0m"
+  local _style_text="\e[38;5;226m"
   local _separator="--------------------------------------------------------------------------------"
-  printf "%b%s\n" "$_text" "$_separator"
-  printf "%s\n" "Starting the demo Docker stack in the background..."
+  printf "%b%s\n" "$_style_text" "$_separator"
+  printf "%s\n" "Starting the Demo Docker stack in the background..."
   printf "  environment file: %s\n" "$_environment_file"
   printf "  docker-compose:   %s\n" "$_compose_file"
   printf "%s%b\n" "$_separator" "$_style_reset"
@@ -118,12 +118,12 @@ function demo_start {
 # Show logs of running Docker containers.
 # ------------------------------------------------------------------------------
 function docker_container_logs {
-  local _reset="\033[0m"
-  local _text="\e[38;5;226m"
+  local _style_reset="\033[0m"
+  local _style_text="\e[38;5;226m"
   local _separator="--------------------------------------------------------------------------------"
-  printf "%b%s\n" "$_text" "$_separator"
+  printf "%b%s\n" "$_style_text" "$_separator"
   printf "%s\n" "Showing the container log..."
-  printf "%s%b\n" "$_separator" "$_reset"
+  printf "%s%b\n" "$_separator" "$_style_reset"
 
   local running_containers_number
   running_containers_number="$(docker ps -q --filter "label=com.remal.image.vendor=Remal" | wc -l)"
@@ -138,13 +138,13 @@ function docker_container_logs {
 # ------------------------------------------------------------------------------
 # Stop and remove all running Remal Docker containers.
 # ------------------------------------------------------------------------------
-function docker_container_remove {
-  local _reset="\033[0m"
-  local _text="\e[38;5;226m"
+function docker_containers_remove {
+  local _style_reset="\033[0m"
+  local _style_text="\e[38;5;226m"
   local _separator="--------------------------------------------------------------------------------"
-  printf "%b%s\n" "$_text" "$_separator"
+  printf "%b%s\n" "$_style_text" "$_separator"
   printf "%s\n" "Stopping and removing all running Remal Docker containers...."
-  printf "%s%b\n" "$_separator" "$_reset"
+  printf "%s%b\n" "$_separator" "$_style_reset"
 
   local running_containers_number
   running_containers_number="$(docker ps -aq --filter "label=com.remal.image.vendor=Remal" | wc -l)"
@@ -152,20 +152,21 @@ function docker_container_remove {
   if [ "$running_containers_number" -eq 0 ]; then
     printf "%s\n" "No containers found to remove."
   else
-    docker rm --force $(docker container ls --filter "label=com.remal.image.vendor=Remal" -a -q)
+    docker container ls --filter "label=com.remal.image.vendor=Remal" -a -q | xargs -r docker rm --force
+
   fi
 }
 
 # ------------------------------------------------------------------------------
 # Show running Docker container.
 # ------------------------------------------------------------------------------
-function docker_container_show {
-  local _reset="\033[0m"
-  local _text="\e[38;5;226m"
+function docker_containers_list {
+  local _style_reset="\033[0m"
+  local _style_text="\e[38;5;226m"
   local _separator="--------------------------------------------------------------------------------"
-  printf "%b%s\n" "$_text" "$_separator"
+  printf "%b%s\n" "$_style_text" "$_separator"
   printf "%s\n" "List Remal Docker containers"
-  printf "%s%b\n" "$_separator" "$_reset"
+  printf "%s%b\n" "$_separator" "$_style_reset"
 
   local _running_containers_number
   _running_containers_number="$(docker ps -aq --filter "label=com.remal.image.vendor=Remal" | wc -l)"
@@ -189,43 +190,44 @@ function docker_container_show {
 #   $2: Relative path to the source directory
 # ------------------------------------------------------------------------------
 function docker_image_build {
-  local _reset="\033[0m"
-  local _text="\e[38;5;226m"
+  local _style_reset="\033[0m"
+  local _style_text="\e[38;5;226m"
   local _separator="--------------------------------------------------------------------------------"
-  printf "%b%s\n" "$_text" "$_separator"
+  printf "%b%s\n" "$_style_text" "$_separator"
   printf "Building the %s Docker image...\n" "$(get_name "$1")"
-  printf "%s%b\n" "$_separator" "$_reset"
+  printf "%s%b\n" "$_separator" "$_style_reset"
 
-  local _path_to_src=$(get_path "$1")
+  local _path_to_src
+  _path_to_src=$(get_path "$1")
   docker/build.sh "$_path_to_src" "$BUILD_TYPE" "$IMAGE_TAG" "$PUSH_IMAGE"
 }
 
 # ------------------------------------------------------------------------------
 # Remove all Remal Docker images.
 # ------------------------------------------------------------------------------
-function docker_image_remove {
-  local _reset="\033[0m"
-  local _text="\e[38;5;226m"
+function docker_images_remove {
+  local _style_reset="\033[0m"
+  local _style_text="\e[38;5;226m"
   local _separator="--------------------------------------------------------------------------------"
-  printf "%b%s\n" "$_text" "$_separator"
+  printf "%b%s\n" "$_style_text" "$_separator"
   printf "%s\n" "Removing all Remal Docker images..."
-  printf "%s%b\n" "$_separator" "$_reset"
+  printf "%s%b\n" "$_separator" "$_style_reset"
 
-  docker image rm $(docker image ls --filter "label=com.remal.image.vendor=Remal" -q) || true
+  docker image ls --filter "label=com.remal.image.vendor=Remal" -q | xargs -r docker image rm || true
 }
 
 # ------------------------------------------------------------------------------
 # Show all Remal Docker images.
 # ------------------------------------------------------------------------------
-function docker_image_show {
-  local _reset="\033[0m"
-  local _text="\e[38;5;226m"
+function docker_images_list {
+  local _style_reset="\033[0m"
+  local _style_text="\e[38;5;226m"
   local _separator="--------------------------------------------------------------------------------"
-  printf "%b%s\n" "$_text" "$_separator"
+  printf "%b%s\n" "$_style_text" "$_separator"
   printf "%s\n" "List of Remal Docker images"
-  printf "%s%b\n" "$_separator" "$_reset"
+  printf "%s%b\n" "$_separator" "$_style_reset"
 
-  docker images --filter "label=com.remal.image.vendor=Remal" --format "{{.Size}}\t{{.Repository}}:{{.Tag}}\t\t{{.CreatedSince}}\t{{.ID}}" | sort -k 2
+  docker images --filter "label=com.remal.image.vendor=Remal" --format "{{.Size}}\t{{.Repository}}:{{.Tag}}\t{{.CreatedSince}}\t{{.ID}}" | column -t -s $'\t' | sort -k 2
 }
 
 # ------------------------------------------------------------------------------
@@ -273,12 +275,12 @@ function show_execution_time() {
   secs=$(( execution_time % 60 ))
   elapsed=$(printf "execution time: %d day(s) %02d hour(s) %02d minute(s) %02d second(s)" "$days" "$hours" "$mins" "$secs")
 
-  local _reset="\033[0m"
-  local _text="\e[38;2;124;252;0m"
+  local _style_reset="\033[0m"
+  local _style_text="\e[38;2;124;252;0m"
   local _separator="--------------------------------------------------------------------------------"
-  printf "\n%b%s\n" "$_text" "$_separator"
+  printf "\n%b%s\n" "$_style_text" "$_separator"
   printf "%s\n" "$elapsed"
-  printf "%s%b\n" "$_separator" "$_reset"
+  printf "%s%b\n" "$_separator" "$_style_reset"
 }
 
 # ------------------------------------------------------------------------------
@@ -291,10 +293,10 @@ function show_help() {
   if [ "$1" -eq 0 ]; then
     local _script="${0##*/}"
 
-    local _default="\033[0m"
-    local _bold="\033[1m"
+    local _style_default="\033[0m"
+    local _style_bold="\033[1m"
 
-    printf "%bRemal Spring Box utility.%b\n" "$_bold" "$_default"
+    printf "%bRemal Spring Box utility.%b\n" "$_style_bold" "$_style_default"
     printf "Usage:\n"
     printf "   %s <task-id><task-id>...\n\n" "$_script"
     printf "Examples:\n"
@@ -357,10 +359,10 @@ function show_help() {
 #    $2: Descriptive name of the task
 # ------------------------------------------------------------------------------
 function print_task() {
-  local _reset="\033[0m"
-  local _text="\e[38;5;226m"
-  local _bold="${_text}\033[1m"
-  printf "   %b%s%b:  build of all %b%s%b images%b\n" "$_bold" "$1" "$_text" "$_bold" "$2" "$_text" "$_reset"
+  local _style_reset="\033[0m"
+  local _style_text="\e[38;5;226m"
+  local _style_bold="${_style_text}\033[1m"
+  printf "   %b%s%b:  build of all %b%s%b images%b\n" "$_style_bold" "$1" "$_style_text" "$_style_bold" "$2" "$_style_text" "$_style_reset"
 }
 
 # ------------------------------------------------------------------------------
@@ -371,10 +373,10 @@ function print_task() {
 #    $2: Task full name
 # ------------------------------------------------------------------------------
 function print_task_full_name() {
-  local _reset="\033[0m"
-  local _text="\e[38;5;226m"
-  local _bold="${_text}\033[1m"
-  printf "   %b%s%b:  %b%s%b%b\n" "$_bold" "$1" "$_text" "$_bold" "$2" "$_text" "$_reset"
+  local _style_reset="\033[0m"
+  local _style_text="\e[38;5;226m"
+  local _style_bold="${_style_text}\033[1m"
+  printf "   %b%s%b:  %b%s%b%b\n" "$_style_bold" "$1" "$_style_text" "$_style_bold" "$2" "$_style_text" "$_style_reset"
 }
 
 # ------------------------------------------------------------------------------
@@ -385,10 +387,10 @@ function print_task_full_name() {
 #    $2: Descriptive name of the subtask
 # ------------------------------------------------------------------------------
 function print_subtask() {
-  local _reset="\033[0m"
-  local _text="\e[38;5;118m"
-  local _bold="${_text}\033[1m"
-  printf "      %b%s%b:  build %b%s%b image%b\n" "$_bold" "$1" "$_text" "$_bold" "$2" "$_text" "$_reset"
+  local _style_reset="\033[0m"
+  local _style_text="\e[38;5;118m"
+  local _style_bold="${_style_text}\033[1m"
+  printf "      %b%s%b:  build %b%s%b image%b\n" "$_style_bold" "$1" "$_style_text" "$_style_bold" "$2" "$_style_text" "$_style_reset"
 }
 
 # ------------------------------------------------------------------------------
@@ -420,7 +422,7 @@ while [ -n "$TASKS" ]; do
   esac
 
   # remove the processed token
-  TASKS="${TASKS#$TOKEN}"
+  TASKS="${TASKS#"$TOKEN"}"
 done
 
 # 2) loop through the final task list and execute them
@@ -447,10 +449,10 @@ for TASK in "${FINAL_TASK_LIST[@]}"; do
     e4) docker_image_build "$LABEL_JAVA_25_RUNNER" ;;
     e5) docker_image_build "$LABEL_JAVA_25_POSTGRES_RUNNER" ;;
     s1) demo_start "projects" ;;
-    v)  docker_container_show ;;
-    w)  docker_image_show ;;
-    x)  docker_container_remove ;;
-    y)  docker_image_remove ;;
+    v)  docker_containers_list ;;
+    w)  docker_images_list ;;
+    x)  docker_containers_remove ;;
+    y)  docker_images_remove ;;
     z)  docker_container_logs ;;
     *)  echo "Warning: Skipped unknown task '$TASK'" ;;
   esac
