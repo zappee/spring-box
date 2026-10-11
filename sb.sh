@@ -40,7 +40,7 @@ LABEL_PROMETHEUS="Prometheus;monitoring/prometheus"
 LABEL_GRAFANA="Grafana;monitoring/grafana"
 LABEL_JAVA_21_RUNNER="Java 21 Runner;application/java-21-runner"
 LABEL_JAVA_21_POSTGRES_RUNNER="Java 21 with Postgres Runner;application/java-21-postgres-runner"
-LABEL_JAVA_21_OMNI_RUNNER="Java-21 OMNI Runner;application/java-21-omni-runner"
+LABEL_JAVA_21_OMNI_RUNNER="Java 21 OMNI Runner;application/java-21-omni-runner"
 LABEL_JAVA_25_RUNNER="Java 25 Runner;application/java-25-runner"
 LABEL_JAVA_25_POSTGRES_RUNNER="Java 25 with Postgres Runner;application/java-25-postgres-runner"
 
@@ -193,7 +193,7 @@ function docker_image_build {
   local _text="\e[38;5;226m"
   local _separator="--------------------------------------------------------------------------------"
   printf "%b%s\n" "$_text" "$_separator"
-  printf "Building the %s Docker image...\n" "$(get_name $1)"
+  printf "Building the %s Docker image...\n" "$(get_name "$1")"
   printf "%s%b\n" "$_separator" "$_reset"
 
   local _path_to_src=$(get_path "$1")
