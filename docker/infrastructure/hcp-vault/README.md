@@ -6,7 +6,7 @@ version: '3'
 services:
     # ----- Private Certificate Authority Server -------------------------------
     pki:
-        image: remal-private-ca:0.7.1
+        image: remal-private-ca:0.8.0
         container_name: pki
         hostname: pki.hello.com
         ports:
@@ -20,7 +20,7 @@ services:
 
     # ----- Hashirorp Vault service --------------------------------------------
     vault:
-        image: remal-vault:0.7.1
+        image: remal-vault:0.8.0
         container_name: vault
         hostname: vault.hello.com
         depends_on:

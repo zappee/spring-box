@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>com.remal.springbox</groupId>
 		<artifactId>springbox</artifactId>
-		<version>0.7.1</version>
+		<version>0.8.0</version>
 	</parent>
 
 	<dependencies>

@@ -29,7 +29,7 @@ import java.util.concurrent.Callable;
                 "@|bold,yellow _______  _____  _______ _______ _  _  _ _______  ______ _______|@",
                 "@|bold,yellow |______ |     | |______    |    |  |  | |_____| |_____/ |______|@",
                 "@|bold,yellow ______| |_____| |          |    |__|__| |     | |    \\_ |______|@%n",
-                "@|yellow :: remal-kafka-player :: 0.7.1 ::|@",
+                "@|yellow :: remal-kafka-player :: 0.8.0 ::|@",
                 "@|yellow Copyright (c) 2020-2026 REMAL SOFTWARE and Arnold SOMOGYI All rights reserved|@",
                 "%n"},
         description = "Re-inject saved messages to a Kafka topic.%n",
