@@ -227,7 +227,10 @@ function docker_images_list {
   printf "%s\n" "List of Remal Docker images"
   printf "%s%b\n" "$_separator" "$_style_reset"
 
-  docker images --filter "label=com.remal.image.vendor=Remal" --format "{{.Size}}\t{{.Repository}}:{{.Tag}}\t{{.CreatedSince}}\t{{.ID}}" | column -t -s $'\t' | sort -k 2
+  docker images \
+    --filter "label=com.remal.image.vendor=Remal" \
+    --format "{{.Size}}\t{{.Repository}}:{{.Tag}}\t{{.CreatedSince}}\t{{.ID}}" \
+    | column -t -s $'\t' | sort -k 2
 }
 
 # ------------------------------------------------------------------------------
