@@ -3,22 +3,24 @@
 # Remal Spring-Box utility.
 #
 # Usage: sb.sh
-#        sb.sh <command>
+#        sb.sh <commands>
 #
-# Accepted values:
-#    BUILD_TYPE:       slim | fat
-#    PUSH_IMAGE:       true | false
-#    ENVIRONMENT_FILE; remal.com.env
+# Credits:
+#   Contact:   arnold.somogyi@gmail.com
+#   Copyright: Copyright (c) 2020-2026 Remal Software
 #
-# Since:  January 2023
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+#   This work is licensed under the Creative Commons Attribution-
+#   NonCommercial 4.0 International License. To view a copy of this license,
+#   visit: https://creativecommons.org
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+#   You are free to share and adapt the material for personal or hobby
+#   purposes, provided you give appropriate credit and do not use the material
+#   for commercial gain.
 # ******************************************************************************
-BUILD_TYPE="slim"
 IMAGE_TAG="0.8.0"
-PUSH_IMAGE="false"
-ENVIRONMENT_FILE="remal.com..env"
+ENVIRONMENT_FILE="remal.com.env"
+BUILD_TYPE="slim"  #  slim | fat
+PUSH_IMAGE="false" # true | false
 
 WORKSPACE="${REMAL_HOME:-$(pwd)}"
 COMMAND="${1:-}"
