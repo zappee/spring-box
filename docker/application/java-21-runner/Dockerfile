@@ -31,7 +31,7 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     PKI_HOST="pki.remal.com" \
     KEYSTORE_HOME="/tmp" \
     CONSUL_SERVER_HOSTNAME="consul.hello.com" \
-    HAZELCAST_CLUSTER_NAME="gombi-dev" \
+    HAZELCAST_CLUSTER_NAME="springbox-dev" \
     HAZELCAST_CLUSTER_MEMBERS="hazelcast-1.hello.com, hazelcast-2.hello.com" \
     \
     JAR_HOME="/jar-to-run" \

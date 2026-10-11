@@ -4,29 +4,28 @@ All notable changes to this project will be documented in this file.
 
 ## [0.8.0] - dd/mm/2026
 
-#### Deprecated
-* `gombi/projects`: The dependencies for the Java projects are currently outdated. As a solo maintainer, I cannot prioritize updating them at this time. Contributions and Pull Requests to update these examples are highly welcome!
-
 #### Updates
-* [#44](https://github.com/zappee/gombi/issues/44): Rename the project name from Gombi to Spring-Box
+* [#44](https://github.com/zappee/springbox/issues/44): Rename the project name from Gombi to Spring-Box
 
+#### Deprecated
+* `springbox/projects`: The dependencies for the Java projects are currently outdated. As a solo maintainer, I cannot prioritize updating them at this time. Contributions and Pull Requests to update these examples are highly welcome!
 
 ## [0.7.1] - 27/Aug/2026
 
 #### Docker Images
-* [#39](https://github.com/zappee/gombi/issues/39): Add a new JVM parameter to the Java Runner Images to help identify the running Java process by name.
-* [#40](https://github.com/zappee/gombi/issues/40): Fix the `No such file or directory` issue that appeared in `update-binaries.sh` after the Java 25 feature was added.
+* [#39](https://github.com/zappee/springbox/issues/39): Add a new JVM parameter to the Java Runner Images to help identify the running Java process by name.
+* [#40](https://github.com/zappee/springbox/issues/40): Fix the `No such file or directory` issue that appeared in `update-binaries.sh` after the Java 25 feature was added.
 
 ## [0.7.0] - 25/Mar/2026
 
 #### Deprecated
-* `gombi/projects`: The dependencies used in the example Java projects and code are outdated and must be updated. Unfortunately, I am the only maintainer of this project at the moment, and I do not have time to update the Java examples.
+* `springbox/projects`: The dependencies used in the example Java projects and code are outdated and must be updated. Unfortunately, I am the only maintainer of this project at the moment, and I do not have time to update the Java examples.
 
 #### Docker Images
-* [#34](https://github.com/zappee/gombi/issues/34): Prometheus should automatically pull the hostnames to be monitored from Consul.
-* [#35](https://github.com/zappee/gombi/issues/35): Create a new `Java 25 LTS` image.
-* [#36](https://github.com/zappee/gombi/issues/36): Create a new `Java 25 Runner` image.
-* [#37](https://github.com/zappee/gombi/issues/37): Create a new` Java 25 Postgres 18 Runner` image.
+* [#34](https://github.com/zappee/springbox/issues/34): Prometheus should automatically pull the hostnames to be monitored from Consul.
+* [#35](https://github.com/zappee/springbox/issues/35): Create a new `Java 25 LTS` image.
+* [#36](https://github.com/zappee/springbox/issues/36): Create a new `Java 25 Runner` image.
+* [#37](https://github.com/zappee/springbox/issues/37): Create a new` Java 25 Postgres 18 Runner` image.
 
 ## [0.6.2] - 11/Mar/2026
 
@@ -40,13 +39,13 @@ All notable changes to this project will be documented in this file.
 * Limit the memory usage of Docker containers and JVMs.
 * Improvement in the main docker documentation.
 * Fixing a Kafka configuration issue in the `docker-compose.yml` that prevented to connect an external Kafka tool to the cluster using the external Docker ports.
-* [#26](https://github.com/zappee/gombi/issues/26): Update the binaries used in the images.
-* [#27](https://github.com/zappee/gombi/issues/27): If the database has already been created, skip the creation during the first startup.
-* [#28](https://github.com/zappee/gombi/issues/28): Fix this issue: /etc/profile: line 27: export: -u: invalid option.
-* [#29](https://github.com/zappee/gombi/issues/29): Persistent Postgres data store using a Docker volume.
-* [#30](https://github.com/zappee/gombi/issues/30): Docker container does not start after `docker stop` and `docker start`.
-* [#31](https://github.com/zappee/gombi/issues/31): Make sure you shut down the Postgres server properly before stopping the container.
-* [#32](https://github.com/zappee/gombi/issues/32): The `shutdown_trap()` bash function in `shared.sh` script always shows zero execution time.
+* [#26](https://github.com/zappee/springbox/issues/26): Update the binaries used in the images.
+* [#27](https://github.com/zappee/springbox/issues/27): If the database has already been created, skip the creation during the first startup.
+* [#28](https://github.com/zappee/springbox/issues/28): Fix this issue: /etc/profile: line 27: export: -u: invalid option.
+* [#29](https://github.com/zappee/springbox/issues/29): Persistent Postgres data store using a Docker volume.
+* [#30](https://github.com/zappee/springbox/issues/30): Docker container does not start after `docker stop` and `docker start`.
+* [#31](https://github.com/zappee/springbox/issues/31): Make sure you shut down the Postgres server properly before stopping the container.
+* [#32](https://github.com/zappee/springbox/issues/32): The `shutdown_trap()` bash function in `shared.sh` script always shows zero execution time.
 
 #### Java projects
 * Simplify the creation of the Kafka producer and consumer Spring Beans.
@@ -82,7 +81,7 @@ If you have three or more nodes, you can use the default settings, otherwise you
 #### Java projects
 * Fix an exception handling problem in the `@MethodStatistics` annotation. Spring's `@ControllerAdvice` annotation did not work properly with custom exception classes. 
 * Update Java dependencies
-* Change Kafka bootstrap address in `remal-gombi-kafka-consumer` and `remal-gombi-kafka-producer` projects because we use Kafka 4.0.0 in KRaft mode from now
+* Change Kafka bootstrap address in `springbox-kafka-consumer` and `springbox-kafka-producer` projects because we use Kafka 4.0.0 in KRaft mode from now
 * Improve the documentation: add some nice Prometheus diagram
 * Improve code quality
 
@@ -108,7 +107,7 @@ If you have three or more nodes, you can use the default settings, otherwise you
 * Update `Hashicorp Vault` version from `1.15.0` to `1.18.4` in the `hcp-vault` image
 * Update `Grafana Enterprise` version from `11.4.0` to `11.5.1` in the `grafana` image
 * Update `Prometheus` version from `3.0.1` to `3.1.0` in the `prometheus` image
-* Fix a bug in the  `gombi.sh`
+* Fix a bug in the  `sb.sh`
 
 #### Java projects
 * Update dependency: `spring-boot-starter-parent` from version `3.4.1` to `3.4.2`
