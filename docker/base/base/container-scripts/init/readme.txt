@@ -1,2 +1,3 @@
-Scripts in `docker.init` directory run only ONCE during the container's very first boot (in alphabetical order).
-They will be skipped on subsequent container restarts. Scripts must be set as executable (`chmod +x *.sh`).
+Scripts in the docker.init directory run in alphabetical order only ONCE during
+the container's very first boot. They are skipped on all subsequent container
+restarts. Scripts must be executable (e.g., chmod +x *.sh).
