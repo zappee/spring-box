@@ -14,7 +14,7 @@
 #   purposes, provided you give appropriate credit and do not use the material
 #   for commercial gain.
 # ******************************************************************************
-export IMAGE_FROM="alpine:3.23.3"
+export IMAGE_FROM="alpine:3.24.2"
 export IMAGE_NAME="springbox-base"
 export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
 export IMAGE_DESCRIPTION="Remal Spring-Box - Base image"
