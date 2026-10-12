@@ -1,21 +1,25 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Script that blocks a Docker container from running and waits for the specified
-# container to be up and ready to serve client requests. This script can be used
-# as a new entrypoint of the container.
+# Orchestrates container startup dependencies by blocking execution until the
+# specified target container is fully up and ready to serve requests. Designed
+# to be used as a custom container entrypoint.
 #
-# For example:
-#        consul:
-#            image: remal-consul
-#            container_name: consul.${DOMAIN_NAME}
-#            hostname: consul.${DOMAIN_NAME}
-#            entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
-#            ...
+# Example:  image: springbox-consul
+#           container_name: consul.${DOMAIN_NAME}
+#           hostname: consul.${DOMAIN_NAME}
+#           entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
 #
-# Since:  February 2025
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Credits:
+#   Contact:   arnold.somogyi@gmail.com
+#   Copyright: Copyright (c) 2020-2026 Remal Software
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+#   This work is licensed under the Creative Commons Attribution-
+#   NonCommercial 4.0 International License. To view a copy of this license,
+#   visit: https://creativecommons.org
+#
+#   You are free to share and adapt the material for personal or hobby
+#   purposes, provided you give appropriate credit and do not use the material
+#   for commercial gain.
 # ******************************************************************************
 . /shared.sh
 wait_for_container "$1"

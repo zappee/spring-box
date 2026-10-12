@@ -1,20 +1,28 @@
 #!/bin/bash -e
 # ******************************************************************************
-# Functions that gets the value of a given key from Vault.
+# Functions to retrieve the value of a given key from HashiCorp Vault.
 #
 # Usage:
-#    $ get-value.sh <key> [debug]
-#    
-#    parameter 1: key
-#    parameter 2: optional, if 'debug' is used then detailed log will be shown
+#   get-value.sh <key> [debug]
+#
+# Arguments:
+#   <key>     The specific key path to retrieve from Vault.
+#   [debug]   Optional. If set to 'debug', verbose logs will be displayed.
 #
 # Example:
-#   $ get-value.sh "com.remal.host.pki"
+#   get-value.sh "com.remal.crm.customer-auto-registration"
 #
-# Since:  August 2023
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Credits:
+#   Contact:   arnold.somogyi@gmail.com
+#   Copyright: Copyright (c) 2020-2026 Remal Software
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+#   This work is licensed under the Creative Commons Attribution-
+#   NonCommercial 4.0 International License. To view a copy of this license,
+#   visit: https://creativecommons.org
+#
+#   You are free to share and adapt the material for personal or hobby
+#   purposes, provided you give appropriate credit and do not use the material
+#   for commercial gain.
 # ******************************************************************************
 
 # ----------------------------------------------------------------------------
