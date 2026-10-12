@@ -1,7 +1,7 @@
 services:
     # ----- user-services -------------------------------------------------------------------------
     user-service-1:
-        image: remal-java-25-postgres-runner:0.8.0
+        image: springbox-java-25-postgres-runner:0.8.0
         container_name: user-service-1.${DOMAIN_NAME}
         hostname: user-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -38,7 +38,7 @@ services:
             - user-service-1-data:/var/lib/postgresql/data
 
     user-service-2:
-        image: remal-java-25-postgres-runner:0.8.0
+        image: springbox-java-25-postgres-runner:0.8.0
         container_name: user-service-2.${DOMAIN_NAME}
         hostname: user-service-2.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -76,7 +76,7 @@ services:
 
     # ----- welcome-services ----------------------------------------------------------------------
     welcome-service-1:
-        image: remal-java-25-runner:0.8.0
+        image: springbox-java-25-runner:0.8.0
         container_name: welcome-service-1.${DOMAIN_NAME}
         hostname: welcome-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -108,7 +108,7 @@ services:
 
     # ----- kafka-producer-services ---------------------------------------------------------------
     kafka-producer-service-1:
-        image: remal-java-25-runner:0.8.0
+        image: springbox-java-25-runner:0.8.0
         container_name: kafka-producer-service-1.${DOMAIN_NAME}
         hostname: kafka-producer-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -149,7 +149,7 @@ services:
 
     # ----- kafka-consumer-services ---------------------------------------------------------------
     kafka-consumer-service-1:
-        image: remal-java-25-postgres-runner:0.8.0
+        image: springbox-java-25-postgres-runner:0.8.0
         container_name: kafka-consumer-service-1.${DOMAIN_NAME}
         hostname: kafka-consumer-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -183,6 +183,7 @@ services:
             - $HOME/Java/springbox/volumes/kafka-consumer-service-1/jar-to-run:/jar-to-run
             - $HOME/Java/springbox/volumes/kafka-consumer-service-1/logs:/logs
             - $HOME/Java/springbox/volumes/kafka-consumer-service-1/heap-dump:/heap-dump
+            - kafka-consumer-service-1-data:/var/lib/postgresql/data
         depends_on:
             kafka-4:
                 condition: service_healthy
@@ -195,7 +196,7 @@ services:
 
     # ----- hazelcast-counter-services ------------------------------------------------------------
     hazelcast-counter-service-1:
-        image: remal-java-25-runner:0.8.0
+        image: springbox-java-25-runner:0.8.0
         container_name: hazelcast-counter-service-1.${DOMAIN_NAME}
         hostname: hazelcast-counter-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -228,7 +229,7 @@ services:
             - $HOME/Java/springbox/volumes/hazelcast-counter-service-1/heap-dump:/heap-dump
 
     hazelcast-counter-service-2:
-        image: remal-java-25-runner:0.8.0
+        image: springbox-java-25-runner:0.8.0
         container_name: hazelcast-counter-service-2.${DOMAIN_NAME}
         hostname: hazelcast-counter-service-2.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -260,9 +261,9 @@ services:
             - $HOME/Java/springbox/volumes/hazelcast-counter-service-2/logs:/logs
             - $HOME/Java/springbox/volumes/hazelcast-counter-service-2/heap-dump:/heap-dump
 
-    # ----- Hashicorp Consul ----------------------------------------------------------------------
+    # ----- HashiCorp Consul ----------------------------------------------------------------------
     consul:
-        image: remal-consul-for-java-25:0.8.0
+        image: springbox-consul-for-java-25:0.8.0
         container_name: consul.${DOMAIN_NAME}
         hostname: consul.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
@@ -278,7 +279,7 @@ services:
 
     # ----- Grafana monitoring --------------------------------------------------------------------
     grafana:
-        image: remal-grafana:0.8.0
+        image: springbox-grafana:0.8.0
         container_name: grafana.${DOMAIN_NAME}
         hostname: grafana.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "prometheus.${DOMAIN_NAME}"]
@@ -295,7 +296,7 @@ services:
 
     # ----- Prometheus monitoring -----------------------------------------------------------------
     prometheus:
-        image: remal-prometheus:0.8.0
+        image: springbox-prometheus:0.8.0
         container_name: prometheus.${DOMAIN_NAME}
         hostname: prometheus.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -312,7 +313,7 @@ services:
 
     # ----- Hazelcast -----------------------------------------------------------------------------
     hazelcast-1:
-        image: remal-hazelcast:0.8.0
+        image: springbox-hazelcast:0.8.0
         container_name: hazelcast-1.${DOMAIN_NAME}
         hostname: hazelcast-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
@@ -328,7 +329,7 @@ services:
                     memory: 256M
 
     hazelcast-2:
-        image: remal-hazelcast:0.8.0
+        image: springbox-hazelcast:0.8.0
         container_name: hazelcast-2.${DOMAIN_NAME}
         hostname: hazelcast-2.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
@@ -624,7 +625,7 @@ services:
 
     # ----- Private Certificate Authority Server --------------------------------------------------
     pki:
-        image: remal-private-ca:0.8.0
+        image: springbox-private-ca:0.8.0
         container_name: pki.${DOMAIN_NAME}
         hostname: pki.${DOMAIN_NAME}
         ports:
@@ -645,4 +646,7 @@ volumes:
         driver: local
 
     user-service-2-data:
+        driver: local
+
+    kafka-consumer-service-1-data:
         driver: local

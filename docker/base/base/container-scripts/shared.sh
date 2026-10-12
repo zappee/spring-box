@@ -185,7 +185,7 @@ log_start() {
 # ------------------------------------------------------------------------------
 log_end() {
   local script_file="$1"
-  printf "%s | [DEBUG] <---- end of the \"%s\" script\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$script_file"
+  printf "%s | [DEBUG] <-- end of the \"%s\" script\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$script_file"
 }
 
 # ------------------------------------------------------------------------------

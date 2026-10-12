@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 #### Updates
 * [#44](https://github.com/zappee/springbox/issues/44): Rename the project name from Gombi to Spring-Box
+* [#45](https://github.com/zappee/springbox/issues/45): The project's main bash tool does not execute commands properly.
 * [#46](https://github.com/zappee/springbox/issues/46): Set the build number to 0.8.0
 
 #### Deprecated

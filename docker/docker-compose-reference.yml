@@ -1,7 +1,7 @@
 services:
     # ----- Private Certificate Authority Server -------------------------------
     pki:
-        image: remal-private-ca:0.8.0
+        image: springbox-private-ca:0.8.0
         container_name: pki.${DOMAIN_NAME}
         hostname: pki.${DOMAIN_NAME}
         ports:
@@ -15,7 +15,7 @@ services:
 
     # ----- LDAP Directory Server ----------------------------------------------
     ds:
-        image: remal-ds-7.3:0.8.0
+        image: springbox-ds-7.3:0.8.0
         container_name: ds.${DOMAIN_NAME}
         hostname: ds.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
@@ -37,7 +37,7 @@ services:
 
     # ----- Access Management Server -------------------------------------------
     forgerock-am:
-        image: remal-am-7.3:0.8.0
+        image: springbox-am-7.3:0.8.0
         container_name: am.${DOMAIN_NAME}
         hostname: am.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
@@ -56,7 +56,7 @@ services:
 
     # ----- Hazelcast ----------------------------------------------------------
     hazelcast:
-        image: remal-hazelcast:0.8.0
+        image: springbox-hazelcast:0.8.0
         container_name: hazelcast.${DOMAIN_NAME}
         hostname: hazelcast.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
@@ -67,9 +67,9 @@ services:
             - PKI_HOST=pki.${DOMAIN_NAME}
             - HAZELCAST_CLUSTER_NAME=springbox-dev
 
-    # ----- Hashicorp Vault ----------------------------------------------------
+    # ----- HashiCorp Vault ----------------------------------------------------
     vault:
-        image: remal-vault:0.8.0
+        image: springbox-vault:0.8.0
         container_name: vault.${DOMAIN_NAME}
         hostname: vault.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
@@ -79,9 +79,9 @@ services:
         environment:
             - PKI_HOST=pki.${DOMAIN_NAME}
 
-    # ----- Hashicorp Consul ---------------------------------------------------
+    # ----- HashiCorp Consul ---------------------------------------------------
     consul:
-        image: remal-consul-for-java-25:0.8.0
+        image: springbox-consul-for-java-25:0.8.0
         container_name: consul.${DOMAIN_NAME}
         hostname: consul.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
@@ -93,7 +93,7 @@ services:
 
     # ----- Monitoring: Prometheus ---------------------------------------------
     prometheus:
-        image: remal-prometheus:0.8.0
+        image: springbox-prometheus:0.8.0
         container_name: prometheus.${DOMAIN_NAME}
         hostname: prometheus.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -106,7 +106,7 @@ services:
 
     # ----- Monitoring: Grafana ------------------------------------------------
     grafana:
-        image: remal-grafana:0.8.0
+        image: springbox-grafana:0.8.0
         container_name: grafana.${DOMAIN_NAME}
         hostname: grafana.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -121,9 +121,9 @@ services:
 
     # ----- Services -----------------------------------------------------------
     echo-service:
-        image: remal-java-25-runner:0.8.0
-        container_name: welcome-service.hello.com
-        hostname: welcome-service.hello.com
+        image: springbox-java-25-runner:0.8.0
+        container_name: welcome-service.${DOMAIN_NAME}
+        hostname: welcome-service.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
         ports:
             - "14212:22"   # SSH
@@ -133,14 +133,14 @@ services:
             - PKI_HOST=pki.${DOMAIN_NAME}
             - CONSUL_SERVER_HOSTNAME=consul.${DOMAIN_NAME}
             - HAZELCAST_CLUSTER_NAME=springbox-dev
-            - HAZELCAST_CLUSTER_MEMBERS=hazelcast-1.hello.com, hazelcast-2.hello.com
+            - HAZELCAST_CLUSTER_MEMBERS=hazelcast-1.${DOMAIN_NAME}, hazelcast-2.${DOMAIN_NAME}
         volumes:
             - $HOME/dev/workspace/java/remal/volumes/service-hello:/jar-to-run
 
     user-service:
-        image: remal-java-25-postgres-runner:0.8.0
-        container_name: user-service.hello.com
-        hostname: user-service.hello.com
+        image: springbox-java-25-postgres-runner:0.8.0
+        container_name: user-service.${DOMAIN_NAME}
+        hostname: user-service.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
         ports:
             - "14112:22"   # SSH
@@ -151,7 +151,7 @@ services:
             - PKI_HOST=pki.${DOMAIN_NAME}
             - CONSUL_SERVER_HOSTNAME=consul.${DOMAIN_NAME}
             - HAZELCAST_CLUSTER_NAME=springbox-dev
-            - HAZELCAST_CLUSTER_MEMBERS="hazelcast-1.hello.com, hazelcast-2.hello.com"
+            - HAZELCAST_CLUSTER_MEMBERS="hazelcast-1.${DOMAIN_NAME}, hazelcast-2.${DOMAIN_NAME}"
             - START_DB=true
         volumes:
             - $HOME/dev/workspace/java/remal/volumes/service-user:/jar-to-run

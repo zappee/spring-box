@@ -1,13 +1,20 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Environment file to define variables used during the Docker image build.
+# Set environment variables, used during the Docker image build process.
 #
-# Since:  March 2026
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Credits:
+#   Contact:   arnold.somogyi@gmail.com
+#   Copyright: Copyright (c) 2020-2026 Remal Software
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+#   This work is licensed under the Creative Commons Attribution-
+#   NonCommercial 4.0 International License. To view a copy of this license,
+#   visit: https://creativecommons.org
+#
+#   You are free to share and adapt the material for personal or hobby
+#   purposes, provided you give appropriate credit and do not use the material
+#   for commercial gain.
 # ******************************************************************************
-export IMAGE_FROM="remal-java-25-runner:$1"
-export IMAGE_NAME="remal-java-25-postgres-runner"
-export IMAGE_AUTHOR="Arnold SOMOGYI <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Java 25 Runner with Postgres 18 database server"
+export IMAGE_FROM="springbox-java-25-runner:$1"
+export IMAGE_NAME="springbox-java-25-postgres-runner"
+export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
+export IMAGE_DESCRIPTION="Remal Spring-Box - Java 25 Runner + PostgreSQL Runner image"
