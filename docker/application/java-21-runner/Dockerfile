@@ -1,20 +1,23 @@
 # ******************************************************************************
-# Remal Java Executable JAR runner image build file.
-# This container is optimalized for running a Spring-Boot JAR.
+# Remal Spring Box OpenJDK 21 Runner Docker image assemble and build file.
 #
-# Since:  February 2024
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Credits:
+#   Contact:   arnold.somogyi@gmail.com
+#   Copyright: Copyright (c) 2020-2026 Remal Software
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+#   This work is licensed under the Creative Commons Attribution-
+#   NonCommercial 4.0 International License. To view a copy of this license,
+#   visit: https://creativecommons.org
+#
+#   You are free to share and adapt the material for personal or hobby
+#   purposes, provided you give appropriate credit and do not use the material
+#   for commercial gain.
 # ******************************************************************************
 ARG IMAGE_FROM="unknown"
 ARG BUILD_TYPE="fat"
 FROM ${IMAGE_FROM} AS base
 
-# port 22: SSH
 EXPOSE 22/tcp
-
-# port 8500: HashiCorp Consul
 EXPOSE 8500/tcp
 
 ARG IMAGE_NAME="N/A"

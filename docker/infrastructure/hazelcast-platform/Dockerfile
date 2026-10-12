@@ -1,16 +1,17 @@
 # ******************************************************************************
-# Remal Hazelcast Platform Docker image build file.
+# Remal Spring Box Hazelcast Plattform Docker image assemble and build file.
 #
-# Since:  August 2024
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Credits:
+#   Contact:   arnold.somogyi@gmail.com
+#   Copyright: Copyright (c) 2020-2026 Remal Software
 #
-# Hazelcast ports:
-#    -  5555: hazelcast public address of a member
-#    -  5701: hazelcast uses to communicate between cluster members
-#    - 54327: used to discover Hazelcast members
-#    - 34500: hazelcast outbound-port
+#   This work is licensed under the Creative Commons Attribution-
+#   NonCommercial 4.0 International License. To view a copy of this license,
+#   visit: https://creativecommons.org
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+#   You are free to share and adapt the material for personal or hobby
+#   purposes, provided you give appropriate credit and do not use the material
+#   for commercial gain.
 # ******************************************************************************
 ARG IMAGE_FROM="unknown"
 ARG BUILD_TYPE="fat"

@@ -1,5 +1,5 @@
 # *******************************************************************************
-# Remal Spring-Box Base Docker image build file.
+# Remal Spring Box Base Docker image assemble and build file.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
