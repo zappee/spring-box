@@ -1,4 +1,18 @@
 /*
+ * Copyright (c) 2020-2026 Remal Software. All rights reserved.
+ * Contact: arnold.somogyi@gmail.com
+ *
+ * This work is licensed under the Creative Commons Attribution-
+ * NonCommercial 4.0 International License. To view a copy of this license,
+ * visit: https://creativecommons.org
+ *
+ * You are free to share and adapt the material for personal or hobby
+ * purposes, provided you give appropriate credit and do not use the material
+ * for commercial gain.
+ */
+
+
+/*
  *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
  *
  *  Since:  February 2024
@@ -16,6 +30,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Custom annotation to log the method execution time.
+ *
+ * @author Arnold Somogyi <arnold.somogyi@gmail.com>
+ */
 @Configuration
 public class RestTemplateConfiguration {
 

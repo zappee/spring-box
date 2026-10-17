@@ -1,12 +1,14 @@
 /*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+ * Copyright (c) 2020-2026 Remal Software. All rights reserved.
+ * Contact: arnold.somogyi@gmail.com
  *
- *  Since:  January 2025
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+ * This work is licensed under the Creative Commons Attribution-
+ * NonCommercial 4.0 International License. To view a copy of this license,
+ * visit: https://creativecommons.org
  *
- *  Description:
- *     This exception is thrown when a search operation result returns an
- *     empty/null element.
+ * You are free to share and adapt the material for personal or hobby
+ * purposes, provided you give appropriate credit and do not use the material
+ * for commercial gain.
  */
 package com.remal.springbox.commons.exception;
 
@@ -14,6 +16,15 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
 
+/**
+ * Thrown when a search operation returns an empty result or a {@code null}
+ * element.
+ *
+ * <p>This exception indicates that the lookup succeeded structurally but
+ * failed to find any matching records.</p>
+ *
+ * @author Arnold Somogyi <arnold.somogyi@gmail.com>
+ */
 @Slf4j
 public class EntryNotExistException extends RuntimeException {
 

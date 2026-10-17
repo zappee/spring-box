@@ -1,25 +1,35 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# File copier for Remal Spring Box project.
+# File utility for the Remal Spring Box.
 #
-# The install binary files are big so we keep these files out of the source code
-# repository. In the Git repo we only keep zero length marker files as
-# placeholders to indicate the original file. This script updates that files.
+# Because installer binaries are too large for source control, the Git repository
+# stores only zero-byte placeholder files to mark their locations. This script
+# synchronizes and updates those files based on the specified operational mode.
 #
-# Before the usage the REMAL_BINARY_HOME and PROJECT_HOME variables must be set
-# properly.
+# Prerequisites:
+#   The REMAL_BINARY_HOME and PROJECT_HOME environment variables must be set
+#   correctly prior to execution.
 #
 # Usage:
-#    ./update-binaries.sh [0|1]
+#   ./update-binaries.sh [mode]
+#
 # Arguments:
-#    0: overwrites the binary files with zero length marker files
-#    1: copy the binaries from the source to the target directories
-#    default: 0
+#   0        Placeholder mode: Overwrites large binary files with zero-byte markers.
+#   1        Restore mode: Copies the binaries from the source to Docker image build
+#            directories.
+#   Default: 0
 #
-# Since:  February 2024
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Credits:
+#   Contact:   arnold.somogyi@gmail.com
+#   Copyright: Copyright (c) 2020-2026 Remal Software
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+#   This work is licensed under the Creative Commons Attribution-
+#   NonCommercial 4.0 International License. To view a copy of this license,
+#   visit: https://creativecommons.org
+#
+#   You are free to share and adapt the material for personal or hobby
+#   purposes, provided you give appropriate credit and do not use the material
+#   for commercial gain.
 # ******************************************************************************
 REMAL_BINARY_HOME="$HOME/Applications/tomcat/apache-tomcat-10.1.33/webapps/docker-build"
 PROJECT_HOME="$HOME/Java/springbox"

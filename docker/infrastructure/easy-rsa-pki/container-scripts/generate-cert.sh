@@ -1,20 +1,30 @@
 #!/bin/bash
 # ******************************************************************************
-# Remal Certificate generator.
-#
-# Since:  March 2023
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Certificate generator.
 #
 # Usage: generate-cert.sh <cert-type> <domain> [san]
-#    cert-type: server, client, serverClient
 #
-#    domain:    Name of the host machine where the certificate will be used,
-#               for example pki.hello.com
+# Arguments:
+#   <cert-type>  The type of certificate to issue.
+#                Allowed values: server, client, serverClient
 #
-#    san:       Subject Alternative Name of the certificate, optional
-#               e.g. "DNS:pki.hello.com,DNS:localhost,IP:127.0.0.1"
+#   <domain>     The primary fully qualified domain name (FQDN) where the
+#                certificate will be deployed (e.g., pki.remal.com).
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+#   [san]        Optional Subject Alternative Names (SAN).
+#                Format example: "DNS:pki.hello.com,DNS:localhost,IP:127.0.0.1"
+#
+# Credits:
+#   Contact:   arnold.somogyi@gmail.com
+#   Copyright: Copyright (c) 2020-2026 Remal Software
+#
+#   This work is licensed under the Creative Commons Attribution-
+#   NonCommercial 4.0 International License. To view a copy of this license,
+#   visit: https://creativecommons.org
+#
+#   You are free to share and adapt the material for personal or hobby
+#   purposes, provided you give appropriate credit and do not use the material
+#   for commercial gain.
 # ******************************************************************************
 . /shared.sh
 

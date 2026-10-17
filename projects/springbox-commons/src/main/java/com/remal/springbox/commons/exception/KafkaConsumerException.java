@@ -1,11 +1,14 @@
 /*
- * Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+ * Copyright (c) 2020-2026 Remal Software. All rights reserved.
+ * Contact: arnold.somogyi@gmail.com
  *
- * Since:  Jun 2025
- * Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+ * This work is licensed under the Creative Commons Attribution-
+ * NonCommercial 4.0 International License. To view a copy of this license,
+ * visit: https://creativecommons.org
  *
- * Description:
- *    Processing incoming Kafka message error.
+ * You are free to share and adapt the material for personal or hobby
+ * purposes, provided you give appropriate credit and do not use the material
+ * for commercial gain.
  */
 package com.remal.springbox.commons.exception;
 
@@ -14,6 +17,11 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
 
+/**
+ * Thrown when an error occurs while processing an incoming Kafka message.
+ *
+ * @author Arnold Somogyi <arnold.somogyi@gmail.com>
+ */
 @Slf4j
 public class KafkaConsumerException extends RuntimeException {
 

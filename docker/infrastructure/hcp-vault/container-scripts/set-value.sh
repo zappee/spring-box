@@ -1,21 +1,29 @@
 #!/bin/bash -e
 # ******************************************************************************
-# Functions that sets a key/value in Vault.
+# Functions to store a key-value pair in HashiCorp Vault.
 #
 # Usage:
-#    $ set-value.sh <key> <value> [debug]
-#    
-#    parameter 1: key
-#    parameter 2: value
-#    parameter 3: optional, if 'debug' is used then detailed log will be shown
+#   set-value.sh <key> <value> [debug]
+#
+# Arguments:
+#   <key>     The specific key path to update or create in Vault.
+#   <value>   The value to assign to the key.
+#   [debug]   Optional. If set to 'debug', verbose logs will be displayed.
 #
 # Example:
-#   $ set-value.sh "com.remal.host.pki" "com.remal.pki" debug
+#   $ set-value.sh "com.remal.crm.customer-auto-registration" "true" debug
 #
-# Since:  August 2023
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Credits:
+#   Contact:   arnold.somogyi@gmail.com
+#   Copyright: Copyright (c) 2020-2026 Remal Software
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+#   This work is licensed under the Creative Commons Attribution-
+#   NonCommercial 4.0 International License. To view a copy of this license,
+#   visit: https://creativecommons.org
+#
+#   You are free to share and adapt the material for personal or hobby
+#   purposes, provided you give appropriate credit and do not use the material
+#   for commercial gain.
 # ******************************************************************************
 
 # ----------------------------------------------------------------------------

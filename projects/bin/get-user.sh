@@ -1,6 +1,6 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# HTTP request executer.
+# Execute an API smoke test request.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com

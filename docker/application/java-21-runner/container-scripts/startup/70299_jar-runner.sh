@@ -1,17 +1,24 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Java JAR file runner.
+# JAR file executor.
 #
-# WARNING: Do not change the name of this file.
-# The prefix in the filename ensures, that the JAR-Runner will run at the end of
-# the startup flow. This helps for the container to run all the script files
-# from the 'startup' directory first. For example, it ensure that the Postgres
-# database server will be started before the Java application.
+# WARNING: Do not rename this file.
+# The alphanumeric prefix in the filename enforces execution order, ensuring
+# this script runs at the very end of the container startup sequence. This
+# guarantees that all prerequisite scripts in the 'startup' directory (such as
+# starter scripts) complete before the Java application startup.
 #
-# Since:  February 2024
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Credits:
+#   Contact:   arnold.somogyi@gmail.com
+#   Copyright: Copyright (c) 2020-2026 Remal Software
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+#   This work is licensed under the Creative Commons Attribution-
+#   NonCommercial 4.0 International License. To view a copy of this license,
+#   visit: https://creativecommons.org
+#
+#   You are free to share and adapt the material for personal or hobby
+#   purposes, provided you give appropriate credit and do not use the material
+#   for commercial gain.
 # ******************************************************************************
 . /shared.sh
 

@@ -1,13 +1,20 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# The kv-importer script is used to import key/value pairs from a properties
-# file. This script reads the *.properties file during the Docker container
-# startup and adds the missing KV pairs into Hashicorp Consul.
+# Imports key-value pairs from a properties file into HashiCorp Consul.
+# It reads the config.properties file during container startup and adds any
+# missing key-value pairs into HashiCorp Consul.
 #
-# Since:  March 2026
-# Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+# Credits:
+#   Contact:   arnold.somogyi@gmail.com
+#   Copyright: Copyright (c) 2020-2026 Remal Software
 #
-# Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+#   This work is licensed under the Creative Commons Attribution-
+#   NonCommercial 4.0 International License. To view a copy of this license,
+#   visit: https://creativecommons.org
+#
+#   You are free to share and adapt the material for personal or hobby
+#   purposes, provided you give appropriate credit and do not use the material
+#   for commercial gain.
 # ******************************************************************************
 . /shared.sh
 
@@ -80,7 +87,7 @@ extract_file() {
     #     9: the specified zip files were not found
     #    11: no matching files were found
     if [[ -z "${fie_to_extract_2-}"  ]]; then
-      printf "%s | [DEBUG] unpacking the \"%s\" file from \"%s\" to \"%s\"...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fie_to_extract_1" "$fie_to_extract_2" "$archive_file" "$target_dir"
+      printf "%s | [DEBUG] unpacking \"%s\" and \"%s\" files from \"%s\" to \"%s\"...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fie_to_extract_1" "$fie_to_extract_2" "$archive_file" "$target_dir"
       unzip -j "$archive_file" "$fie_to_extract_1" -d "$target_dir" || (exit "$(($? == 11 ? 0 : $?))")
     else
       printf "%s | [DEBUG] unpacking the \"%s\" and \"%s\" files from \"%s\" to \"%s\"...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fie_to_extract_1" "$fie_to_extract_2" "$archive_file" "$target_dir"
@@ -135,8 +142,10 @@ get_first_jar() {
 
   printf "%s | [INFO]  getting the first JAR file from \"%s\" directory...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$jars_home"
 
-  local files number_of_files
-  files=($(find "$jars_home" -type f -name "*.jar"))
+  local -a files
+  mapfile -d '' files < <(find "$jars_home" -type f -name "*.jar" -print0)
+
+  local number_of_files
   number_of_files=${#files[@]}
   printf "%s | [DEBUG] found %s file(s) in the \"%s\" directory\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$number_of_files" "$jars_home"
 

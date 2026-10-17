@@ -1,20 +1,14 @@
 /*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+ * Copyright (c) 2020-2026 Remal Software. All rights reserved.
+ * Contact: arnold.somogyi@gmail.com
  *
- *  Since:  February 2025
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+ * This work is licensed under the Creative Commons Attribution-
+ * NonCommercial 4.0 International License. To view a copy of this license,
+ * visit: https://creativecommons.org
  *
- *  Description:
- *     Hazelcast Java demo: Near cache writer Java application.
- *
- *     The Near Cache ID refers to the identifier of a Near Cache configuration. When
- *     you create a NearCacheConfig using new NearCacheConfig(id), you are defining a
- *     caching layer that sits on the client side, allowing for faster access to frequently
- *     used data.
- *     The Near Cache ID is used to configure and manage the Near Cache associated with a
- *     specific distributed map. The Near Cache stores a local copy of the data for quick
- *     access, reducing the need to fetch data from the distributed map for frequently
- *     accessed entries.
+ * You are free to share and adapt the material for personal or hobby
+ * purposes, provided you give appropriate credit and do not use the material
+ * for commercial gain.
  */
 package com.remal.springbox.demo.hazelcast;
 
@@ -27,6 +21,20 @@ import com.remal.springbox.demo.hazelcast.commons.MapKeyGenerator;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Hazelcast near cache demo application.
+ *
+ * <p></p>The Near Cache ID refers to the identifier of a Near Cache configuration.
+ * When you create a NearCacheConfig using new NearCacheConfig(id), you are
+ * defining a caching layer that sits on the client side, allowing for faster
+ * access to frequently used data.
+ * The Near Cache ID is used to configure and manage the Near Cache associated
+ * with a specific distributed map. The Near Cache stores a local copy of the
+ * data for quick access, reducing the need to fetch data from the distributed
+ * map for frequently accessed entries.</p>
+ *
+ * @author Arnold Somogyi <arnold.somogyi@gmail.com>
+ */
 public class NearCacheUpdater {
 
     public static void main(String[] args) {

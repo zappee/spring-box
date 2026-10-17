@@ -1,26 +1,14 @@
 /*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+ * Copyright (c) 2020-2026 Remal Software. All rights reserved.
+ * Contact: arnold.somogyi@gmail.com
  *
- *  Since:  February 2025
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+ * This work is licensed under the Creative Commons Attribution-
+ * NonCommercial 4.0 International License. To view a copy of this license,
+ * visit: https://creativecommons.org
  *
- *  Description:
- *     Hazelcast Java demo: Near cache reader Java application.
- *
- *     The Near Cache ID refers to the identifier of a Near Cache configuration. When
- *     you create a NearCacheConfig using new NearCacheConfig(id), you are defining a
- *     caching layer that sits on the client side, allowing for faster access to frequently
- *     used data. The Near Cache ID is used to configure and manage the Near Cache
- *     associated with a specific distributed map. The Near Cache stores a local copy of the
- *     data for quick access, reducing the need to fetch data from the distributed map for
- *     frequently accessed entries.
- *
- *     The map ID refers to the identifier of a distributed map in Hazelcast. When you
- *     create or access a map using HazelcastInstance.getMap(id), you are interacting with a
- *     distributed data structure that is managed by the Hazelcast cluster. The map ID is
- *     used to perform operations on the distributed map, such as adding, retrieving, or
- *     removing entries. The data in the map is stored across the nodes in the Hazelcast
- *     cluster, allowing for distributed data management and scalability.
+ * You are free to share and adapt the material for personal or hobby
+ * purposes, provided you give appropriate credit and do not use the material
+ * for commercial gain.
  */
 package com.remal.springbox.demo.hazelcast;
 
@@ -38,6 +26,23 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Hazelcast near cache demo application.
+ *
+ * <p><strong>Near Cache ID:</strong> Represents the unique name of a Near
+ * Cache configuration. When initializing a {@code NearCacheConfig(id)}, you
+ * establish a localized client-side caching layer that accelerates access to
+ * frequently read entries. This identifier binds the specific Near Cache
+ * instance to its corresponding distributed map.</p>
+ *
+ * <p><strong>Map ID:</strong> Refers to the identifier of a distributed map
+ * instance in Hazelcast. Invoking {@code HazelcastInstance.getMap(id)}
+ * retrieves a cluster-managed, highly scalable data structure. Data within
+ * this map is partitioned across cluster nodes to guarantee high availability
+ * and fault tolerance.</p>
+ *
+ * @author Arnold Somogyi <arnold.somogyi@gmail.com>
+ */
 public class NearCacheReader {
 
      public static void main(String[] args) {
@@ -87,7 +92,7 @@ public class NearCacheReader {
         timer.scheduleAtFixedRate(task, 0, 1000);
     }
 
-    private static final EntryAdapter<String, Integer> entryAdapter = new EntryAdapter<String, Integer>() {
+    private static final EntryAdapter<String, Integer> entryAdapter = new EntryAdapter<>() {
         @Override
         public void entryAdded(EntryEvent<String, Integer> event) {
             System.out.printf("[%s] cluster event | a new entry added {map-id: \"%s\", key: \"%s\", value: %s}\n",
