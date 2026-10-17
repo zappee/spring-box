@@ -1,11 +1,14 @@
 /*
- * Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
+ * Copyright (c) 2020-2026 Remal Software. All rights reserved.
+ * Contact: arnold.somogyi@gmail.com
  *
- * Since:  March 2025
- * Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
+ * This work is licensed under the Creative Commons Attribution-
+ * NonCommercial 4.0 International License. To view a copy of this license,
+ * visit: https://creativecommons.org
  *
- * Description:
- *    Configuration of the JSON serializer.
+ * You are free to share and adapt the material for personal or hobby
+ * purposes, provided you give appropriate credit and do not use the material
+ * for commercial gain.
  */
 package com.remal.springbox.commons.spring.config;
 
@@ -15,6 +18,11 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * JSON serializer configuration.
+ *
+ * @author Arnold Somogyi <arnold.somogyi@gmail.com>
+ */
 @Configuration
 public class JacksonConfiguration {
 

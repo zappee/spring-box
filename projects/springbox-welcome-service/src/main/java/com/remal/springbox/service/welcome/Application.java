@@ -1,4 +1,18 @@
 /*
+ * Copyright (c) 2020-2026 Remal Software. All rights reserved.
+ * Contact: arnold.somogyi@gmail.com
+ *
+ * This work is licensed under the Creative Commons Attribution-
+ * NonCommercial 4.0 International License. To view a copy of this license,
+ * visit: https://creativecommons.org
+ *
+ * You are free to share and adapt the material for personal or hobby
+ * purposes, provided you give appropriate credit and do not use the material
+ * for commercial gain.
+ */
+
+
+/*
  *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
  *
  *  Since:  February 2024
@@ -15,6 +29,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 
+/**
+ * Custom annotation to log the method execution time.
+ *
+ * @author Arnold Somogyi <arnold.somogyi@gmail.com>
+ */
 @SpringBootApplication
 @EnableDiscoveryClient
 @ComponentScan({"com.remal.springbox.service.welcome", "com.remal.springbox.commons.spring"})
