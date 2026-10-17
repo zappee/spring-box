@@ -20,7 +20,11 @@ This is the official _Remal Spring-Box_ base Docker image, designed to provide c
 * **22 (TCP):** Secure Shell (SSH) management access.
 * **1331 (TCP):** Readiness signal port
 
-## 4) License
+## License and Copyright
+Contact:   arnold.somogyi@gmail.com
+
+Copyright: Copyright (c) 2020-2026 Remal Software
+
 This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License.
 To view a copy of this license, visit: https://creativecommons.org
 

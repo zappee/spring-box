@@ -228,3 +228,13 @@ The Remal slim image build process will download the files on-the-fly from your 
 * 70200: Java 21 + Postgres
 * 70300: Java 25 runner
 * 70400: Java 25 + Postgres
+
+## License and Copyright
+Contact:   arnold.somogyi@gmail.com
+
+Copyright: Copyright (c) 2020-2026 Remal Software
+
+This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License.
+To view a copy of this license, visit: https://creativecommons.org
+
+You are free to share and adapt the material for personal or hobby purposes, provided you give appropriate credit and do not use the material for commercial gain.
