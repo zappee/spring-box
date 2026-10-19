@@ -10,17 +10,6 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- * Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- * Since:  July 2025
- * Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- * Description:
- *    Kafka consumer configuration.
- */
 package com.remal.springbox.service.message.producer.configuration;
 
 import com.remal.springbox.commons.spring.kafka.KafkaCreateTopics;
@@ -33,7 +22,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.KafkaAdmin;
 
 /**
- * Custom annotation to log the method execution time.
+ * Kafka topic creation.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */
@@ -43,7 +32,7 @@ import org.springframework.kafka.core.KafkaAdmin;
 @EnableKafka
 public class KafkaTopicConfiguration extends KafkaCreateTopics {
 
-    @Value("${kafka.bootstrap.servers:kafka-1.hello.com:9092, kafka-2.hello.com:9092}")
+    @Value("${kafka.bootstrap.servers}")
     private String bootstrapServers;
 
     // topic

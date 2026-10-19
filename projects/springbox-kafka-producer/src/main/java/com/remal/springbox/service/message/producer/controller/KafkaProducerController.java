@@ -10,17 +10,6 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- *  Since:  January 2025
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- *  Description:
- *     Spring REST endpoint.
- */
 package com.remal.springbox.service.message.producer.controller;
 
 import com.remal.springbox.commons.model.Event;
@@ -42,7 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 /**
- * Custom annotation to log the method execution time.
+ * REST endpoint implementation.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */

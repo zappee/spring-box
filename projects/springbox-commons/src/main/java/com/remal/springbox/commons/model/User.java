@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * Plain Old Java Object (POJO) serving as a simple data container.
+ * Plain Java Object (POJO) serving as a simple data container.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */

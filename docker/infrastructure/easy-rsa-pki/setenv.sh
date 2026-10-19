@@ -17,4 +17,4 @@
 export IMAGE_FROM="springbox-openjdk-17:$1"
 export IMAGE_NAME="springbox-private-ca"
 export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Spring-Box - Private Certificate Authority server"
+export IMAGE_DESCRIPTION="Remal Spring Box - Private Certificate Authority server"

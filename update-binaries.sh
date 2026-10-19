@@ -32,7 +32,7 @@
 #   for commercial gain.
 # ******************************************************************************
 REMAL_BINARY_HOME="$HOME/Applications/tomcat/apache-tomcat-10.1.33/webapps/docker-build"
-PROJECT_HOME="$HOME/Java/springbox"
+PROJECT_HOME="$HOME/Java/spring-box"
 
 BINARIES=(
   "DS-7.3.0.zip;docker/infrastructure/forgerock-ds/bin"
@@ -40,8 +40,7 @@ BINARIES=(
   "AM-SSOConfiguratorTools-5.1.3.18.zip;docker/infrastructure/forgerock-am/bin"
   "apache-tomcat-9.0.71.tar.gz;docker/infrastructure/tomcat-9/bin"
   "EasyRSA-3.2.5.tgz;docker/infrastructure/easy-rsa-pki/bin"
-  "consul_1.22.5_linux_386.zip;docker/infrastructure/hcp-consul-for-java-21/bin"
-  "consul_1.22.5_linux_386.zip;docker/infrastructure/hcp-consul-for-java-25/bin"
+  "consul_1.22.5_linux_386.zip;docker/infrastructure/hcp-consul/bin"
   "vault_1.21.4_linux_386.zip;docker/infrastructure/hcp-vault/bin"
   "prometheus-3.10.0.linux-amd64.tar.gz;docker/monitoring/prometheus/bin"
   "grafana-enterprise_12.4.0_22325204712_linux_amd64.tar.gz;docker/monitoring/grafana/bin"

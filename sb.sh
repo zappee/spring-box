@@ -1,6 +1,6 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Remal Spring-Box utility.
+# Remal Spring Box utility.
 #
 # Usage: sb.sh
 #        sb.sh <task><task>...
@@ -32,9 +32,8 @@ LABEL_PKI="PKI Private Certificate Authority (CA);infrastructure/easy-rsa-pki"
 LABEL_TOMCAT_9="Apache Tomcat 9;infrastructure/tomcat-9"
 LABEL_FORGEROCK_DS="ForgeRock Directory Server;infrastructure/forgerock-ds"
 LABEL_FORGEROCK_AM="ForgeRock Access Management;infrastructure/forgerock-am"
+LABEL_HCP_CONSUL="HashiCorp Consul;infrastructure/hcp-consul"
 LABEL_HCP_VAULT="HashiCorp Vault;infrastructure/hcp-vault"
-LABEL_HCP_CONSUL_21="HashiCorp Consul for Java 21;infrastructure/hcp-consul-for-java-21"
-LABEL_HCP_CONSUL_25="HashiCorp Consul for Java 25;infrastructure/hcp-consul-for-java-25"
 LABEL_HAZELCAST_PLATFORM="Hazelcast Platform;infrastructure/hazelcast-platform"
 LABEL_PROMETHEUS="Prometheus;monitoring/prometheus"
 LABEL_GRAFANA="Grafana;monitoring/grafana"
@@ -45,12 +44,14 @@ LABEL_JAVA_25_RUNNER="Java 25 Runner;application/java-25-runner"
 LABEL_JAVA_25_POSTGRES_RUNNER="Java 25 with Postgres Runner;application/java-25-postgres-runner"
 
 # ------------------------------------------------------------------------------
-# Initialize a directory used for sharing files between the container and the
-# host machine.
+# Initializes a shared host-to-container directory for file exchange.
 #
-# Parameters:
-#    param 1: java project name
-#    param 2: docker container name
+# Creates the directory on the host machine if it does not exist and ensures
+# appropriate permissions for container volume binding.
+#
+# Arguments:
+#    $1: The name of the Java project.
+#    $2: The Docker container name.
 # ------------------------------------------------------------------------------
 function init_docker_volume {
   local _java_project="$1"
@@ -95,14 +96,9 @@ function demo_start {
   local _environment_file="$WORKSPACE/$_relative_path_to_src/$ENVIRONMENT_FILE"
   local _compose_file="$WORKSPACE/$_relative_path_to_src/docker-compose.yml"
 
-  local _style_reset="\033[0m"
-  local _style_text="\e[38;5;226m"
-  local _separator="--------------------------------------------------------------------------------"
-  printf "%b%s\n" "$_style_text" "$_separator"
   printf "%s\n" "Starting the Demo Docker stack in the background..."
   printf "   environment file: %s\n" "$_environment_file"
   printf "   docker-compose:   %s\n" "$_compose_file"
-  printf "%s%b\n" "$_separator" "$_style_reset"
 
   init_docker_volume "springbox-user-service" "user-service-1"
   init_docker_volume "springbox-user-service" "user-service-2"
@@ -338,10 +334,9 @@ function show_help() {
     print_subtask "c2" "$(get_name "$LABEL_TOMCAT_9")"
     print_subtask "c3" "$(get_name "$LABEL_FORGEROCK_DS")"
     print_subtask "c4" "$(get_name "$LABEL_FORGEROCK_AM")"
-    print_subtask "c5" "$(get_name "$LABEL_HCP_VAULT")"
-    print_subtask "c6" "$(get_name "$LABEL_HCP_CONSUL_21")"
-    print_subtask "c7" "$(get_name "$LABEL_HCP_CONSUL_25")"
-    print_subtask "c8" "$(get_name "$LABEL_HAZELCAST_PLATFORM")"
+    print_subtask "c5" "$(get_name "$LABEL_HCP_CONSUL")"
+    print_subtask "c6" "$(get_name "$LABEL_HCP_VAULT")"
+    print_subtask "c7" "$(get_name "$LABEL_HAZELCAST_PLATFORM")"
     print_task "d" "Monitoring"
     print_subtask "d1" "$(get_name "$LABEL_PROMETHEUS")"
     print_subtask "d2" "$(get_name "$LABEL_GRAFANA")"
@@ -434,7 +429,7 @@ while [ -n "$TASKS" ]; do
   case "$TOKEN" in
     a) FINAL_TASK_LIST+=( "a1" ) ;;
     b) FINAL_TASK_LIST+=( "b1" "b2" "b3" "b4" ) ;;
-    c) FINAL_TASK_LIST+=( "c1" "c2" "c3" "c4" "c5" "c6" "c7" "c8" ) ;;
+    c) FINAL_TASK_LIST+=( "c1" "c2" "c3" "c4" "c5" "c6" "c7" ) ;;
     d) FINAL_TASK_LIST+=( "d1" "d2" ) ;;
     e) FINAL_TASK_LIST+=( "e1" "e2" "e3" "e4" "e5" ) ;;
     s) FINAL_TASK_LIST+=( "s1" ) ;;
@@ -457,10 +452,9 @@ for TASK in "${FINAL_TASK_LIST[@]}"; do
     c2) docker_image_build "$LABEL_TOMCAT_9" ;;
     c3) docker_image_build "$LABEL_FORGEROCK_DS" ;;
     c4) docker_image_build "$LABEL_FORGEROCK_AM" ;;
-    c5) docker_image_build "$LABEL_HCP_VAULT" ;;
-    c6) docker_image_build "$LABEL_HCP_CONSUL_21" ;;
-    c7) docker_image_build "$LABEL_HCP_CONSUL_25" ;;
-    c8) docker_image_build "$LABEL_HAZELCAST_PLATFORM" ;;
+    c5) docker_image_build "$LABEL_HCP_CONSUL" ;;
+    c6) docker_image_build "$LABEL_HCP_VAULT" ;;
+    c7) docker_image_build "$LABEL_HAZELCAST_PLATFORM" ;;
     d1) docker_image_build "$LABEL_PROMETHEUS" ;;
     d2) docker_image_build "$LABEL_GRAFANA" ;;
     e1) docker_image_build "$LABEL_JAVA_21_RUNNER" ;;

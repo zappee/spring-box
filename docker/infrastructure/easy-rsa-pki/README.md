@@ -94,7 +94,7 @@ $ $EASYRSA_HOME/generate-cert.sh tomcat /tmp
 
 ## 5) Certificate info
 ~~~
-$ openssl x509 -text -noout -in /opt/easy-rsa/pki/private/consul.hello.com.p12
+$ openssl x509 -text -noout -in /opt/easy-rsa/pki/private/consul.remal.com.p12
 $ openssl ec -text -noout -in dc1-client-consul-key.pem 
 ~~~
 

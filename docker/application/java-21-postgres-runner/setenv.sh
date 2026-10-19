@@ -17,4 +17,4 @@
 export IMAGE_FROM="springbox-java-21-runner:$1"
 export IMAGE_NAME="springbox-java-21-postgres-runner"
 export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Spring-Box - Java 21 + PostgreSQL Rummer image"
+export IMAGE_DESCRIPTION="Remal Spring Box - Java 21 + PostgreSQL Rummer image"

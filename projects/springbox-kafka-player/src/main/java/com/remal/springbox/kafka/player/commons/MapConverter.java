@@ -10,17 +10,6 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- *  Since:  February 2025
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- *  Description:
- *     java.util.Map converters.
- */
 package com.remal.springbox.kafka.player.commons;
 
 import lombok.Getter;
@@ -29,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.Map;
 
 /**
- * Custom annotation to log the method execution time.
+ * Type converters for handling {@link Map} values.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */

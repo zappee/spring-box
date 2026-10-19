@@ -15,7 +15,65 @@
 #   for commercial gain.
 # ******************************************************************************
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# Checks whether a specific key exists in the Consul Key-Value store.
+#
+# Arguments:
+#    $1 - The full path of the Consul KV key to verify.
+
+# Returns:
+#    0 if the key exists (true), 1 if it does not or on network error (false).
+# ------------------------------------------------------------------------------
+consul_key_exists() {
+  local _key_path="$1"
+
+  local _consul_url="${CONSUL_SERVER_HOSTNAME:+https://${CONSUL_SERVER_HOSTNAME}:8501}"
+  _consul_url="${_consul_url:-http://localhost:8500}"
+  printf "%s | [DEBUG] Consul URL: %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_consul_url"
+
+  # Make a silent HEAD request to the KV endpoint.
+  # -f fails on 4xx/5xx errors (like 404 Not Found or 403 Forbidden).
+  if curl -s -f -I "${_consul_url}/v1/kv/${_key_path}" > /dev/null 2>&1; then
+    # true: key exists
+    printf "%s | [INFO]  Consul key check: '%s' -> exists\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_key_path"
+    return 0
+  else
+    # false: key missing, unauthorized, or server down
+    printf "%s | [INFO]  Consul key check: '%s' -> not found\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_key_path"
+    return 1
+  fi
+}
+
+# ------------------------------------------------------------------------------
+# Inserts or updates a key-value pair in the Consul Key-Value store.
+#
+# Arguments:
+#   $1 - String. The full path of the Consul KV key.
+#   $2 - String. The value to assign to the key.
+#
+# Returns:
+#   0 if the key-value pair was successfully inserted, 1 otherwise.
+# ------------------------------------------------------------------------------
+consul_put_key() {
+  local _key_path="$1"
+  local _key_value="$2"
+  printf "%s | [DEBUG] Inserting a new KV entry to Consul: %s=\"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_key_path" "$_key_value"
+
+  local _consul_url="${CONSUL_SERVER_HOSTNAME:+https://${CONSUL_SERVER_HOSTNAME}:8501}"
+  _consul_url="${_consul_url:-http://localhost:8500}"
+  printf "%s | [DEBUG] Consul URL: %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_consul_url"
+
+  # Execute a PUT request, -f makes curl fail silently on HTTP errors instead of returning 0.
+  if curl -s -f -X PUT --data "$_key_value" "${_consul_url}/v1/kv/${_key_path}" > /dev/null 2>&1; then
+    printf "%s | [INFO]  Consul key successfully synchronized: %s=\"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_key_path" "$_key_value"
+    return 0
+  else
+    printf "%s | [ERROR] Failed to synchronize configuration key '%s'.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_key_path"
+    return 1
+  fi
+}
+
+# ------------------------------------------------------------------------------
 # Copy file(s) from a remote machine to localhost.
 #
 # Arguments:
@@ -24,7 +82,7 @@
 #    $3: Password for the remote user
 #    $4: Source path of the file on the remote machine
 #    $5: Destination directory on the local machine
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 function copy_from_remote_machine() {
   local remote_host="$1"
   local remote_user="$2"
@@ -40,12 +98,12 @@ function copy_from_remote_machine() {
     "$remote_user@$remote_host:$remote_path" "$local_path"
 }
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Decrypt the encrypted private key.
 #
 # Arguments:
 #    $1: Hostname used to determine which private key to decrypt
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 function decrypt_private_key() {
   local host_name="$1"
   local keystore_pass="changeit"
@@ -67,7 +125,7 @@ function decrypt_private_key() {
   sshpass -p "$SSH_PASSWORD" ssh -oStrictHostKeyChecking=no "$SSH_USER@$PKI_HOST" "$remote_cmd"
 }
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Convert a Fully Qualified Domain Name (FQDN) to an LDAP DN string.
 #
 # Examples:
@@ -90,12 +148,12 @@ function decrypt_private_key() {
 #     characters (where '&' references the matched text).
 #
 #   - sed 's/ /,/g' converts all remaining spaces into commas.
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 function fqdn_to_ldap_dn() {
   sed -e 's/[^ ]*/dc=&/g' <<<"${1//./ }" -e 's/ /,/g'
 }
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Generate a certificate using our Private Certificate Authority (PCA)
 # infrastructure.
 #
@@ -103,8 +161,8 @@ function fqdn_to_ldap_dn() {
 #    $1: Certificate type (options: server, client, serverClient)
 #    $2: Target domain for the certificate
 #    $3: Subject Alternative Names (SAN), formatted as a string
-#        e.g., "DNS:pki.hello.com,DNS:pki.dc1.hello.com"
-# -------------------------------------------------------------------------------
+#        e.g., "DNS:pki.remal.com,DNS:pki.dc1.remal.com"
+# ------------------------------------------------------------------------------
 function generate_certificate() {
   local cert_type="$1"
   local domain="$2"
@@ -128,20 +186,20 @@ function generate_certificate() {
   sshpass -p "$SSH_PASSWORD" ssh -oStrictHostKeyChecking=no "$SSH_USER@$PKI_HOST" "$remote_cmd"
 }
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Find the latest file that matches the specified pattern.
 #
 # Arguments:
 #    $1: Directory to search
 #    $2: Filename pattern (e.g. "*.log")
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 get_latest_file() {
   local directory="$1"
   local pattern="$2"
   printf "%s" "$(find "$directory" -name "$pattern" -type f -exec ls -t {} + | head -1)"
 }
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Read a value from a property file.
 #
 # Arguments:
@@ -150,12 +208,12 @@ get_latest_file() {
 #
 # Outputs:
 #    Prints the value associated with the key to stdout
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 get_value() {
   printf "%s" "$(grep -w "^$2" "$1" | cut -d'=' -f2)"
 }
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Import a certificate into an existing keystore.
 #
 # Arguments:
@@ -163,7 +221,7 @@ get_value() {
 #    $2: Path to the certificate file to be imported
 #    $3: Path to the target keystore file
 #    $4: Password for the keystore
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 function import_to_keystore() {
   local alias certificate keystore storepass
   alias="$1"
@@ -181,29 +239,29 @@ function import_to_keystore() {
     -noprompt
 }
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Log the execution details of a Bash script.
 #
 # Arguments:
 #    $1: Path to the Bash script being executed
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 log_start() {
   local script_file="$1"
   printf "%s | [DEBUG] ====> Executing script \"%s\"...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$script_file"
 }
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Log the execution details of a Bash script.
 #
 # Arguments:
 #    $1: Path to the Bash script being executed
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 log_end() {
   local script_file="$1"
   printf "%s | [DEBUG] <-- Finished script: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$script_file"
 }
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Open the 'Readiness signal port' by opening a network port.
 #
 # This signal indicates that the container and all of its internal services are
@@ -211,7 +269,7 @@ log_end() {
 # network can probe this port to perform health/readiness checks.
 #
 # This process runs in the background so it does not block execution.
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 function set_container_up_state() {
   printf "%s | [INFO]  Docker container is READY to serve incoming requests.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG] Opening readiness signal port %s...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$UP_SIGNAL_PORT"
@@ -223,9 +281,9 @@ function set_container_up_state() {
   show_ready_message
 }
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Display an ANSI-formatted text banner indicating the container has started.
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 function show_ready_message() {
   local fqdn
   fqdn=$(hostname -f)
@@ -243,9 +301,9 @@ function show_ready_message() {
   printf "%s | [DEBUG] Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.\n" "$timestamp"
 }
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Handle the SIGTERM signal for graceful shutdown.
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 function shutdown_trap() {
   printf "%s | [INFO]  Shutting down the container...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 
@@ -272,9 +330,9 @@ function shutdown_trap() {
   fi
 }
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Determine if this is the container's first run.
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 function is_first_startup() {
   local marker_file
   marker_file="/tmp/first-startup.marker"
@@ -286,13 +344,13 @@ function is_first_startup() {
   fi
 }
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Block execution until the target container is operational and ready for
 # serving requests.
 #
 # Arguments:
 #    $1: Hostname or IP address of the target container
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 wait_for_container() {
   local domain="$1"
   printf "%s | [INFO]  Waiting for container \"%s\" on port \"%s\"...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$domain" "$UP_SIGNAL_PORT"
@@ -302,7 +360,7 @@ wait_for_container() {
   printf "%s | [INFO]  Container \"%s\" is up and running.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$domain"
 }
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Monitor a file for a specific pattern. Exits and stops the 'tail' process
 # immediately upon detection.
 #
@@ -312,7 +370,7 @@ wait_for_container() {
 # Arguments:
 #    $1: Path to the file being monitored
 #    $2: The expected string or pattern to match
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 wait_until_content_found() {
   local file_to_monitor="$1"
   local required_string="$2"

@@ -15,6 +15,6 @@
 #   for commercial gain.
 # ******************************************************************************
 export IMAGE_FROM="springbox-base:$1"
-export IMAGE_NAME="springbox-vault"
+export IMAGE_NAME="springbox-hashicorp-vault"
 export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Spring-Box - HashiCorp Vault"
+export IMAGE_DESCRIPTION="Remal Spring Box - HashiCorp Vault"

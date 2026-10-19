@@ -10,17 +10,6 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- *  Since:  February 2025
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- *  Description:
- *     A simple Kafka message sender.
- */
 package com.remal.springbox.kafka.player.kafka;
 
 import com.remal.springbox.kafka.player.commons.NullPrintStream;
@@ -34,7 +23,7 @@ import java.util.Objects;
 import java.util.Properties;
 
 /**
- * Custom annotation to log the method execution time.
+ * Kafka message sender.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */

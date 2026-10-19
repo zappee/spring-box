@@ -46,10 +46,10 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     AM_CONTEXT_ROOT="openam" \
     AM_ADMIN_PASSWORD="password" \
     AM_DEFAULT_POLICY_AGENT_PASSWORD="password" \
-    AM_CONFIG_STORE_HOST="ds.hello.com" \
+    AM_CONFIG_STORE_HOST="ds.remal.com" \
     AM_CONFIG_STORE_PORT="636" \
     AM_CONFIG_STORE_MANAGER_PASSWD="password" \
-    AM_USER_STORE_HOST="ds.hello.com" \
+    AM_USER_STORE_HOST="ds.remal.com" \
     AM_USER_STORE_PORT="636" \
     AM_USER_STORE_MANAGER_PASSWD="password"
 

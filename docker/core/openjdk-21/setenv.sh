@@ -17,4 +17,4 @@
 export IMAGE_FROM="springbox-base:$1"
 export IMAGE_NAME="springbox-openjdk-21"
 export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Spring-Box - OpenJDK 21"
+export IMAGE_DESCRIPTION="Remal Spring Box - OpenJDK 21"

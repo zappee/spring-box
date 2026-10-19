@@ -14,7 +14,7 @@
 #   purposes, provided you give appropriate credit and do not use the material
 #   for commercial gain.
 # ******************************************************************************
-export IMAGE_FROM="springbox-consul-for-java-25:$1"
+export IMAGE_FROM="springbox-openjdk-25:$1"
 export IMAGE_NAME="springbox-java-25-runner"
 export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Spring-Box - Java 25 Runner image"
+export IMAGE_DESCRIPTION="Remal Spring Box - Java 25 Runner image"

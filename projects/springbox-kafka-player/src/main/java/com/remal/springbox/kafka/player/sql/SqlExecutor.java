@@ -10,17 +10,6 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- *  Since:  February 2025
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- *  Description:
- *     A simple sql query executor.
- */
 package com.remal.springbox.kafka.player.sql;
 
 import com.remal.springbox.kafka.player.commons.MapConverter;
@@ -43,7 +32,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.IntStream;
 
 /**
- * Custom annotation to log the method execution time.
+ * SQL query executor.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */

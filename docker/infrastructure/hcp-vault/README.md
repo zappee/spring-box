@@ -8,11 +8,11 @@ services:
     pki:
         image: remal-private-ca:0.8.0
         container_name: pki
-        hostname: pki.hello.com
+        hostname: pki.remal.com
         ports:
             - "13012:22"   # SSH
         environment:
-            - EASYRSA_REQ_CN=hello.com
+            - EASYRSA_REQ_CN=remal.com
             - EASYRSA_REQ_COUNTRY=DK
             - EASYRSA_REQ_PROVINCE=Region Hovedstaden
             - EASYRSA_REQ_CITY=Copenhagen
@@ -22,19 +22,19 @@ services:
     vault:
         image: remal-vault:0.8.0
         container_name: vault
-        hostname: vault.hello.com
+        hostname: vault.remal.com
         depends_on:
             - pki
         ports:
             - "13052:22"   # SSH
             - "13058:8200" # vault listening
         environment:
-            - PKI_HOST=pki.hello.com
+            - PKI_HOST=pki.remal.com
 ```
 
 Login to container:
 ```
-sshpass -p password ssh -oStrictHostKeyChecking=no root@vault.hello.com -p 13042
+sshpass -p password ssh -oStrictHostKeyChecking=no root@vault.remal.com -p 13042
 ```
 
 Processing the audit log:

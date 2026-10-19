@@ -10,17 +10,6 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- *  Since:  February 2024
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- *  Description:
- *     Spring REST endpoint.
- */
 package com.remal.springbox.service.welcome.controller;
 
 import com.remal.springbox.commons.monitoring.MethodStatistics;
@@ -38,7 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
- * Custom annotation to log the method execution time.
+ * REST endpoint implementation.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */

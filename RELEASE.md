@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 ## [0.8.0] - dd/mm/2026
 
 #### Updates
-* [#44](https://github.com/zappee/spring-box/issues/44): Rename the project name from Gombi to Spring-Box.
+* [#44](https://github.com/zappee/spring-box/issues/44): Rename the project name from Gombi to Spring Box.
 * [#45](https://github.com/zappee/spring-box/issues/45): The project's main bash tool does not execute commands properly.
 * [#46](https://github.com/zappee/spring-box/issues/46): Set the build number to 0.8.0.
 * [#50](https://github.com/zappee/spring-box/issues/50): Update project license type.
-
+* [#52](https://github.com/zappee/spring-box/issues/52): Remove springbox-consul-for-java image layer.
 
 #### Deprecated
 * [#51](https://github.com/zappee/spring-box/issues/51), **Update Java sample project**: The dependencies for the Java projects ([spring-box/projects](https://github.com/zappee/spring-box/tree/main/projects)) are currently outdated. As a solo maintainer, I cannot prioritize updating them at this time. Contributions and Pull Requests to update these examples are highly welcome!

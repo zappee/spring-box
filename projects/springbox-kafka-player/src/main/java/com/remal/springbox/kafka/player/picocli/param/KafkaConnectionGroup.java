@@ -10,27 +10,13 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- *  Since:  February 2025
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- *  Description:
- *     Picocli command group.
- */
 package com.remal.springbox.kafka.player.picocli.param;
 
 import lombok.Getter;
 import picocli.CommandLine;
 
 /**
- * Kafka connection parameters group.
- */
-/**
- * Custom annotation to log the method execution time.
+ * Picocli Command Line Interface (CLI) definition.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */

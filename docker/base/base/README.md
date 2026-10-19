@@ -1,7 +1,7 @@
 # Remal Spring Box Base image
 
 ## 1) Overview
-This is the official _Remal Spring-Box_ base Docker image, designed to provide core utilities and runtime configurations for all downstream images.
+This is the official _Remal Spring Box_ base Docker image, designed to provide core utilities and runtime configurations for all downstream images.
 
 ## 2) Image details
 * **Base image:** Built on top of the lightweight `alpine` Linux distribution.

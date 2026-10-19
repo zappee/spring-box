@@ -17,4 +17,4 @@
 export IMAGE_FROM="alpine:3.24.2"
 export IMAGE_NAME="springbox-base"
 export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Spring-Box - Base image"
+export IMAGE_DESCRIPTION="Remal Spring Box - Base image"

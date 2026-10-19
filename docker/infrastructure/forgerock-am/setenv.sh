@@ -17,4 +17,4 @@
 export IMAGE_FROM="springbox-tomcat-9:$1"
 export IMAGE_NAME="springbox-am-7.3"
 export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Spring-Box - ForgeRock Access Management 7.3.0"
+export IMAGE_DESCRIPTION="Remal Spring Box - ForgeRock Access Management 7.3.0"

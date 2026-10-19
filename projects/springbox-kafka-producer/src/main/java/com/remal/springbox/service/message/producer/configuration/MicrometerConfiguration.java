@@ -10,17 +10,6 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- *  Since:  January 2025
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- *  Description:
- *     Application monitoring with Micrometer.
- */
 package com.remal.springbox.service.message.producer.configuration;
 
 import com.remal.springbox.commons.Internet;
@@ -32,7 +21,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Custom annotation to log the method execution time.
+ * Micrometer configuration.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */

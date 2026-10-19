@@ -29,7 +29,7 @@ public class JacksonConfiguration {
     /**
      * Hide or exclude null values from the JSON response.
      *
-     * @return jackson mapper instance
+     * @return the mapper instance
      */
     @Bean
     public ObjectMapper objectMapper() {

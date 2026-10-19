@@ -10,17 +10,6 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- *  Since:  January 2025
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- *  Description:
- *     Kafka massage producer.
- */
 package com.remal.springbox.service.message.producer.service;
 
 import com.remal.springbox.commons.model.Event;
@@ -33,7 +22,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 /**
- * Custom annotation to log the method execution time.
+ * Kafka producer implementation.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */
