@@ -32,9 +32,9 @@ services:
                 limits:
                     memory: 384M
         volumes:
-            - $HOME/Java/springbox/volumes/user-service-1/jar-to-run:/jar-to-run
-            - $HOME/Java/springbox/volumes/user-service-1/logs:/logs
-            - $HOME/Java/springbox/volumes/user-service-1/heap-dump:/heap-dump
+            - $HOME/Java/spring-box/volumes/user-service-1/jar-to-run:/jar-to-run
+            - $HOME/Java/spring-box/volumes/user-service-1/logs:/logs
+            - $HOME/Java/spring-box/volumes/user-service-1/heap-dump:/heap-dump
             - user-service-1-data:/var/lib/postgresql/data
 
     user-service-2:
@@ -69,9 +69,9 @@ services:
                 limits:
                     memory: 384M
         volumes:
-            - $HOME/Java/springbox/volumes/user-service-2/jar-to-run:/jar-to-run
-            - $HOME/Java/springbox/volumes/user-service-2/logs:/logs
-            - $HOME/Java/springbox/volumes/user-service-2/heap-dump:/heap-dump
+            - $HOME/Java/spring-box/volumes/user-service-2/jar-to-run:/jar-to-run
+            - $HOME/Java/spring-box/volumes/user-service-2/logs:/logs
+            - $HOME/Java/spring-box/volumes/user-service-2/heap-dump:/heap-dump
             - user-service-2-data:/var/lib/postgresql/data
 
     # ----- welcome-services ----------------------------------------------------------------------
@@ -102,9 +102,9 @@ services:
                 limits:
                     memory: 256M
         volumes:
-            - $HOME/Java/springbox/volumes/welcome-service-1/jar-to-run:/jar-to-run
-            - $HOME/Java/springbox/volumes/welcome-service-1/logs:/logs
-            - $HOME/Java/springbox/volumes/welcome-service-1/heap-dump:/heap-dump
+            - $HOME/Java/spring-box/volumes/welcome-service-1/jar-to-run:/jar-to-run
+            - $HOME/Java/spring-box/volumes/welcome-service-1/logs:/logs
+            - $HOME/Java/spring-box/volumes/welcome-service-1/heap-dump:/heap-dump
 
     # ----- kafka-producer-services ---------------------------------------------------------------
     kafka-producer-service-1:
@@ -134,9 +134,9 @@ services:
                 limits:
                     memory: 256M
         volumes:
-                - $HOME/Java/springbox/volumes/kafka-producer-service-1/jar-to-run:/jar-to-run
-                - $HOME/Java/springbox/volumes/kafka-producer-service-1/logs:/logs
-                - $HOME/Java/springbox/volumes/kafka-producer-service-1/heap-dump:/heap-dump
+                - $HOME/Java/spring-box/volumes/kafka-producer-service-1/jar-to-run:/jar-to-run
+                - $HOME/Java/spring-box/volumes/kafka-producer-service-1/logs:/logs
+                - $HOME/Java/spring-box/volumes/kafka-producer-service-1/heap-dump:/heap-dump
         depends_on:
             kafka-4:
                 condition: service_healthy
@@ -180,9 +180,9 @@ services:
                 limits:
                     memory: 384M
         volumes:
-            - $HOME/Java/springbox/volumes/kafka-consumer-service-1/jar-to-run:/jar-to-run
-            - $HOME/Java/springbox/volumes/kafka-consumer-service-1/logs:/logs
-            - $HOME/Java/springbox/volumes/kafka-consumer-service-1/heap-dump:/heap-dump
+            - $HOME/Java/spring-box/volumes/kafka-consumer-service-1/jar-to-run:/jar-to-run
+            - $HOME/Java/spring-box/volumes/kafka-consumer-service-1/logs:/logs
+            - $HOME/Java/spring-box/volumes/kafka-consumer-service-1/heap-dump:/heap-dump
             - kafka-consumer-service-1-data:/var/lib/postgresql/data
         depends_on:
             kafka-4:
@@ -224,9 +224,9 @@ services:
                 limits:
                     memory: 256M
         volumes:
-            - $HOME/Java/springbox/volumes/hazelcast-counter-service-1/jar-to-run:/jar-to-run
-            - $HOME/Java/springbox/volumes/hazelcast-counter-service-1/logs:/logs
-            - $HOME/Java/springbox/volumes/hazelcast-counter-service-1/heap-dump:/heap-dump
+            - $HOME/Java/spring-box/volumes/hazelcast-counter-service-1/jar-to-run:/jar-to-run
+            - $HOME/Java/spring-box/volumes/hazelcast-counter-service-1/logs:/logs
+            - $HOME/Java/spring-box/volumes/hazelcast-counter-service-1/heap-dump:/heap-dump
 
     hazelcast-counter-service-2:
         image: springbox-java-25-runner:0.8.0
@@ -257,13 +257,13 @@ services:
                 limits:
                     memory: 256M
         volumes:
-            - $HOME/Java/springbox/volumes/hazelcast-counter-service-2/jar-to-run:/jar-to-run
-            - $HOME/Java/springbox/volumes/hazelcast-counter-service-2/logs:/logs
-            - $HOME/Java/springbox/volumes/hazelcast-counter-service-2/heap-dump:/heap-dump
+            - $HOME/Java/spring-box/volumes/hazelcast-counter-service-2/jar-to-run:/jar-to-run
+            - $HOME/Java/spring-box/volumes/hazelcast-counter-service-2/logs:/logs
+            - $HOME/Java/spring-box/volumes/hazelcast-counter-service-2/heap-dump:/heap-dump
 
     # ----- HashiCorp Consul ----------------------------------------------------------------------
     consul:
-        image: springbox-consul-for-java-25:0.8.0
+        image: springbox-hashicorp-consul:0.8.0
         container_name: consul.${DOMAIN_NAME}
         hostname: consul.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]

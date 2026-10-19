@@ -176,25 +176,17 @@ get_first_jar() {
 #    param 2: the key context in the KV store
 # ------------------------------------------------------------------------------
 insert_kv() {
-  local properties_file key_context
-  properties_file="$1"
-  key_context="$2"
+  local _properties_file _key_context
+  _properties_file="$1"
+  _key_context="$2"
 
-  while IFS='=' read -d $'\n' -r key value; do
-    [[ "$key" =~ ^([[:space:]]*|[[:space:]]*#.*)$ ]] && continue
-      key="${key_context}/${key}"
-      if consul kv get "$key" 2>/dev/null 1>/dev/null; then
-        printf "%s | [DEBUG]  \"%s\" key exist, ignore it\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$key"
-      else
-        printf "%s | [DEBUG]  inserting \"%s\"=\"%s\"...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$key" "$value"
-
-        local base64_value
-        base64_value=$(printf "%s" "$value" | base64)
-        printf "%s | [DEBUG]  base64 encoded value: \"%s\"=\"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$value" "$base64_value"
-
-        consul kv put -base64 "$key" "$base64_value" 1>/dev/null
+  while IFS='=' read -d $'\n' -r _key _value; do
+    [[ "$_key" =~ ^([[:space:]]*|[[:space:]]*#.*)$ ]] && continue
+      _key="${_key_context}/${_key}"
+      if ! consul_key_exists "$_key"; then
+        consul_put_key "$_key" "$_value"
       fi
-  done < "$properties_file"
+  done < "$_properties_file"
 }
 
 # ------------------------------------------------------------------------------

@@ -10,19 +10,7 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- *  Since:  February 2024
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- *  Description:
- *     Spring bean configuration.
- */
 package com.remal.springbox.service.welcome.configuration;
-
 
 import org.springframework.boot.ssl.SslBundles;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -31,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Custom annotation to log the method execution time.
+ * HTTPS configuration for REST endpoints.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */

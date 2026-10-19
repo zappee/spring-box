@@ -52,7 +52,7 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     \
     ADMIN_CONNECTOR_PORT=4444 \
     PKI_HOST="pki.remal.com" \
-    DS_HOST="ds.hello.com" \
+    DS_HOST="ds.remal.com" \
     DS_HOME="$DS_HOME" \
     DEPLOYMENT_KEY_FILE="$DS_HOME/deployment-key.properties" \
     DS_INSTALL_KIT="DS-7.3.0.zip" \

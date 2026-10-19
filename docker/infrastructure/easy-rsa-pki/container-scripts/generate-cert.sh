@@ -12,7 +12,7 @@
 #                certificate will be deployed (e.g., pki.remal.com).
 #
 #   [san]        Optional Subject Alternative Names (SAN).
-#                Format example: "DNS:pki.hello.com,DNS:localhost,IP:127.0.0.1"
+#                Format example: "DNS:pki.remal.com,DNS:localhost,IP:127.0.0.1"
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -175,7 +175,7 @@ function export_to_keystore() {
 # This bash function shows an message if EasyRSA detects parallel execution.
 # ------------------------------------------------------------------------------
 function wait_for_easyrsa() {
-  printf "\n%s | [WARN ] EasyRSA is running, wait for it to finish...\n\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "\n%s | [WARN ] EasyRSA is currently running, wait for it to finish...\n\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   sleep 1
 }
 

@@ -17,4 +17,4 @@
 export IMAGE_FROM="springbox-base:$1"
 export IMAGE_NAME="springbox-grafana"
 export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Spring-Box - Grafana"
+export IMAGE_DESCRIPTION="Remal Spring Box - Grafana"

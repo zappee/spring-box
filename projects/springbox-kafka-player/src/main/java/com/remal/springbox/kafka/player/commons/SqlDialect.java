@@ -10,24 +10,13 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- *  Since:  February 2025
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- *  Description:
- *     Supported SQL dialects.
- */
 package com.remal.springbox.kafka.player.commons;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Custom annotation to log the method execution time.
+ * Supported SQL dialects definition.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */

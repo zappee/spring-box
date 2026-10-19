@@ -33,9 +33,9 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     \
     PKI_HOST="pki.remal.com" \
     KEYSTORE_HOME="/tmp" \
-    CONSUL_SERVER_HOSTNAME="consul.hello.com" \
+    CONSUL_SERVER_HOSTNAME="consul.remal.com" \
     HAZELCAST_CLUSTER_NAME="springbox-dev" \
-    HAZELCAST_CLUSTER_MEMBERS="hazelcast-1.hello.com, hazelcast-2.hello.com" \
+    HAZELCAST_CLUSTER_MEMBERS="hazelcast-1.remal.com, hazelcast-2.remal.com" \
     \
     JAR_HOME="/jar-to-run" \
     JAVA_OPTS="-Xms512m -Xmx512m -XX:+UseZGC" \
@@ -65,10 +65,5 @@ FROM base AS base-slim
 # final image
 FROM base-$BUILD_TYPE AS final
 
-# installing tools
-RUN set -ue; \
-    apk add --no-cache curl
-
-COPY config/consul-template.json "$CONSUL_CONFIG_TEMPLATE_DIR/"
 COPY container-scripts/init/* /docker.init/
 COPY container-scripts/startup/* /docker.startup/

@@ -32,9 +32,9 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     IMAGE_AUTHOR="$IMAGE_AUTHOR" \
     IMAGE_DESCRIPTION="$IMAGE_DESCRIPTION" \
     \
-    PKI_HOST="pki.hello.com" \
+    PKI_HOST="pki.remal.com" \
     KEYSTORE_HOME="/tmp" \
-    CONSUL_HOST="consul.hello.com" \
+    CONSUL_HOST="consul.remal.com" \
     \
     PROMETHEUS_INSTALL_KIT="prometheus-3.10.0.linux-amd64.tar.gz" \
     PROMETHEUS_HOME="/opt/prometheus" \

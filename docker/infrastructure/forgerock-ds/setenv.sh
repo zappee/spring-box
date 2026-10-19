@@ -17,4 +17,4 @@
 export IMAGE_FROM="springbox-openjdk-17:$1"
 export IMAGE_NAME="springbox-ds-7.3"
 export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Spring-Box - ForgeRock Directory Server 7.3.0"
+export IMAGE_DESCRIPTION="Remal Spring Box - ForgeRock Directory Server 7.3.0"

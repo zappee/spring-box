@@ -10,18 +10,6 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- *  Since:  February 2025
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- *  Description:
- *     Custom picocli renderer that hides the Java variable names
- *     from the rendered help.
- */
 package com.remal.springbox.kafka.player.picocli.renderer;
 
 import picocli.CommandLine.Help;
@@ -35,7 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Custom annotation to log the method execution time.
+ * Custom picocli renderer that hides the Java variable names from the rendered
+ * help.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */

@@ -1,6 +1,6 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Remal Spring-Box Docker image entrypoint file.
+# Remal Spring Box Docker image entrypoint file.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com

@@ -10,17 +10,6 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- *  Since:  February 2024
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- *  Description:
- *     Spring application entry point.
- */
 package com.remal.springbox.service.welcome;
 
 import org.springframework.boot.WebApplicationType;
@@ -30,7 +19,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * Custom annotation to log the method execution time.
+ * Spring application entry point.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */

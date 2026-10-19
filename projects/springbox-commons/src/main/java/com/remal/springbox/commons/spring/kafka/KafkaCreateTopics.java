@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *  Kafka topic provisioning utility.
+ *  Kafka utility to create topic.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */

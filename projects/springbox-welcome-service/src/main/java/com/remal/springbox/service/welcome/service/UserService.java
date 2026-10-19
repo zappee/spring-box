@@ -10,17 +10,6 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- *  Since:  February 2024
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- *  Description:
- *     Service discovery.
- */
 package com.remal.springbox.service.welcome.service;
 
 import com.remal.springbox.commons.model.User;
@@ -32,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 
 /**
- * Custom annotation to log the method execution time.
+ * User service implementation.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */

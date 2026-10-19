@@ -32,9 +32,9 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     IMAGE_AUTHOR="$IMAGE_AUTHOR" \
     IMAGE_DESCRIPTION="$IMAGE_DESCRIPTION" \
     \
-    PKI_HOST="pki.hello.com" \
+    PKI_HOST="pki.remal.com" \
     KEYSTORE_HOME="/tmp" \
-    PROMETHEUS_HOST="prometheus.hello.com" \
+    PROMETHEUS_HOST="prometheus.remal.com" \
     PROMETHEUS_PORT="9090" \
     PROMETHEUS_PROTOCOL="https" \
     \

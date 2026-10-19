@@ -10,17 +10,6 @@
  * purposes, provided you give appropriate credit and do not use the material
  * for commercial gain.
  */
-
-
-/*
- *  Copyright (c) 2020-2026 Remal Software and Arnold SOMOGYI All rights reserved
- *
- *  Since:  January 2025
- *  Author: Arnold SOMOGYI <arnold.somogyi@gmail.com>
- *
- *  Description:
- *     Kafka producer configuration.
- */
 package com.remal.springbox.service.message.producer.configuration;
 
 import com.remal.springbox.commons.model.Event;
@@ -36,7 +25,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
 /**
- * Custom annotation to log the method execution time.
+ * Kafka producer configuration.
  *
  * @author Arnold Somogyi <arnold.somogyi@gmail.com>
  */
@@ -50,7 +39,7 @@ public class KafkaIncomingProducerConfiguration extends KafkaProducerConfigurati
     @Value("${FQDN}") // environment variable
     private String fqdn;
 
-    @Value("${kafka.bootstrap.servers:kafka-1.hello.com:9092, kafka-2.hello.com:9092}")
+    @Value("${kafka.bootstrap.servers}")
     private String bootstrapServers;
 
     @Value("${kafka.topic.incoming.producer.acks:all}")

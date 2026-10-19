@@ -27,6 +27,7 @@ log_start "$0"
   printf "export %s=\"%s\"\n" "HEALTH_CHECK_URI" "$HEALTH_CHECK_URI"
   printf "export %s=\"%s\"\n" "EXPECTED_HEALTH_CHECK_STATE" "$EXPECTED_HEALTH_CHECK_STATE"
   printf "export %s=\"%s\"\n" "FQDN" "$(hostname -f)"
+  printf "export %s=\"%s\"\n" "CONSUL_SERVER_HOSTNAME" "$CONSUL_SERVER_HOSTNAME"
   printf "cd %s\n" "$JAR_HOME"
 } >> /etc/profile
 

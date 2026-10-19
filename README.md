@@ -151,3 +151,14 @@ You should be familiar with the following design patterns:
 * Generating Unique, URL friendly IDs in distributed systems using Nano ID
 
 ![Customer registration](docs/diagrams/images/customer-registration.png)
+
+## License and Copyright
+Contact:   arnold.somogyi@gmail.com
+
+Copyright: Copyright (c) 2020-2026 Remal Software
+
+This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License.
+To view a copy of this license, visit: https://creativecommons.org
+
+You are free to share and adapt the material for personal or hobby purposes, provided you give appropriate credit and do not use the material for commercial gain.
+
