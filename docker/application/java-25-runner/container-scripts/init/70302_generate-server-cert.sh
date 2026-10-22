@@ -1,6 +1,6 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Generate server certificate using Remal Spring Box PKI infrastructure.
+# Generates server certificate using the Remal Spring Box PKI infrastructure.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -17,17 +17,15 @@
 . /shared.sh
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
-
 FQDN=$(hostname -f)
 
 generate_certificate "serverClient" "$FQDN" "DNS:$FQDN,DNS:localhost,IP:127.0.0.1"
 copy_from_remote_machine "$PKI_HOST" "$SSH_USER" "$SSH_PASSWORD" "/opt/easy-rsa/pki/private/$FQDN.key" "$KEYSTORE_HOME"
 copy_from_remote_machine "$PKI_HOST" "$SSH_USER" "$SSH_PASSWORD" "/opt/easy-rsa/pki/issued/$FQDN.crt" "$KEYSTORE_HOME"
 copy_from_remote_machine "$PKI_HOST" "$SSH_USER" "$SSH_PASSWORD" "/opt/easy-rsa/pki/ca.crt" "$KEYSTORE_HOME"
-
 decrypt_private_key "$FQDN"
 copy_from_remote_machine "$PKI_HOST" "$SSH_USER" "$SSH_PASSWORD" "/opt/easy-rsa/pki/private/$FQDN.pem" "$KEYSTORE_HOME"
 

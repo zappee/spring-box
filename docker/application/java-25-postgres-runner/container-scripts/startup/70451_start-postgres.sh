@@ -1,6 +1,6 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Start database server.
+# Start the PostgreSQL database server.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -18,7 +18,7 @@
 . /postgres-functions.sh
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 start_postgres "$START_DB"

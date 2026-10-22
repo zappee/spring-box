@@ -1,6 +1,6 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Initialize database schemas.
+# Initialize PostgreSQL database schemas.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -18,7 +18,7 @@
 . /postgres-functions.sh
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 init_database

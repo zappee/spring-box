@@ -1,25 +1,21 @@
-# Remal Image: Java 21 Omni Runner
+# Remal Image: OpenJDK 21 Omni Runner
 
-Ultimate Java-21 runner image for Spring Boot applications.
+## 1) Overview
+Image name: `springbox-openjdk-omni-runner`
 
-Details:
-* PostgreSQL database server
-* Java fonts
+This ultimate _Omni_ image extends our [Java Runner with PostgreSQL](https://github.com/zappee/spring-box/tree/main/docker/application/java-25-postgres-runner) image.
+It is our largest Java Runner image, packed with additional tools and Linux packages required by specialized Java applications.
 
-Appendix 1) Install Java fonts
+## 2) Features
+* `fonts-dejavu` Linux package: This is a system-level TrueType fonts (.ttf) required by Java graphics engines, reporting libraries (e.g., JasperReports), and PDF/Excel/Word generators (e.g., Apache POI) to render text correctly without crashing. If your containerized Java app tries to generate a chart, Excel sheet, or PDF without these fonts installed in the OS layer, it will crash with a `NullPointerException` or an `AWTError` stating that it cannot instantiate the font manager.
 
-Install fonts all in one:
-~~~
-$ apk add /
-    font-terminus /
-    font-inconsolata /
-    font-dejavu /
-    font-noto /
-    font-noto-cjk /
-    font-awesome /
-    font-noto-extra /
-    font-terminus
-~~~
+## 3) Ports used by the container
+* 22: SSH
+* 1331: Readiness signal
+* 80: HTTP
+* 443: HTTPS
+* 5005: JVM debug
+* 5432:PostgreSQL
 
 ## License and Copyright
 Contact:   arnold.somogyi@gmail.com

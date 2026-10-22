@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 * [#46](https://github.com/zappee/spring-box/issues/46): Set the build number to 0.8.0.
 * [#50](https://github.com/zappee/spring-box/issues/50): Update project license type.
 * [#52](https://github.com/zappee/spring-box/issues/52): Remove springbox-consul-for-java image layer.
+* [#42](https://github.com/zappee/spring-box/issues/42): Refactor log messages in shell scripts to ensure clarity and eliminate typos.
 
 #### Deprecated
 * [#51](https://github.com/zappee/spring-box/issues/51), **Update Java sample project**: The dependencies for the Java projects ([spring-box/projects](https://github.com/zappee/spring-box/tree/main/projects)) are currently outdated. As a solo maintainer, I cannot prioritize updating them at this time. Contributions and Pull Requests to update these examples are highly welcome!

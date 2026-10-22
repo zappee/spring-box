@@ -17,8 +17,9 @@ ARG IMAGE_FROM="unknown"
 ARG BUILD_TYPE="fat"
 FROM ${IMAGE_FROM} AS base
 
-EXPOSE 22/tcp
-EXPOSE 8500/tcp
+EXPOSE 80/tcp
+EXPOSE 8443/tcp
+EXPOSE 5005/tcp
 
 ARG IMAGE_NAME="N/A"
 ARG IMAGE_TAG="N/A"
@@ -40,7 +41,7 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     JAR_HOME="/jar-to-run" \
     JAVA_OPTS="-Xms512m -Xmx512m -XX:+UseZGC" \
     JAVA_DEBUG="true" \
-    JAVA_DEBUG_PORT=8000 \
+    JAVA_DEBUG_PORT=5005 \
     \
     HEALTH_CHECK="true" \
     HEALTH_CHECK_URI="https://localhost:8443/actuator/health" \
@@ -53,14 +54,11 @@ LABEL "com.remal.image.name"="$IMAGE_NAME" \
       "com.remal.image.description"="$IMAGE_DESCRIPTION" \
       "com.remal.image.vendor"="Remal"
 
-
 # fat image
 FROM base AS base-fat
 
-
 # slim image
 FROM base AS base-slim
-
 
 # final image
 FROM base-$BUILD_TYPE AS final

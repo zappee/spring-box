@@ -1,6 +1,6 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Copy the server keystore from the Private-PKI machine for Tomcat TLS/HTTPS.
+# Copy the server keystore from the Private-PKI container for Tomcat TLS/HTTPS.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -17,7 +17,7 @@
 . /shared.sh
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 

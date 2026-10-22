@@ -1,6 +1,7 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Back up PostgreSQL database Docker volumes.
+# This Bash script automates the backup process for PostgreSQL database data
+# stored within Docker volumes.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -32,12 +33,12 @@ function backup_docker_volume() {
 
   if [ -z "$(docker volume ls -q -f name=^"${volume_name}"$)" ]; then
     printf "%b*******************************************************************************\n" "$color_error"
-    printf "** ERROR: DOCKER VOLUME DOES NOT EXISTS\n"
+    printf "** ERROR: Docker volume not exists.\n"
     printf "**    volume: %s\n" "$volume_name"
     printf "*******************************************************************************%b\n" "$color_default"
   else
     printf "%b*******************************************************************************\n" "$color_info"
-    printf "** backing up a Docker volume...\n"
+    printf "** Backing up PostgreSQL data using Docker volume...\n"
     printf "**    volume:      %s\n" "$volume_name"
     printf "**    backup-dir:  %s\n" "$dir"
     printf "**    backup-file: %s\n" "$filename"
@@ -45,23 +46,22 @@ function backup_docker_volume() {
 
     mkdir -p "$dir"
 
-    # backup volume's data
+    # runs the archive tool to bundle the files
     docker run --rm \
       --volume "$volume_name":/volume \
       --volume "$dir":/backup \
       busybox \
       tar --exclude='postmaster.pid' -zcvf "/backup/${filename}.tar.gz" -C /volume .
 
-    # backup volume's labels
+    # extracts the Docker volume's metadata labels and prints it to the terminal
     docker inspect "$volume_name" -f "{{json .Labels}}" > "${dir}/${filename}.json"
-
-    printf "%bdone: %s%b\n\n" "$color_info" "$volume_name" "$color_default"
+    printf "%b%s: %s%b\n\n" "$color_info" "done" "$volume_name" "$color_default"
   fi
   printf "\n"
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 VOLUMES=("service-1_data" "service-2_data")
 

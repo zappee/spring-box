@@ -17,7 +17,6 @@
 . /shared.sh
 
 log_start "$0"
-
 {
   printf "export %s=\"%s\"\n" "JAR_HOME" "$JAR_HOME"
   printf "export %s=\"%s\"\n" "JAVA_OPTS" "$JAVA_OPTS"
@@ -30,5 +29,4 @@ log_start "$0"
   printf "export %s=\"%s\"\n" "CONSUL_SERVER_HOSTNAME" "$CONSUL_SERVER_HOSTNAME"
   printf "cd %s\n" "$JAR_HOME"
 } >> /etc/profile
-
 log_end "$0"

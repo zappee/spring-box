@@ -1,8 +1,8 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Imports key-value pairs from a properties file into HashiCorp Consul.
-# It reads the config.properties file during container startup and adds any
-# missing key-value pairs into HashiCorp Consul.
+# Imports key-value pairs from a properties file into HashiCorp Consul. It reads
+# the config.properties file during container startup and adds any missing
+# key-value pairs into HashiCorp Consul.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -19,47 +19,47 @@
 . /shared.sh
 
 # ------------------------------------------------------------------------------
-# Checks if the provided files exist or not.
-# If the files doe not exist then it exits from the script.
+# Verifies the existence of a required file. If the specified file is missing,
+# logs a warning message and terminates the script.
 #
-# Parameters:
-#    param 1: path to the file that must exists
+# Arguments:
+#    $1: Path to the file that must exist
 # ------------------------------------------------------------------------------
 file_exists() {
   local file_to_check
   file_to_check="$1"
 
   if [ ! -f "$file_to_check" ]; then
-    printf "%s | [WARN]  file \"%s\" not found\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$file_to_check"
+    printf "%s | [WARN]  File '%s' not found.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$file_to_check"
     log_end "$0"
     exit 0
   else
-    printf "%s | [DEBUG] file \"%s\" has been successfully extracted\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$file_to_check"
+    printf "%s | [DEBUG] File '%s' exists.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$file_to_check"
   fi
 }
 
 # ------------------------------------------------------------------------------
-# Clean up the temporary files.
+# Removes temporary workspace directories and files to clean up disk space.
 #
-# Parameters:
-#    param 1: the workspace directory
+# Arguments:
+#    $1: Absolute path to the workspace directory to delete
 # ------------------------------------------------------------------------------
 cleanup_workspace() {
   local workspace_home
   workspace_home="$1"
 
-  printf "%s | [INFO]  cleaning up the workspace: \"%s\"...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$workspace_home"
+  printf "%s | [INFO]  Cleaning up the workspace: '%s'...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$workspace_home"
   rm -R "$workspace_home"
 }
 
 # ------------------------------------------------------------------------------
-# Unpack the given file(s) from the ZIP.
+# Extracts specific files from a ZIP archive into a target directory.
 #
-# Parameters:
-#    param 1: source zip file
-#    param 2: target directory to extract the file
-#    param 3: file-1 to extract from the ZIP
-#    param 4: file-2 to extract from the ZIP
+# Arguments:
+#    $1: Path to the source ZIP archive file
+#    $2: Path to the destination directory for extraction
+#    $3: Optional; First specific file path to extract from the ZIP
+#    $4: Optional; Second specific file path to extract from the ZIP
 # ------------------------------------------------------------------------------
 extract_file() {
   local archive_file target_dir fie_to_extract_1 fie_to_extract_2
@@ -68,48 +68,53 @@ extract_file() {
   fie_to_extract_1="${3:-}"
   fie_to_extract_2="${4:-}"
 
-  printf "%s | [INFO]  extracting files from an archived content...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
-  printf "%s | [DEBUG]        archive file: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$archive_file"
-  printf "%s | [DEBUG]          target dir: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$target_dir"
-  printf "%s | [DEBUG]    fie-1 to extract: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fie_to_extract_1"
-  printf "%s | [DEBUG]    fie-2 to extract: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fie_to_extract_2"
+  printf "%s | [INFO]  Extracting files from the archive...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]           archive file: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$archive_file"
+  printf "%s | [DEBUG]             target dir: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$target_dir"
+  printf "%s | [DEBUG]    1st file to extract: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fie_to_extract_1"
+  printf "%s | [DEBUG]    2nd file to extract: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fie_to_extract_2"
 
   if [ -z "$archive_file" ]; then
-    printf "%s | [WARN]  there is nothing to unpack\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [WARN]  No archive file specified. Skipping extraction.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   else
-    # Executing "docker stop" then "docker start" can cause an issue the extracted files from the previous run.
-    # Therefore, it is best to reset the directory before each run.
-    printf "%s | [DEBUG] removing the previous content from the \"%s\" directory...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "${target_dir}"
+    # Executing "docker stop" followed by "docker start" can leave stale files from the previous run.
+    # To ensure a clean state, the destination directory is cleared prior to extraction.
+    printf "%s | [DEBUG] Removing previous contents from the '%s' directory...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "${target_dir}"
     rm -rf "${target_dir:?}"/*
 
-    # Ignore a specific exit code that appears if the file to extract not found in the ZIP.
-    # Exit codes (see the full list here: https://linux.die.net/man/1/unzip):
-    #     9: the specified zip files were not found
-    #    11: no matching files were found
+ # Suppress and bypass exit code 11 which indicates that no matching files were found in the archive.
+  # Refer to the standard unzip manual for complete exit code specifications:
+  # https://die.net
+
+    # Ignore the exit code 11 that appears if the file to extract not found in the ZIP.
+    # See the full exit code list here: https://linux.die.net/man/1/unzip.
+    # Check if file_to_extract_2 is EMPTY (-z).
     if [[ -z "${fie_to_extract_2-}"  ]]; then
-      printf "%s | [DEBUG] unpacking \"%s\" and \"%s\" files from \"%s\" to \"%s\"...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fie_to_extract_1" "$fie_to_extract_2" "$archive_file" "$target_dir"
+      printf "%s | [DEBUG] Unpacking '%s' from '%s' to '%s'...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fie_to_extract_1" "$archive_file" "$target_dir"
       unzip -j "$archive_file" "$fie_to_extract_1" -d "$target_dir" || (exit "$(($? == 11 ? 0 : $?))")
     else
-      printf "%s | [DEBUG] unpacking the \"%s\" and \"%s\" files from \"%s\" to \"%s\"...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fie_to_extract_1" "$fie_to_extract_2" "$archive_file" "$target_dir"
+      printf "%s | [DEBUG] Unpacking '%s' and '%s' files from '%s' to '%s'...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fie_to_extract_1" "$fie_to_extract_2" "$archive_file" "$target_dir"
       unzip -j "$archive_file" "$fie_to_extract_1" "$fie_to_extract_2" -d "$target_dir" || (exit "$(($? == 11 ? 0 : $?))")
     fi
   fi
 }
 
 # ------------------------------------------------------------------------------
-# Get the key context for the Hashicorp Consul KV store.
-# The property key in the Consul KV store should always start with “config” name
-# followed by application main class name (spring.application.name). The main
-# class name can be overwritten by the spring.cloud.consul.config.name setting.
+# Determines the base Key-Value (KV) context path for HashiCorp Consul.
 #
-# For example, if
-#       - java code: @Value("${app.hello}")
-#       - application.properties: spring.application.name=welcome-service
-#    then the full path of the key is config/welcome-service/app.hello
+# The context path in the Consul KV starts with the literal prefix "config/",
+# followed by the application name. The configuration prioritizes the property
+# 'spring.cloud.consul.config.name' if defined; otherwise, it falls back to
+# 'spring.application.name'.
 #
-# Parameters:
-#    param 1: property file
-#    param 2: variable to hold the return value
+# For example, if:
+#   - reference in Java code to the key: @Value("${app.hello}")
+#   - application.properties:  spring.application.name=welcome-service
+#   Then the full path of the key is: config/welcome-service/app.hello
+#
+# Arguments:
+#    $1: Path to the Spring configuration properties file
+#    $2: Return value, the resolved context path
 # ------------------------------------------------------------------------------
 get_kv_context() {
   local properties_file application_name config_name key_context
@@ -124,76 +129,82 @@ get_kv_context() {
     key_context+="$application_name"
   fi
 
-  local result
-  result="$2"
-  eval "$result"="${key_context}"
+  local return_var="$2"
+  printf -v "$return_var" "%s" "$key_context"
 }
 
 # ------------------------------------------------------------------------------
-# Get the first JAR file from the given directory.
+# Identifies the single JAR file located within the specified directory.
 #
-# Parameters:
-#    param 1: the directory
-#    return:  the firs *.jar file from the directory
+# Arguments:
+#    $1: Path to the target directory containing the JAR file
+#    $2: Return value, the resolved file path
 # ------------------------------------------------------------------------------
 get_first_jar() {
   local jars_home
   jars_home="$1"
 
-  printf "%s | [INFO]  getting the first JAR file from \"%s\" directory...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$jars_home"
+  printf "%s | [INFO]  Searching for a JAR file in the '%s' directory...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$jars_home"
 
   local -a files
   mapfile -d '' files < <(find "$jars_home" -type f -name "*.jar" -print0)
 
   local number_of_files
   number_of_files=${#files[@]}
-  printf "%s | [DEBUG] found %s file(s) in the \"%s\" directory\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$number_of_files" "$jars_home"
+  printf "%s | [DEBUG] Found %d file(s) in the directory.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$number_of_files"
 
   if [[ "$number_of_files" -eq 0 ]]; then
-    printf "%s | [WARN]  there is no *.jar files in the \"%s\" directory, exiting...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$jars_home"
+    printf "%s | [WARN]  No *.jar files found in the directory.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   elif [[ "$number_of_files" -gt 1 ]]; then
-    printf "%s | [ERROR] ambiguous configuration, there are more then one JAR file to execute:\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [ERROR] Ambiguous configuration: multiple JAR files found:\n" "$(date +"%Y-%m-%d %H:%M:%S")"
     printf "%s\n" "${files[@]}"
     exit 1
   fi
 
-  local result
-  result="$2"
-  if [ ${#files[@]} -eq 0 ]; then
-    # no files in the dir
-    eval "$result"=""
-  else
-    # directory not empty
-    eval "$result"="${files[0]}"
-  fi
+ # Assign the single found JAR file to the provided return variable
+  local return_var="$2"
+  printf -v "$return_var" "%s" "${files[0]}"
 }
 
 # ------------------------------------------------------------------------------
-# Inserts the missing KV pairs into the Hashicorp Consul.
+# Inserts missing Key-Value (KV) pairs into the HashiCorp Consul KV store.
 #
-# Parameters:
-#    param 1: path to the *.properties file
-#    param 2: the key context in the KV store
+# Reads a standard properties file line-by-line, skips empty spaces or comments,
+# and checks each key against Consul. If the key does not exist, it inserts it.
+#
+# Arguments:
+#    $1: Path to the *.properties configuration file
+#    $2: Base key context prefix inside the Consul KV store
 # ------------------------------------------------------------------------------
 insert_kv() {
-  local _properties_file _key_context
-  _properties_file="$1"
-  _key_context="$2"
+  local properties_file key_context key value
+  properties_file="$1"
+  key_context="$2"
 
-  while IFS='=' read -d $'\n' -r _key _value; do
-    [[ "$_key" =~ ^([[:space:]]*|[[:space:]]*#.*)$ ]] && continue
-      _key="${_key_context}/${_key}"
-      if ! consul_key_exists "$_key"; then
-        consul_put_key "$_key" "$_value"
-      fi
-  done < "$_properties_file"
+  # Read file line-by-line,
+  # handling cases where the last line lacks a trailing newline
+  while IFS='=' read -r key value || [[ -n "$key" ]]; do
+    # Skip empty lines, whitespace, or comments starting with '#'
+    [[ "$key" =~ ^([[:space:]]*|[[:space:]]*#.*)$ ]] && continue
+
+    # Trim leading/trailing whitespace if necessary
+    key=$(echo "$key" | xargs)
+    value=$(echo "$value" | xargs)
+
+    local full_key
+    full_key="${key_context}/${key}"
+
+    if ! consul_key_exists "$full_key"; then
+      consul_put_key "$full_key" "$value"
+    fi
+  done < "$properties_file"
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
-printf "%s | [INFO]  inserting key/values into Hashicorp Consul...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+printf "%s | [INFO]  Inserting Key-Value pairs into HashiCorp Consul...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 
 UNPACK_DIR="/tmp/extracted-jar"
 PATH_TO_PROP_FILE="BOOT-INF/classes"

@@ -104,7 +104,7 @@ function waiting_for_approval() {
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 COLOR_DEFAULT=$(tput sgr0)
 COLOR_ERROR=$(tput setaf 196)

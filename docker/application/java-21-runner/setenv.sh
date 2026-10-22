@@ -15,6 +15,6 @@
 #   for commercial gain.
 # ******************************************************************************
 export IMAGE_FROM="springbox-openjdk-21:$1"
-export IMAGE_NAME="springbox-java-21-runner"
+export IMAGE_NAME="springbox-openjdk-21-runner"
 export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Spring Box - Java 21 Runner image"
+export IMAGE_DESCRIPTION="Remal Spring Box - OpenJDK 21 Runner image"

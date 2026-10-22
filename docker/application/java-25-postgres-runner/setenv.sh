@@ -14,7 +14,7 @@
 #   purposes, provided you give appropriate credit and do not use the material
 #   for commercial gain.
 # ******************************************************************************
-export IMAGE_FROM="springbox-java-25-runner:$1"
-export IMAGE_NAME="springbox-java-25-postgres-runner"
+export IMAGE_FROM="springbox-openjdk-25-runner:$1"
+export IMAGE_NAME="springbox-openjdk-25-postgres-runner"
 export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Spring Box - Java 25 Runner + PostgreSQL Runner image"
+export IMAGE_DESCRIPTION="Remal Spring Box - OpenJDK 25 + PostgreSQL Runner image"

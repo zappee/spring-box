@@ -1,7 +1,7 @@
 services:
     # ----- user-services -------------------------------------------------------------------------
     user-service-1:
-        image: springbox-java-25-postgres-runner:0.8.0
+        image: springbox-openjdk-25-postgres-runner:0.8.0
         container_name: user-service-1.${DOMAIN_NAME}
         hostname: user-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -38,7 +38,7 @@ services:
             - user-service-1-data:/var/lib/postgresql/data
 
     user-service-2:
-        image: springbox-java-25-postgres-runner:0.8.0
+        image: springbox-openjdk-25-postgres-runner:0.8.0
         container_name: user-service-2.${DOMAIN_NAME}
         hostname: user-service-2.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -76,7 +76,7 @@ services:
 
     # ----- welcome-services ----------------------------------------------------------------------
     welcome-service-1:
-        image: springbox-java-25-runner:0.8.0
+        image: springbox-openjdk-25-runner:0.8.0
         container_name: welcome-service-1.${DOMAIN_NAME}
         hostname: welcome-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -108,7 +108,7 @@ services:
 
     # ----- kafka-producer-services ---------------------------------------------------------------
     kafka-producer-service-1:
-        image: springbox-java-25-runner:0.8.0
+        image: springbox-openjdk-25-runner:0.8.0
         container_name: kafka-producer-service-1.${DOMAIN_NAME}
         hostname: kafka-producer-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -149,7 +149,7 @@ services:
 
     # ----- kafka-consumer-services ---------------------------------------------------------------
     kafka-consumer-service-1:
-        image: springbox-java-25-postgres-runner:0.8.0
+        image: springbox-openjdk-25-postgres-runner:0.8.0
         container_name: kafka-consumer-service-1.${DOMAIN_NAME}
         hostname: kafka-consumer-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -196,7 +196,7 @@ services:
 
     # ----- hazelcast-counter-services ------------------------------------------------------------
     hazelcast-counter-service-1:
-        image: springbox-java-25-runner:0.8.0
+        image: springbox-openjdk-25-runner:0.8.0
         container_name: hazelcast-counter-service-1.${DOMAIN_NAME}
         hostname: hazelcast-counter-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -229,7 +229,7 @@ services:
             - $HOME/Java/spring-box/volumes/hazelcast-counter-service-1/heap-dump:/heap-dump
 
     hazelcast-counter-service-2:
-        image: springbox-java-25-runner:0.8.0
+        image: springbox-openjdk-25-runner:0.8.0
         container_name: hazelcast-counter-service-2.${DOMAIN_NAME}
         hostname: hazelcast-counter-service-2.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]

@@ -1,75 +1,24 @@
-# Remal Image: Java 21 Runner with Postgres
+# Remal Image: OpenJDK 21 Runner with PostgreSQL
 
-## Postgres
+## 1) Overview
+Image name: `springbox-openjdk-postgres-runner`
 
-### Persist data in a dockerized Postgres database using volumes
-* docker-compose.yml
-    ```
-    services:
-        user-service:
-            image: remal-java-21-postgres-runner:0.8.0
-            ...
-            volumes:
-                - user-service-data:/var/lib/postgresql/data
-    
-    volumes:
-        user-service-data:
-            driver: local
-    ```
+This image is an extends of our base [Java Runner](https://github.com/zappee/spring-box/tree/main/docker/application/java-25-runner) images layer by adding a pre-installed, and ready-to-use PostgreSQL database server on top of that image. While everything detailed in the Java Runner images section applies to this image as well, this image requires a few extra configuration steps to operate the embedded database engine.
 
-* list volumes
-    ```
-    $ docker volume ls
-    ...
-    local     projects_user-service-data
-    ```
+It is recommended to usie this image if your application requires a dedicated database and follows a database-per-container or database-per-service design pattern.
 
-* volume size
-    ```
-    docker system df --verbose | grep <container-name>
-    ```
+⚠️ _**Important:** Because this image runs both the Java application and the database server inside a single container, it may require higher memory and CPU allocations._
 
-* delete unused volumes
-    ```
-    $ docker volume prune --all
-    ```
+## 2) Features
+* **PostgreSQL database server ready:** Fully configured and ready for the application inside this container.
 
-* backup volume
-
-  Normally, if you want to back up a data volume, you start a new container using the volume you want to back up, then execute the tar command to produce an archive of the volume content:
-    ```
-    $ VOLUME_NAME=projects_user-service-data
-  
-    $ docker run --rm \
-       --volume "$VOLUME_NAME":/volume \
-       --volume "$(pwd)":/backup \
-       busybox \
-       tar --exclude='postmaster.pid' -zcvf /backup/"$VOLUME_NAME".tar.gz -C /volume .
-    ```
-  Backing up Docker volumes is critical if you care about the data they store.
-  Docker volumes do not have a built-in "backup" command. 
-  The standard approach involves using a temporary container to create or extract a compressed archive (tarball) of the volume's data.
-
-
-* restore volume
-    ```
-    $ docker run --rm \
-         --volume "$VOLUME_NAME":/volume \
-         --volume $(pwd):/backup \
-         busybox sh -c "cd /volume && tar xzf /backup/"$VOLUME_NAME".tar.gz"
-    ```
-
-* volume size
-    ```
-    docker system df --verbose | grep <volume-name>
-    ```
-
-### Useful SQL commands
-| Function                            | SQL                                |
-|-------------------------------------|------------------------------------|
-| Determine the version of the server | `SELECT version()`                 |
-| List databases                      | `SELECT datname FROM pg_database`  |
-| List Users                          | `SELECT * FROM pg_catalog.pg_user` |
+## 3) Ports used by the container
+* 22: SSH
+* 1331: Readiness signal
+* 80: HTTP
+* 443: HTTPS
+* 5005: JVM debug
+* 5432:PostgreSQL
 
 ## License and Copyright
 Contact:   arnold.somogyi@gmail.com

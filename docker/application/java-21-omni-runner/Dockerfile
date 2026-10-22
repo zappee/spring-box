@@ -17,12 +17,6 @@ ARG IMAGE_FROM="unknown"
 ARG BUILD_TYPE="fat"
 FROM ${IMAGE_FROM} AS base
 
-EXPOSE 22/tcp
-EXPOSE 5432/tcp
-EXPOSE 8000/tcp
-EXPOSE 8443/tcp
-EXPOSE 8500/tcp
-
 ARG IMAGE_NAME="N/A"
 ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
@@ -41,14 +35,11 @@ LABEL "com.remal.image.name"="$IMAGE_NAME" \
       "com.remal.image.description"="$IMAGE_DESCRIPTION" \
       "com.remal.image.vendor"="Remal"
 
-
 # fat image
 FROM base AS base-fat
 
-
 # slim image
 FROM base AS base-slim
-
 
 # final image
 FROM base-$BUILD_TYPE AS final

@@ -106,7 +106,7 @@ function validate_arguments() {
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 CURRENT_SCRIPT=$(realpath "$0")
 PATH_OF_CURRENT_SCRIPT=$(dirname "$CURRENT_SCRIPT")
