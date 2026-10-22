@@ -3,7 +3,7 @@
 # Remal Docker image builder.
 #
 # Usage:
-#    $ ./build.sh <image-source-dir>
+#    build.sh <image-source-dir>
 #
 #    where the source-dir must point to the directory that holds the image
 #    source code
@@ -22,10 +22,10 @@
 # ******************************************************************************
 
 # ------------------------------------------------------------------------------
-# Build the Docker image.
+# Builds the Docker image using the specified configuration context.
 # ------------------------------------------------------------------------------
 function docker_build() {
-  show_build_info "The following build arguments will be used"
+  show_build_info "Building the Docker image..."
 
   docker build \
     --build-arg "BUILDKIT_DOCKERFILE_CHECK=skip=SecretsUsedInArgOrEnv" \
@@ -42,7 +42,7 @@ function docker_build() {
 }
 
 # ------------------------------------------------------------------------------
-# Remove unused Docker resources.
+# Removes stopped containers, associated volumes, and dangling images.
 # ------------------------------------------------------------------------------
 function docker_prune() {
   printf "%s\n" "$SEPARATOR"
@@ -53,53 +53,57 @@ function docker_prune() {
 }
 
 # ------------------------------------------------------------------------------
-# Push image to Docker-Registry to share it.
+# Pushes the built Docker image to the remote container registry.
 # ------------------------------------------------------------------------------
 function docker_push() {
-  if [ "$PUSH_IMAGE" = true ] ; then
-    printf -- "------------------------------------------------------------------------\n"
-    printf "pushing the image to the registry...\n"
-    printf -- "------------------------------------------------------------------------\n"
-    docker push "$IMAGE_NAME":"$IMAGE_TAG"
+  if [ "$PUSH_IMAGE" = "true" ] ; then
+    printf "Pushing the image to the Docker container registry...\n"
+    docker push "${IMAGE_NAME}:${IMAGE_TAG}"
   fi
 }
 
 # ------------------------------------------------------------------------------
-# Set the environment variables.
+# Configures the environment variables by sourcing the target lifecycle script.
+# Configures the environment variables by sourcing the target lifecycle script.
 # ------------------------------------------------------------------------------
 function set_context() {
   local script_to_run="$IMAGE_SRC/setenv.sh"
-  printf "Sourcing \"%s\" script...\n" "$script_to_run"
+  printf "Sourcing the environment configuration script: '%s'...\n" "$script_to_run"
+
+  # shellcheck disable=SC1090
   source "$script_to_run" "$IMAGE_TAG"
 }
 
 # ------------------------------------------------------------------------------
-# Shows the arguments that are used during the image build.
+# Displays the build configuration metadata and arguments for the Docker image.
 #
-# Parameters:
-#    param 1: label to show
+# Arguments:
+#    $1: Header banner to display above the logs
 # ------------------------------------------------------------------------------
 function show_build_info() {
-  printf "%s:\n" "$1"
-  printf "   - image source home: \"%s\"\n" "$IMAGE_SRC"
-  printf "   - build type:        \"%s\"\n" "$BUILD_TYPE"
-  printf "   - image from:        \"%s\"\n" "$IMAGE_FROM"
-  printf "   - image name:        \"%s\"\n" "$IMAGE_NAME"
-  printf "   - image tag:         \"%s\"\n" "$IMAGE_TAG"
-  printf "   - image author:      \"%s\"\n" "$IMAGE_AUTHOR"
-  printf "   - image description: \"%s\"\n" "$IMAGE_DESCRIPTION"
-  printf "   - push image:        \"%s\"\n" "$PUSH_IMAGE"
+  printf "%s\n" "$SEPARATOR"
+  printf "%s\n" "$1"
+  printf "%s\n" "$SEPARATOR"
+  printf "Configuration details:\n"
+  printf "   Source code: '%s'\n" "$IMAGE_SRC"
+  printf "   Build type:  '%s'\n" "$BUILD_TYPE"
+  printf "   Base image:  '%s'\n" "$IMAGE_FROM"
+  printf "   Image name:  '%s'\n" "$IMAGE_NAME"
+  printf "   Image tag:   '%s'\n" "$IMAGE_TAG"
+  printf "   Author(s):   '%s'\n" "$IMAGE_AUTHOR"
+  printf "   Description: '%s'\n" "$IMAGE_DESCRIPTION"
+  printf "   Push image:  '%s'\n" "$PUSH_IMAGE"
 }
 
 # ------------------------------------------------------------------------------
-# Validates the script startup arguments.
+# Validates the number of startup arguments passed to the script.
 #
-# Parameters:
-#    param 1: startup arguments of the script
+# Arguments:
+#   $@: All input parameters passed to the script at initialization
 # ------------------------------------------------------------------------------
 function validate_arguments() {
   if [ "$#" -ne 4 ]; then
-    printf "[ERROR] Illegal number of parameters.\n"
+    printf "[ERROR] Invalid number of arguments provided.\n"
     printf "Usage: %s <src-home> <build-type> <image-tag> <push-image>\n\n" "${0##*/}"
     exit 1
   fi
@@ -110,7 +114,6 @@ function validate_arguments() {
 # ------------------------------------------------------------------------------
 CURRENT_SCRIPT=$(realpath "$0")
 PATH_OF_CURRENT_SCRIPT=$(dirname "$CURRENT_SCRIPT")
-
 IMAGE_SRC="$PATH_OF_CURRENT_SCRIPT/$1"
 BUILD_TYPE="$2"
 IMAGE_TAG="$3"
@@ -119,7 +122,10 @@ SEPARATOR="---------------------------------------------------------------------
 
 validate_arguments "$@"
 set_context
+show_build_info "Preparing build environment..."
+
 docker_build
 docker_prune
 docker_push
-show_build_info "Image has been built successfully with"
+
+printf "\n%s\n" "The image has been successfully built."
