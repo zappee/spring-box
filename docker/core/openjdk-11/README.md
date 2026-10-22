@@ -1,25 +1,18 @@
 # Remal Image: OpenJDK 11
 
 ## 1) Overview
-This image is an official Remal Docker image, used as a base image of the subsequent docker images.
+Image name: `springbox-openjdk`
 
-## 2) Image details
-* based on the latest [Remal Base](../../base/base) image
-* `bash` and `sh`, bash is the default
-* customized bash prompt that shows the container name and version
-* bash aliases: `ll` and `ls`
-* `ssh` running on port 22
-* password of the `root` user is set to `password`
-* `OpenJDK 11`
-* `OpenSSH` tool
-* `head.sh` and `tail.sh` bash scripts that can be used in the child containers to execute custom commands
-* `shutdown-actions.sh` bash script that is executed automatically before the container shuts down
+The platform supports production-ready runtimes for [OpenJDK 11, 17, 21, and 25](https://github.com/zappee/spring-box/tree/main/docker/core).
 
-## 3) Ports used by the image
+⚠️ _**Important:**_
+_These core images are designed to serve as top layer for custom builds and are not recommended for running Java applications (*.jar) directly._
+_To deploy and execute your Java applications, we highly recommend using our specialized [Java Runner](#8-java-runner-containers---springbox-openjdk-runner) containers._
 
-| container port | description |
-|----------------|-------------|
-| 22             | SSH         |
+#### 7.1) Features
+This Docker image layer only adds
+* specific OpenJDK installations
+* OpenSSL to deal with keystores
 
 ## License and Copyright
 Contact:   arnold.somogyi@gmail.com

@@ -16,9 +16,6 @@
 ARG IMAGE_FROM="unknown"
 FROM ${IMAGE_FROM}
 
-EXPOSE 22/tcp
-EXPOSE 1331/tcp
-
 ARG IMAGE_NAME="N/A"
 ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
@@ -38,18 +35,15 @@ LABEL "com.remal.image.name"="$IMAGE_NAME" \
       "com.remal.image.description"="$IMAGE_DESCRIPTION" \
       "com.remal.image.vendor"="Remal"
 
-# install openssl and openjdk
 RUN set -ue; \
-    apk add --no-cache openssl; \
-	apk add --no-cache java-cacerts openjdk11-jdk; \
+    apk add --no-cache openssl java-cacerts openjdk11-jdk; \
 	java -version; \
 	javac -version; \
     printf "export %s=\"%s\"\n" "JAVA_HOME" "$JAVA_HOME" >> /etc/profile
 
-# create some directories to share logs betweeen the container and the host machine
+# directory to share logs betweeen the container and the host machine
 RUN set -ue; \
-	mkdir -p /logs; \
-    mkdir -p /heap-dump
+	mkdir -p /logs /heap-dump
 
 ONBUILD COPY container-scripts/init/* /docker.init/
 ONBUILD COPY container-scripts/startup/* /docker.startup/
