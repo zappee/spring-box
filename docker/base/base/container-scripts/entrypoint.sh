@@ -17,7 +17,7 @@
 . /shared.sh
 trap "shutdown_trap; exit 0" SIGINT SIGTERM SIGHUP
 
-printf "%s | [INFO ] starting OpenSSH Daemon as a background process...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+printf "%s | [INFO ] Starting OpenSSH Daemon as a background process...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 /usr/sbin/sshd -e -D &
 
 if [ "$(is_first_startup)" = "true" ]; then
