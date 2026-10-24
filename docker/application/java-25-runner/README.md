@@ -1,4 +1,4 @@
-# Remal Image: OpenJDK 25 Runner
+# Remal Spring Box: OpenJDK 25 Runner image
 
 ## 1) Overview
 Image name: `springbox-openjdk-25-runner`
@@ -14,7 +14,7 @@ The Java Runner is an optimized Docker image designed specifically for running c
 * **Built-in Prometheus metrics collector:** Pre-configured to automatically expose application and JVM telemetry, including CPU usage, memory utilization, and REST performance. It fully integrates with Micrometer to easily track custom meters, counters, and timers.
 * **Grafana analytics and visualization platform:** Features pre-configured visualization dashboards that transform raw metrics collected by Prometheus into real-time, intuitive charts.
 
-## Ports used by the container
+## 3) Ports used by the container
 * **80 (HTTP):** The default exposed HTTP port where Spring Boot REST controller endpoints listen for incoming traffic.
 * **8443 (HTTPS):** The default exposed HTTPS port where Spring Boot REST controller endpoints listen for incoming traffic.
 * **5005 (JVM debug):** Used for encrypted TLS (HTTPS) API traffic and the secure Web UI. It is typically disabled by default but is configured in production or secure environments to protect sensitive infrastructure data using mTLS.

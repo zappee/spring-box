@@ -1,18 +1,17 @@
-# Remal Image: OpenJDK 21
+# Remal Spring Box: OpenJDK 21 image
 
 ## 1) Overview
 Image name: `springbox-openjdk`
 
-The platform supports production-ready runtimes for [OpenJDK 11, 17, 21, and 25](https://github.com/zappee/spring-box/tree/main/docker/core).
+The platform supports production-ready runtimes for OpenJDK 21.
 
 ⚠️ _**Important:**_
-_These core images are designed to serve as top layer for custom builds and are not recommended for running Java applications (*.jar) directly._
-_To deploy and execute your Java applications, we highly recommend using our specialized [Java Runner](#8-java-runner-containers---springbox-openjdk-runner) containers._
+_These core image is designed to serve as top layer for custom builds and are not recommended for running Java applications (*.jar) directly._
+_To deploy and execute your Java applications, we highly recommend using our specialized [Java Runner](https://github.com/zappee/spring-box/blob/main/docker/application/java-21-runner/README.md) container._
 
-#### 7.1) Features
-This Docker image layer only adds
-* specific OpenJDK installations
-* OpenSSL to deal with keystores
+#### 2) Features
+* OpenJDK 21 installation.
+* OpenSSL to deal with keystores.
 
 ## License and Copyright
 Contact:   arnold.somogyi@gmail.com

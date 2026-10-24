@@ -1,4 +1,4 @@
-# Remal Image: OpenJDK 21 Omni Runner
+# Remal Spring Box: OpenJDK 21 Omni Runner image
 
 ## 1) Overview
 Image name: `springbox-openjdk-omni-runner`

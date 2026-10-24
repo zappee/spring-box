@@ -20,6 +20,7 @@
 # Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
+
 FQDN=$(hostname -f)
 
 generate_certificate "serverClient" "$FQDN" "DNS:$FQDN,DNS:localhost,IP:127.0.0.1"
