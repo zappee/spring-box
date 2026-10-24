@@ -58,7 +58,7 @@ function docker_prune() {
 function docker_push() {
   if [ "$PUSH_IMAGE" = "true" ] ; then
     printf "Pushing the image to the Docker container registry...\n"
-    docker push "${IMAGE_NAME}:${IMAGE_TAG}"
+    docker push "$IMAGE_NAME:$IMAGE_TAG"
   fi
 }
 
