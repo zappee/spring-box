@@ -18,11 +18,13 @@
 . /grafana-functions.sh
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
+
 grafana_configuration
 update_grafana_password
 prepare_grafana_datasource_files
 create_grafana_datasources
+
 log_end "$0"

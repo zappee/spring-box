@@ -16,6 +16,10 @@
 #   for commercial gain.
 # ******************************************************************************
 . /shared.sh
+
+# ------------------------------------------------------------------------------
+# Main program execution.
+# ------------------------------------------------------------------------------
 log_start "$0"
 
 mkdir -p /usr/local/share/ca-certificates && cp /tmp/ca.crt /usr/local/share/ca-certificates/
