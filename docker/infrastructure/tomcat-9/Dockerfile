@@ -27,10 +27,10 @@ ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
 # environment variables
-ENV IMAGE_NAME="$IMAGE_NAME" \
-    IMAGE_TAG="$IMAGE_TAG" \
-    IMAGE_AUTHOR="$IMAGE_AUTHOR" \
-    IMAGE_DESCRIPTION="$IMAGE_DESCRIPTION" \
+ENV IMAGE_NAME="${IMAGE_NAME}" \
+    IMAGE_TAG="${IMAGE_TAG}" \
+    IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
+    IMAGE_DESCRIPTION="${IMAGE_DESCRIPTION}" \
     \
     CATALINA_HOME="/opt/tomcat" \
     CATALINA_USER="admin" \
@@ -42,21 +42,21 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
                   -Djava.util.logging.config.file=/opt/tomcat/conf/logging.properties"
 
 # set image metadata
-LABEL "com.remal.image.name"="$IMAGE_NAME" \
-      "com.remal.image.tag"="$IMAGE_TAG" \
-      "com.remal.image.author"="$IMAGE_AUTHOR" \
-      "com.remal.image.description"="$IMAGE_DESCRIPTION" \
+LABEL "com.remal.image.name"="${IMAGE_NAME}" \
+      "com.remal.image.tag"="${IMAGE_TAG}" \
+      "com.remal.image.author"="${IMAGE_AUTHOR}" \
+      "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
 
 # fat image
 FROM base AS base-fat
-COPY "bin/$TOMCAT_INSTALL_KIT" "/tmp/"
+COPY "bin/${TOMCAT_INSTALL_KIT}" "/tmp/"
 RUN set -ue; \
     printf "building fat image\n"; \
-    mkdir -p "$CATALINA_HOME"; \
-    tar -xvf "/tmp/$TOMCAT_INSTALL_KIT" --strip-components=1 -C "$CATALINA_HOME"; \
-    rm -f "/tmp/$TOMCAT_INSTALL_KIT"
+    mkdir -p "${CATALINA_HOME}"; \
+    tar -xvf "/tmp/${TOMCAT_INSTALL_KIT}" --strip-components=1 -C "${CATALINA_HOME}"; \
+    rm -f "/tmp/${TOMCAT_INSTALL_KIT}"
 
 
 # slim image
@@ -64,16 +64,16 @@ FROM base AS base-slim
 RUN set -ue; \
     printf "building slim image\n"; \
     host_ip="$(ip route | awk '/default/ { print $3 }')"; \
-    wget -O "/tmp/$TOMCAT_INSTALL_KIT" http://$host_ip:8080/docker-build/$TOMCAT_INSTALL_KIT; \
-    mkdir -p "$CATALINA_HOME"; \
-    tar -xvf "/tmp/$TOMCAT_INSTALL_KIT" --strip-components=1 -C "$CATALINA_HOME"; \
-    rm -R "$CATALINA_HOME/webapps/docs/"; \
-    rm -R "$CATALINA_HOME/webapps/examples/"; \
-    rm -f "/tmp/$TOMCAT_INSTALL_KIT"
+    wget -O "/tmp/${TOMCAT_INSTALL_KIT}" http://${host_ip}:8080/docker-build/${TOMCAT_INSTALL_KIT}; \
+    mkdir -p "${CATALINA_HOME}"; \
+    tar -xvf "/tmp/${TOMCAT_INSTALL_KIT}" --strip-components=1 -C "${CATALINA_HOME}"; \
+    rm -R "${CATALINA_HOME}/webapps/docs/"; \
+    rm -R "${CATALINA_HOME}/webapps/examples/"; \
+    rm -f "/tmp/${TOMCAT_INSTALL_KIT}"
 
 
 # final image
-FROM base-$BUILD_TYPE AS final
+FROM base-${BUILD_TYPE} AS final
 RUN set -ue; \
     printf "installing XMLStarlet...\n"; \
     apk add --no-cache xmlstarlet; \
@@ -84,9 +84,9 @@ RUN set -ue; \
     printf "configuring tomcat log to track access to resources...\n"; \
     xmlstarlet edit \
         --update "/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']/@pattern" -v "%t, %h, %u, &quot;%r&quot;, %s, %b, &quot;%{Referer}i&quot;, &quot;%{User-Agent}i&quot;, %D, %F" \
-        "$CATALINA_HOME/conf/server.xml" | \
-    xmlstarlet unesc > "$CATALINA_HOME/conf/server.xml.new"; \
-    mv $CATALINA_HOME/conf/server.xml.new $CATALINA_HOME/conf/server.xml; \
+        "${CATALINA_HOME}/conf/server.xml" | \
+    xmlstarlet unesc > "${CATALINA_HOME}/conf/server.xml.new"; \
+    mv ${CATALINA_HOME}/conf/server.xml.new ${CATALINA_HOME}/conf/server.xml; \
     \
     printf "adding new tomcat user and role entries...\n"; \
     xmlstarlet edit \
@@ -94,25 +94,25 @@ RUN set -ue; \
         -N "s=http://tomcat.apache.org/xml" \
         -s "/s:tomcat-users" -t elem -n "role" -s "/s:tomcat-users/role" -t attr -n "rolename" -v "manager-gui" \
         -s "/s:tomcat-users" -t elem -n "role" -s "/s:tomcat-users/role[last()]" -t attr -n "rolename" -v "admin-gui" \
-        -s "/s:tomcat-users" -t elem -n "user" -s "/s:tomcat-users/user" -t attr -n "username" -v "$CATALINA_USER" \
-        -s "/s:tomcat-users/user[@username='$CATALINA_USER']" -t attr -n "password" -v "$CATALINA_PASSWORD" \
-        -s "/s:tomcat-users/user[@username='$CATALINA_USER']" -t attr -n "roles" -v "manager-gui,admin-gui" \
-        "$CATALINA_HOME/conf/tomcat-users.xml"; \
+        -s "/s:tomcat-users" -t elem -n "user" -s "/s:tomcat-users/user" -t attr -n "username" -v "${CATALINA_USER}" \
+        -s "/s:tomcat-users/user[@username='${CATALINA_USER}']" -t attr -n "password" -v "${CATALINA_PASSWORD}" \
+        -s "/s:tomcat-users/user[@username='${CATALINA_USER}']" -t attr -n "roles" -v "manager-gui,admin-gui" \
+        "${CATALINA_HOME}/conf/tomcat-users.xml"; \
     \
    printf "updating the access right of 'host-manager' webapp...\n"; \
    xmlstarlet edit \
         --inplace \
         --update "/Context/Valve[@className='org.apache.catalina.valves.RemoteAddrValve']/@allow" -v "\d+\.\d+\.\d+\.\d+" \
-        "$CATALINA_HOME/webapps/host-manager/META-INF/context.xml"; \
+        "${CATALINA_HOME}/webapps/host-manager/META-INF/context.xml"; \
     \
    printf "updating the access right of 'manager' webapp...\n"; \
    xmlstarlet edit \
         --inplace \
         --update "/Context/Valve[@className='org.apache.catalina.valves.RemoteAddrValve']/@allow" -v "\d+\.\d+\.\d+\.\d+" \
-        "$CATALINA_HOME/webapps/manager/META-INF/context.xml"; \
+        "${CATALINA_HOME}/webapps/manager/META-INF/context.xml"; \
    \
    printf "setting up environment variables...\n"; \
-   printf "export %s=\"%s\"\n" "CATALINA_HOME" "$CATALINA_HOME" >> /etc/profile
+   printf "export %s=\"%s\"\n" "CATALINA_HOME" "${CATALINA_HOME}" >> /etc/profile
 
 COPY container-scripts/tomcat-functions.sh /
 ONBUILD COPY container-scripts/init/* /docker.init/

@@ -1,4 +1,4 @@
-# Remal Image: Private Certificate Authority Server
+# Remal Spring Box: Private Certificate Authority Server image
 
 ## 1) Overview
 Certificate Authority (CA) is an entity responsible for issuing digital certificates to make communication secure.

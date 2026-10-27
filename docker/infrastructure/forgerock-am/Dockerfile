@@ -28,10 +28,10 @@ ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
 # environment variables
-ENV IMAGE_NAME="$IMAGE_NAME" \
-    IMAGE_TAG="$IMAGE_TAG" \
-    IMAGE_AUTHOR="$IMAGE_AUTHOR" \
-    IMAGE_DESCRIPTION="$IMAGE_DESCRIPTION" \
+ENV IMAGE_NAME="${IMAGE_NAME}" \
+    IMAGE_TAG="${IMAGE_TAG}" \
+    IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
+    IMAGE_DESCRIPTION="${IMAGE_DESCRIPTION}" \
     \
     PKI_HOST="pki.remal.com" \
     \
@@ -54,44 +54,44 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     AM_USER_STORE_MANAGER_PASSWD="password"
 
 # set image metadata
-LABEL "com.remal.image.name"="$IMAGE_NAME" \
-      "com.remal.image.tag"="$IMAGE_TAG" \
-      "com.remal.image.author"="$IMAGE_AUTHOR" \
-      "com.remal.image.description"="$IMAGE_DESCRIPTION" \
+LABEL "com.remal.image.name"="${IMAGE_NAME}" \
+      "com.remal.image.tag"="${IMAGE_TAG}" \
+      "com.remal.image.author"="${IMAGE_AUTHOR}" \
+      "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
 
 # fat image
 FROM base AS base-fat
-COPY "bin/$AM_INSTALL_KIT" "$CATALINA_HOME/webapps/openam/$AM_CONTEXT_ROOT.war"
-COPY "bin/$AM_CONFIG_TOOL_INSTALL_KIT" "$AM_CONFIG_TOOL_HOME/"
+COPY "bin/${AM_INSTALL_KIT}" "${CATALINA_HOME}/webapps/openam/${AM_CONTEXT_ROOT}.war"
+COPY "bin/${AM_CONFIG_TOOL_INSTALL_KIT}" "${AM_CONFIG_TOOL_HOME}/"
 RUN set -ue; \
-    cd "$CATALINA_HOME/webapps/$AM_CONTEXT_ROOT"; \
-    jar -xvf "$AM_CONTEXT_ROOT.war"; \
-    rm "$CATALINA_HOME/webapps/openam/$AM_CONTEXT_ROOT.war"; \
+    cd "${CATALINA_HOME}/webapps/${AM_CONTEXT_ROOT}"; \
+    jar -xvf "${AM_CONTEXT_ROOT}.war"; \
+    rm "${CATALINA_HOME}/webapps/openam/${AM_CONTEXT_ROOT}.war"; \
     \
-    cd "$AM_CONFIG_TOOL_HOME"; \
-    unzip "$AM_CONFIG_TOOL_INSTALL_KIT"; \
-    rm "$AM_CONFIG_TOOL_INSTALL_KIT"
+    cd "${AM_CONFIG_TOOL_HOME}"; \
+    unzip "${AM_CONFIG_TOOL_INSTALL_KIT}"; \
+    rm "${AM_CONFIG_TOOL_INSTALL_KIT}"
 
 
 # slim image
 FROM base AS base-slim
 RUN set -ue; \
     host_ip="$(ip route | awk '/default/ { print $3 }')"; \
-    mkdir -p "$CATALINA_HOME/webapps/$AM_CONTEXT_ROOT"; \
-    wget -O "$CATALINA_HOME/webapps/openam/$AM_CONTEXT_ROOT.war" http://$host_ip:8080/docker-build/$AM_INSTALL_KIT; \
-    cd "$CATALINA_HOME/webapps/$AM_CONTEXT_ROOT"; \
-    jar -xvf "$AM_CONTEXT_ROOT.war"; \
-    rm "$CATALINA_HOME/webapps/openam/$AM_CONTEXT_ROOT.war"; \
+    mkdir -p "${CATALINA_HOME}/webapps/${AM_CONTEXT_ROOT}"; \
+    wget -O "${CATALINA_HOME}/webapps/openam/${AM_CONTEXT_ROOT}.war" http://${host_ip}:8080/docker-build/${AM_INSTALL_KIT}; \
+    cd "${CATALINA_HOME}/webapps/${AM_CONTEXT_ROOT}"; \
+    jar -xvf "${AM_CONTEXT_ROOT}.war"; \
+    rm "${CATALINA_HOME}/webapps/openam/${AM_CONTEXT_ROOT}.war"; \
     \
-    mkdir -p "$AM_CONFIG_TOOL_HOME"; \
-    wget -O "$AM_CONFIG_TOOL_HOME/$AM_CONFIG_TOOL_INSTALL_KIT" http://$host_ip:8080/docker-build/$AM_CONFIG_TOOL_INSTALL_KIT; \
-    cd "$AM_CONFIG_TOOL_HOME"; \
-    unzip "$AM_CONFIG_TOOL_INSTALL_KIT"; \
-    rm "$AM_CONFIG_TOOL_INSTALL_KIT"
+    mkdir -p "${AM_CONFIG_TOOL_HOME}"; \
+    wget -O "${AM_CONFIG_TOOL_HOME}/${AM_CONFIG_TOOL_INSTALL_KIT}" http://${host_ip}:8080/docker-build/${AM_CONFIG_TOOL_INSTALL_KIT}; \
+    cd "${AM_CONFIG_TOOL_HOME}"; \
+    unzip "${AM_CONFIG_TOOL_INSTALL_KIT}"; \
+    rm "${AM_CONFIG_TOOL_INSTALL_KIT}"
 
 
 # final image
-FROM base-$BUILD_TYPE AS final
+FROM base-${BUILD_TYPE} AS final
 COPY container-scripts/shutdown-actions.sh /

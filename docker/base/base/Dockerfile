@@ -25,19 +25,19 @@ ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
 # environment variables
-ENV IMAGE_NAME="$IMAGE_NAME" \
-    IMAGE_TAG="$IMAGE_TAG" \
-    IMAGE_AUTHOR="$IMAGE_AUTHOR" \
-    IMAGE_DESCRIPTION="$IMAGE_DESCRIPTION" \
+ENV IMAGE_NAME="${IMAGE_NAME}" \
+    IMAGE_TAG="${IMAGE_TAG}" \
+    IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
+    IMAGE_DESCRIPTION="${IMAGE_DESCRIPTION}" \
     SSH_USER="root" \
     SSH_PASSWORD="password" \
     UP_SIGNAL_PORT=1331
 
 # set image metadata
-LABEL "com.remal.image.name"="$IMAGE_NAME" \
-      "com.remal.image.tag"="$IMAGE_TAG" \
-      "com.remal.image.author"="$IMAGE_AUTHOR" \
-      "com.remal.image.description"="$IMAGE_DESCRIPTION" \
+LABEL "com.remal.image.name"="${IMAGE_NAME}" \
+      "com.remal.image.tag"="${IMAGE_TAG}" \
+      "com.remal.image.author"="${IMAGE_AUTHOR}" \
+      "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
 # instal tools and configure Bash as a default shell
@@ -57,7 +57,7 @@ RUN set -ue; \
 RUN set -ue; \
     printf "PasswordAuthentication yes\n" >> /etc/ssh/sshd_config; \
     printf "PermitRootLogin yes\n" >> /etc/ssh/sshd_config; \
-    printf "%s:%s" "$SSH_USER" "$SSH_PASSWORD" | chpasswd; \
+    printf "%s:%s" "${SSH_USER}" "${SSH_PASSWORD}" | chpasswd; \
     ssh-keygen -A
 
 # configure first-boot and startup script executors

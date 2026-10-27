@@ -26,10 +26,10 @@ ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
 # environment variables
-ENV IMAGE_NAME="$IMAGE_NAME" \
-    IMAGE_TAG="$IMAGE_TAG" \
-    IMAGE_AUTHOR="$IMAGE_AUTHOR" \
-    IMAGE_DESCRIPTION="$IMAGE_DESCRIPTION" \
+ENV IMAGE_NAME="${IMAGE_NAME}" \
+    IMAGE_TAG="${IMAGE_TAG}" \
+    IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
+    IMAGE_DESCRIPTION="${IMAGE_DESCRIPTION}" \
     \
     PKI_HOST="pki.remal.com" \
     KEYSTORE_HOME="/tmp" \
@@ -44,10 +44,10 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     VAULT_AUDIT_LOG="/var/log/vault-audit.log"
 
 # set image metadata
-LABEL "com.remal.image.name"="$IMAGE_NAME" \
-      "com.remal.image.tag"="$IMAGE_TAG" \
-      "com.remal.image.author"="$IMAGE_AUTHOR" \
-      "com.remal.image.description"="$IMAGE_DESCRIPTION" \
+LABEL "com.remal.image.name"="${IMAGE_NAME}" \
+      "com.remal.image.tag"="${IMAGE_TAG}" \
+      "com.remal.image.author"="${IMAGE_AUTHOR}" \
+      "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
 # install openssl
@@ -57,22 +57,22 @@ RUN set -ue; \
 
 # fat image
 FROM base AS base-fat
-COPY "bin/$VAULT_INSTALL_KIT" "/tmp/"
+COPY "bin/${VAULT_INSTALL_KIT}" "/tmp/"
 RUN set -ue; \
-    unzip "/tmp/$VAULT_INSTALL_KIT" -d "/usr/local/bin/"; \
-    rm "/tmp/$VAULT_INSTALL_KIT"
+    unzip "/tmp/${VAULT_INSTALL_KIT}" -d "/usr/local/bin/"; \
+    rm "/tmp/${VAULT_INSTALL_KIT}"
 
 
 # slim image
 FROM base AS base-slim
 RUN set -ue; \
     host_ip="$(ip route | awk '/default/ { print $3 }')"; \
-    wget -O "/tmp/$VAULT_INSTALL_KIT" http://$host_ip:8080/docker-build/$VAULT_INSTALL_KIT; \
-    unzip "/tmp/$VAULT_INSTALL_KIT" -d "/usr/local/bin/"; \
-    rm "/tmp/$VAULT_INSTALL_KIT"
+    wget -O "/tmp/${VAULT_INSTALL_KIT}" http://${host_ip}:8080/docker-build/${VAULT_INSTALL_KIT}; \
+    unzip "/tmp/${VAULT_INSTALL_KIT}" -d "/usr/local/bin/"; \
+    rm "/tmp/${VAULT_INSTALL_KIT}"
 
 
 # final image
-FROM base-$BUILD_TYPE AS final
-COPY config/vault.hcl "$VAULT_CONFIG_FILE"
+FROM base-${BUILD_TYPE} AS final
+COPY config/vault.hcl "${VAULT_CONFIG_FILE}"
 COPY container-scripts/vault-functions.sh container-scripts/get-value.sh container-scripts/set-value.sh /

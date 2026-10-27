@@ -27,10 +27,10 @@ ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
 # environment variables
-ENV IMAGE_NAME="$IMAGE_NAME" \
-    IMAGE_TAG="$IMAGE_TAG" \
-    IMAGE_AUTHOR="$IMAGE_AUTHOR" \
-    IMAGE_DESCRIPTION="$IMAGE_DESCRIPTION" \
+ENV IMAGE_NAME="${IMAGE_NAME}" \
+    IMAGE_TAG="${IMAGE_TAG}" \
+    IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
+    IMAGE_DESCRIPTION="${IMAGE_DESCRIPTION}" \
     \
     PKI_HOST="pki.remal.com" \
     KEYSTORE_HOME="/tmp" \
@@ -41,10 +41,10 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     HAZELCAST_CLUSTER_NAME="springbox-dev"
 
 # set image metadata
-LABEL "com.remal.image.name"="$IMAGE_NAME" \
-      "com.remal.image.tag"="$IMAGE_TAG" \
-      "com.remal.image.author"="$IMAGE_AUTHOR" \
-      "com.remal.image.description"="$IMAGE_DESCRIPTION" \
+LABEL "com.remal.image.name"="${IMAGE_NAME}" \
+      "com.remal.image.tag"="${IMAGE_TAG}" \
+      "com.remal.image.author"="${IMAGE_AUTHOR}" \
+      "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
 # installing tools and settin up bash as a default shell
@@ -55,12 +55,12 @@ RUN set -ue; \
 # fat image
 FROM base AS base-fat
 LABEL "com.remal.image.type"="fat"
-COPY "bin/$HAZELCAST_INSTALL_KIT" "/tmp/"
+COPY "bin/${HAZELCAST_INSTALL_KIT}" "/tmp/"
 RUN set -ue; \
     printf "building the fat image\n"; \
-    mkdir -p "$HAZELCAST_HOME"; \
-    tar -xvf "/tmp/$HAZELCAST_INSTALL_KIT" --strip-components=1 -C "$HAZELCAST_HOME"; \
-    rm -f "/tmp/$HAZELCAST_INSTALL_KIT"
+    mkdir -p "${HAZELCAST_HOME}"; \
+    tar -xvf "/tmp/${HAZELCAST_INSTALL_KIT}" --strip-components=1 -C "${HAZELCAST_HOME}"; \
+    rm -f "/tmp/${HAZELCAST_INSTALL_KIT}"
 
 
 # slim image
@@ -69,13 +69,13 @@ LABEL "com.remal.image.type"="slim"
 RUN set -ue; \
     printf "building the slim image\n"; \
     host_ip="$(ip route | awk '/default/ { print $3 }')"; \
-    wget -O "/tmp/$HAZELCAST_INSTALL_KIT" http://$host_ip:8080/docker-build/$HAZELCAST_INSTALL_KIT; \
-    mkdir -p "$HAZELCAST_HOME"; \
-    tar -xvf "/tmp/$HAZELCAST_INSTALL_KIT" --strip-components=1 -C "$HAZELCAST_HOME"; \
-    rm -f "/tmp/$HAZELCAST_INSTALL_KIT"
+    wget -O "/tmp/${HAZELCAST_INSTALL_KIT}" http://${host_ip}:8080/docker-build/${HAZELCAST_INSTALL_KIT}; \
+    mkdir -p "${HAZELCAST_HOME}"; \
+    tar -xvf "/tmp/${HAZELCAST_INSTALL_KIT}" --strip-components=1 -C "${HAZELCAST_HOME}"; \
+    rm -f "/tmp/${HAZELCAST_INSTALL_KIT}"
 
 
 # final image
 FROM base-${BUILD_TYPE}
 COPY container-scripts/hazelcast-functions.sh /
-COPY config/hazelcast.xml "$HAZELCAST_CONFIG_TEMPLATE_DIR"/
+COPY config/hazelcast.xml "${HAZELCAST_CONFIG_TEMPLATE_DIR}"/

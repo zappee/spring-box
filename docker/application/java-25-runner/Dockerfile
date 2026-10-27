@@ -27,10 +27,10 @@ ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
 # environment variables
-ENV IMAGE_NAME="$IMAGE_NAME" \
-    IMAGE_TAG="$IMAGE_TAG" \
-    IMAGE_AUTHOR="$IMAGE_AUTHOR" \
-    IMAGE_DESCRIPTION="$IMAGE_DESCRIPTION" \
+ENV IMAGE_NAME="${IMAGE_NAME}" \
+    IMAGE_TAG="${IMAGE_TAG}" \
+    IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
+    IMAGE_DESCRIPTION="${IMAGE_DESCRIPTION}" \
     \
     PKI_HOST="pki.remal.com" \
     KEYSTORE_HOME="/tmp" \
@@ -48,10 +48,10 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     EXPECTED_HEALTH_CHECK_STATE='\"status\":\"UP\"'
 
 # set image metadata
-LABEL "com.remal.image.name"="$IMAGE_NAME" \
-      "com.remal.image.tag"="$IMAGE_TAG" \
-      "com.remal.image.author"="$IMAGE_AUTHOR" \
-      "com.remal.image.description"="$IMAGE_DESCRIPTION" \
+LABEL "com.remal.image.name"="${IMAGE_NAME}" \
+      "com.remal.image.tag"="${IMAGE_TAG}" \
+      "com.remal.image.author"="${IMAGE_AUTHOR}" \
+      "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
 # fat image
@@ -61,7 +61,7 @@ FROM base AS base-fat
 FROM base AS base-slim
 
 # final image
-FROM base-$BUILD_TYPE AS final
+FROM base-${BUILD_TYPE} AS final
 
 COPY container-scripts/init/* /docker.init/
 COPY container-scripts/startup/* /docker.startup/
