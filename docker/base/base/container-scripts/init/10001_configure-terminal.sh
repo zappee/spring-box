@@ -20,6 +20,7 @@
 # Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
+
 {
   printf "%s\n" "alias ll='ls -alF'"
   printf "%s\n" "alias ls='ls --color=auto'"
@@ -35,4 +36,5 @@ log_start "$0"
   printf "export %s=\"%s\"\n" "SSH_PASSWORD" "$SSH_PASSWORD"
   printf "export %s=\"%s\"\n" "UP_SIGNAL_PORT" "$UP_SIGNAL_PORT"
 } >> /etc/profile
+
 log_end "$0"

@@ -20,7 +20,7 @@
 # Start the Prometheus Server and wait for the full server start-up.
 # ------------------------------------------------------------------------------
 function start_prometheus() {
-  printf "%s | [INFO]  starting Prometheus...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO]  Starting Prometheus...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]          PROMETHEUS_HOME: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_HOME"
   printf "%s | [DEBUG]        PROMETHEUS_CONFIG: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_CONFIG"
   printf "%s | [DEBUG]           PROMETHEUS_LOG: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_LOG"

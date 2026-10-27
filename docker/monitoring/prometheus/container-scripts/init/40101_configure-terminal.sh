@@ -17,6 +17,7 @@
 . /shared.sh
 
 log_start "$0"
+
 {
   printf "export %s=\"%s\"\n" "PKI_HOST" "$PKI_HOST"
   printf "export %s=\"%s\"\n" "KEYSTORE_HOME" "$KEYSTORE_HOME"
@@ -25,4 +26,5 @@ log_start "$0"
   printf "export %s=\"%s\"\n" "FQDN" "$(hostname -f)"
   printf "cd %s\n" "$PROMETHEUS_HOME"
 } >> /etc/profile
+
 log_end "$0"

@@ -19,7 +19,7 @@ log_start "$0"
 cd "$EASYRSA_HOME"
 
 # installing easy-rsa
-printf "%s | [INFO ] initializing easy-rsa...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+printf "%s | [INFO ] Initializing easy-rsa...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 ./easyrsa init-pki
 
 VARS="$EASYRSA_HOME/pki/vars"

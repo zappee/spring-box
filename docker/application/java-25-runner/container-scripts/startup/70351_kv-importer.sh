@@ -82,10 +82,6 @@ extract_file() {
     printf "%s | [DEBUG] Removing previous contents from the '%s' directory...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "${target_dir}"
     rm -rf "${target_dir:?}"/*
 
- # Suppress and bypass exit code 11 which indicates that no matching files were found in the archive.
-  # Refer to the standard unzip manual for complete exit code specifications:
-  # https://die.net
-
     # Ignore the exit code 11 that appears if the file to extract not found in the ZIP.
     # See the full exit code list here: https://linux.die.net/man/1/unzip.
     # Check if file_to_extract_2 is EMPTY (-z).
