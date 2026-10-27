@@ -39,7 +39,7 @@ function start_prometheus() {
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 start_prometheus

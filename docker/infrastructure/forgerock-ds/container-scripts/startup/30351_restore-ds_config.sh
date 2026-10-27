@@ -18,7 +18,7 @@
 . /ds-functions.sh
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 if [ -n "$DS_CONFIG_RESTORE_FROM" ]; then restore_ds_config "$DS_CONFIG_RESTORE_FROM"; fi

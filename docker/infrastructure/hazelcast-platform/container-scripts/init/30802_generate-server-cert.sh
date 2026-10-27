@@ -1,6 +1,6 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Generate server certificate using Remal Spring Box PKI infrastructure.
+# Generates server certificate using Remal Spring Box PKI infrastructure.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -17,7 +17,7 @@
 . /shared.sh
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 

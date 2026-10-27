@@ -141,7 +141,7 @@ function prepare_am_config_file() {
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 AM_CONFIG_FILE="$AM_CONFIG_TOOL_HOME/config.properties"

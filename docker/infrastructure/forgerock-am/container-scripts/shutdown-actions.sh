@@ -40,7 +40,7 @@ function backup_am_config() {
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 if [ "$AM_CONFIG_BACKUP" == "true" ]; then

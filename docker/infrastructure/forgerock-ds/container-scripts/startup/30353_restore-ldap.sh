@@ -18,7 +18,7 @@
 . /ds-functions.sh
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 if [ -n "$AM_CONFIG_STORE_RESTORE_FROM" ]; then restore_ds_data "$AM_CONFIG_STORE_RESTORE_FROM" "$AM_CONFIG_STORE_NAME"; fi

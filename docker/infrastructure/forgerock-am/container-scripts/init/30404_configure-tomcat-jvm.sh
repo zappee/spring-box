@@ -45,7 +45,7 @@ function tomcat_configuration() {
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 tomcat_configuration

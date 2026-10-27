@@ -1,4 +1,4 @@
-# Remal Image: Apache-Tomcat 9
+# Remal Spring Box: Apache Tomcat 9 image
 
 ## 1) Overview
 This image is an official Remal Docker image, used as a base image of the subsequent docker images.

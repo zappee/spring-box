@@ -49,7 +49,7 @@ function user_input_validation() {
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 user_input_validation "$@"
 

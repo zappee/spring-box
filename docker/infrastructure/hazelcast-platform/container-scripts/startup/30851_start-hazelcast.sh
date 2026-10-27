@@ -18,7 +18,7 @@
 . /hazelcast-functions.sh
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 start_hazelcast

@@ -1,4 +1,4 @@
-# Remal Image: ForgeRock Access Management
+# Remal Spring Box: ForgeRock Access Management image
 
 ### 1) Overview
 This is a Remal Docker image for ForgeRock Access Management , using [openjdk-11](../../core/openjdk-11) as a base image.

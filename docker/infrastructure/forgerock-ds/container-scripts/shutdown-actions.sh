@@ -18,7 +18,7 @@
 . /ds-functions.sh
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 if [ "$AM_IDENTITY_STORE_BACKUP" == "true" ]; then backup_ds_data "$AM_IDENTITY_STORE_NAME"; fi

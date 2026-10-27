@@ -53,7 +53,7 @@ function configure_scrape() {
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 configure_server_ssl

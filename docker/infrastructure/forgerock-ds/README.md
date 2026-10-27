@@ -1,4 +1,4 @@
-# Remal Image: ForgeRock Directory Server
+# Remal Spring Box: ForgeRock Directory Server image
 
 ### 1) Overview
 This is a Remal Docker image for ForgeRock Directory Server, using [openjdk-17](../../core/openjdk-17) as a base image.

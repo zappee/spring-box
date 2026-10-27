@@ -180,7 +180,7 @@ function wait_for_easyrsa() {
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 validate_arguments "$@"
 show_context "$@"

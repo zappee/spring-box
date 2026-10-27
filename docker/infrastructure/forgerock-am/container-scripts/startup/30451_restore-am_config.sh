@@ -44,7 +44,7 @@ function restore_am_config() {
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 if [ -n "$AM_CONFIG_RESTORE_FROM" ]; then restore_am_config "$AM_CONFIG_RESTORE_FROM"; fi
