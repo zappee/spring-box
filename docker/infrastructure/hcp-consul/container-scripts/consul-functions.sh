@@ -31,7 +31,7 @@ function setup_consul() {
   consul_server_host=${CONSUL_SERVER_HOSTNAME:-}
   consul_node_name="node-$fqdn"
 
-  printf "%s | [INFO]  setting up HashiCorp Consul...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] setting up HashiCorp Consul...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]      config directory: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$CONSUL_CONFIG_DIR"
   printf "%s | [DEBUG]       config template: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$template_config_file"
   printf "%s | [DEBUG]           config file: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$config_file"
@@ -60,7 +60,7 @@ function start_consul() {
   fqdn=$(hostname -f)
   consul_node_name="node-$fqdn"
 
-  printf "%s | [INFO]  starting HashiCorp Consul...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] starting HashiCorp Consul...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]    node name:        \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$consul_node_name"
   printf "%s | [DEBUG]    config directory: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$CONSUL_CONFIG_DIR"
   printf "%s | [DEBUG]    data directory:   \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$CONSUL_DATA_DIR"
@@ -75,5 +75,5 @@ function start_consul() {
     sleep 0.5
   done
 
-  printf "%s | [INFO]  HashiCorp Consul has been started\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] HashiCorp Consul has been started\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 }

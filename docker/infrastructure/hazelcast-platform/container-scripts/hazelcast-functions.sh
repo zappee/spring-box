@@ -29,7 +29,7 @@ function setup_hazelcast() {
   keystore_file="/tmp/$fqdn.p12"
   keystore_password="changeit"
 
-  printf "%s | [INFO]  setting up Hazelcast Platform...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] setting up Hazelcast Platform...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]                      HAZELCAST_HOME: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$HAZELCAST_HOME"
   printf "%s | [DEBUG]       HAZELCAST_CONFIG_TEMPLATE_DIR: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$HAZELCAST_CONFIG_TEMPLATE_DIR"
   printf "%s | [DEBUG]           template_hazelcast_config: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$template_hazelcast_config"
@@ -47,7 +47,7 @@ function setup_hazelcast() {
 # Start Hazelcast Platform.
 # ------------------------------------------------------------------------------
 function start_hazelcast() {
-  printf "%s | [INFO]  starting Hazelcast Platform...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] starting Hazelcast Platform...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]    HAZELCAST_HOME: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$HAZELCAST_HOME"
 
   "$HAZELCAST_HOME"/bin/hz start &

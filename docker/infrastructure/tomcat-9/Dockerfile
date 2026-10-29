@@ -26,7 +26,7 @@ ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
-# environment variables
+# Environment configurations
 ENV IMAGE_NAME="${IMAGE_NAME}" \
     IMAGE_TAG="${IMAGE_TAG}" \
     IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
@@ -41,7 +41,7 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
                   -XX:+UseParallelGC \
                   -Djava.util.logging.config.file=/opt/tomcat/conf/logging.properties"
 
-# set image metadata
+# Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.tag"="${IMAGE_TAG}" \
       "com.remal.image.author"="${IMAGE_AUTHOR}" \
@@ -49,20 +49,20 @@ LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.vendor"="Remal"
 
 
-# fat image
+# Fat image stage
 FROM base AS base-fat
 COPY "bin/${TOMCAT_INSTALL_KIT}" "/tmp/"
 RUN set -ue; \
-    printf "building fat image\n"; \
+    printf "Building fat image...\n"; \
     mkdir -p "${CATALINA_HOME}"; \
     tar -xvf "/tmp/${TOMCAT_INSTALL_KIT}" --strip-components=1 -C "${CATALINA_HOME}"; \
     rm -f "/tmp/${TOMCAT_INSTALL_KIT}"
 
 
-# slim image
+# Slim image stage
 FROM base AS base-slim
 RUN set -ue; \
-    printf "building slim image\n"; \
+    printf "Building slim image...\n"; \
     host_ip="$(ip route | awk '/default/ { print $3 }')"; \
     wget -O "/tmp/${TOMCAT_INSTALL_KIT}" http://${host_ip}:8080/docker-build/${TOMCAT_INSTALL_KIT}; \
     mkdir -p "${CATALINA_HOME}"; \
@@ -72,7 +72,7 @@ RUN set -ue; \
     rm -f "/tmp/${TOMCAT_INSTALL_KIT}"
 
 
-# final image
+# Final image composition stage
 FROM base-${BUILD_TYPE} AS final
 RUN set -ue; \
     printf "installing XMLStarlet...\n"; \

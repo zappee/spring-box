@@ -25,7 +25,7 @@ ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
-# environment variables
+# Environment configurations
 ENV IMAGE_NAME="${IMAGE_NAME}" \
     IMAGE_TAG="${IMAGE_TAG}" \
     IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
@@ -43,19 +43,19 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     VAULT_LOG="/var/log/vault.log" \
     VAULT_AUDIT_LOG="/var/log/vault-audit.log"
 
-# set image metadata
+# Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.tag"="${IMAGE_TAG}" \
       "com.remal.image.author"="${IMAGE_AUTHOR}" \
       "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
-# install openssl
+# Install system tools
 RUN set -ue; \
     apk add --no-cache openssl
 
 
-# fat image
+# Fat image stage
 FROM base AS base-fat
 COPY "bin/${VAULT_INSTALL_KIT}" "/tmp/"
 RUN set -ue; \
@@ -63,7 +63,7 @@ RUN set -ue; \
     rm "/tmp/${VAULT_INSTALL_KIT}"
 
 
-# slim image
+# Slim image stage
 FROM base AS base-slim
 RUN set -ue; \
     host_ip="$(ip route | awk '/default/ { print $3 }')"; \
@@ -72,7 +72,7 @@ RUN set -ue; \
     rm "/tmp/${VAULT_INSTALL_KIT}"
 
 
-# final image
+# Final image composition stage
 FROM base-${BUILD_TYPE} AS final
 COPY config/vault.hcl "${VAULT_CONFIG_FILE}"
 COPY container-scripts/vault-functions.sh container-scripts/get-value.sh container-scripts/set-value.sh /

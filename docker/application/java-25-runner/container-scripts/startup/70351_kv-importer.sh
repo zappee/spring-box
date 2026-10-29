@@ -30,7 +30,7 @@ file_exists() {
   file_to_check="$1"
 
   if [ ! -f "$file_to_check" ]; then
-    printf "%s | [WARN]  File '%s' not found.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$file_to_check"
+    printf "%s | [WARN ] File '%s' not found.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$file_to_check"
     log_end "$0"
     exit 0
   else
@@ -48,7 +48,7 @@ cleanup_workspace() {
   local workspace_home
   workspace_home="$1"
 
-  printf "%s | [INFO]  Cleaning up the workspace: '%s'...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$workspace_home"
+  printf "%s | [INFO ] Cleaning up the workspace: '%s'...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$workspace_home"
   rm -R "$workspace_home"
 }
 
@@ -68,14 +68,14 @@ extract_file() {
   fie_to_extract_1="${3:-}"
   fie_to_extract_2="${4:-}"
 
-  printf "%s | [INFO]  Extracting files from the archive...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] Extracting files from the archive...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]           archive file: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$archive_file"
   printf "%s | [DEBUG]             target dir: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$target_dir"
   printf "%s | [DEBUG]    1st file to extract: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fie_to_extract_1"
   printf "%s | [DEBUG]    2nd file to extract: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fie_to_extract_2"
 
   if [ -z "$archive_file" ]; then
-    printf "%s | [WARN]  No archive file specified. Skipping extraction.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [WARN ] No archive file specified. Skipping extraction.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   else
     # Executing "docker stop" followed by "docker start" can leave stale files from the previous run.
     # To ensure a clean state, the destination directory is cleared prior to extraction.
@@ -140,7 +140,7 @@ get_first_jar() {
   local jars_home
   jars_home="$1"
 
-  printf "%s | [INFO]  Searching for a JAR file in the '%s' directory...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$jars_home"
+  printf "%s | [INFO ] Searching for a JAR file in the '%s' directory...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$jars_home"
 
   local -a files
   mapfile -d '' files < <(find "$jars_home" -type f -name "*.jar" -print0)
@@ -150,7 +150,7 @@ get_first_jar() {
   printf "%s | [DEBUG] Found %d file(s) in the directory.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$number_of_files"
 
   if [[ "$number_of_files" -eq 0 ]]; then
-    printf "%s | [WARN]  No *.jar files found in the directory.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [WARN ] No *.jar files found in the directory.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   elif [[ "$number_of_files" -gt 1 ]]; then
     printf "%s | [ERROR] Ambiguous configuration: multiple JAR files found:\n" "$(date +"%Y-%m-%d %H:%M:%S")"
     printf "%s\n" "${files[@]}"
@@ -200,7 +200,7 @@ insert_kv() {
 # Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
-printf "%s | [INFO]  Inserting Key-Value pairs into HashiCorp Consul...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+printf "%s | [INFO ] Inserting Key-Value pairs into HashiCorp Consul...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 
 UNPACK_DIR="/tmp/extracted-jar"
 PATH_TO_PROP_FILE="BOOT-INF/classes"

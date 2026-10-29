@@ -24,7 +24,7 @@ ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
-# environment variables
+# Environment configurations
 ENV IMAGE_NAME="${IMAGE_NAME}" \
     IMAGE_TAG="${IMAGE_TAG}" \
     IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
@@ -33,14 +33,14 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     SSH_PASSWORD="password" \
     UP_SIGNAL_PORT=1331
 
-# set image metadata
+# Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.tag"="${IMAGE_TAG}" \
       "com.remal.image.author"="${IMAGE_AUTHOR}" \
       "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
-# instal tools and configure Bash as a default shell
+# Install system tools and set Bash as the default shell
 RUN set -ue; \
     apk add --no-cache \
         socat \
@@ -53,18 +53,18 @@ RUN set -ue; \
     printf "%s\n" "source ~/.bashrc" >> ~/.profile; \
     printf "%s\n\n" "Welcome to Remal Spring Box docker container!" > /etc/motd
 
-# configure SSH sserver to listen on port 22
+# Configure SSH sserver to listen on port 22
 RUN set -ue; \
     printf "PasswordAuthentication yes\n" >> /etc/ssh/sshd_config; \
     printf "PermitRootLogin yes\n" >> /etc/ssh/sshd_config; \
     printf "%s:%s" "${SSH_USER}" "${SSH_PASSWORD}" | chpasswd; \
     ssh-keygen -A
 
-# configure first-boot and startup script executors
+# Create folders for init and startup scripts
 RUN set -ue; \
     mkdir -p /docker.init /docker.startup
 
-# copy local automation scripts
+# Copy automation scripts
 COPY container-scripts/init/* /docker.init/
 COPY container-scripts/startup/* /docker.startup/
 

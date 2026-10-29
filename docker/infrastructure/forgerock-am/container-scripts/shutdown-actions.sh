@@ -26,7 +26,7 @@ function backup_am_config() {
   timestamp="$(date "+%Y-%m-%d_%H.%M.%S")"
   backup_file="$AM_HOME/backup/am-config-files_$timestamp.tar.gz"
 
-  printf "%s | [INFO]  backing up ForgeRock Access Management Server configuration...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] backing up ForgeRock Access Management Server configuration...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   tar \
     -C "$(dirname "$AM_HOME")" \
     --exclude backup \
@@ -36,7 +36,7 @@ function backup_am_config() {
     -zcvf "$backup_file" "$(basename "$AM_HOME")"
 
   printf "%s | [DEBUG] server configuration backup file: %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$backup_file"
-  printf "%s | [INFO]  configuration files has been backed up\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] configuration files has been backed up\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 }
 
 # ------------------------------------------------------------------------------

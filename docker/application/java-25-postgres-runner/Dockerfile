@@ -25,7 +25,7 @@ ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
-# environment variables
+# Environment configurations
 ENV IMAGE_NAME="${IMAGE_NAME}" \
     IMAGE_TAG="${IMAGE_TAG}" \
     IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
@@ -43,29 +43,28 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     DB_APP_USER="application" \
     DB_APP_PASSWORD="password"
 
-# set image metadata
+# Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.tag"="${IMAGE_TAG}" \
       "com.remal.image.author"="${IMAGE_AUTHOR}" \
       "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
-# fat image
+# Fat image stage
 FROM base AS base-fat
 
-# slim image
+# Slim image stage
 FROM base AS base-slim
 
-# final image
+# Final image composition stage
 FROM base-${BUILD_TYPE} AS final
 
-# installing tools
+# Install system tools
 RUN set -ue; \
     apk add --no-cache postgresql18; \
     mkdir -p /run/postgresql; \
     chown postgres:postgres /run/postgresql/
 
-# copy files
 COPY --chown=postgres:postgres config/*.conf /tmp/
 COPY container-scripts/init/* /docker.init/
 COPY container-scripts/startup/* /docker.startup/

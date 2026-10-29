@@ -24,7 +24,7 @@ function backup_ds_config() {
   timestamp="$(date "+%Y-%m-%d_%H.%M.%S")"
   backup_file="$DS_HOME/backup/ds-config-files_$timestamp.tar.gz"
 
-  printf "%s | [INFO]  backing up ForgeRock Directory Server configuration...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] backing up ForgeRock Directory Server configuration...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   if [ "$is_running" == "true" ]; then
     stop_ds
   fi
@@ -32,7 +32,7 @@ function backup_ds_config() {
   tar -czvf "$backup_file" --directory="$DS_HOME" config/
 
   printf "%s | [DEBUG] server configuration backup file: %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$backup_file"
-  printf "%s | [INFO]  configuration files has been backed up\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] configuration files has been backed up\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 }
 
 # ------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ function backup_ds_config() {
 #    param 1: backend name, for example: 'am-config', 'am-identity-store'
 # ------------------------------------------------------------------------------
 function backup_ds_data() {
-  printf "%s | [INFO]  backing up ForgeRock Directory Server LDAP database...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] backing up ForgeRock Directory Server LDAP database...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 
   local backend_name is_running fqdn timestamp backup_file
   backend_name="$1"
@@ -86,7 +86,7 @@ function backup_ds_data() {
     --trustStorePassword "$keystore_password"
 
   tar -czvf "$backup_file" --directory="$DS_HOME" bak/
-  printf "%s | [INFO]  LDAP database has been backed up\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] LDAP database has been backed up\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 }
 
 # ------------------------------------------------------------------------------
@@ -119,10 +119,10 @@ function restore_ds_config() {
   local backup_file
   
   if [[ "latest" == "${1,,}" ]]; then
-    printf "%s | [INFO]  restoring server configuration from the latest backup...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [INFO ] restoring server configuration from the latest backup...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
     backup_file=$(get_latest_file "$DS_HOME/backup" "ds-config-files_????-??-??_??.??.??.tar.gz")
   else
-    printf "%s | [INFO]  restoring server configuration from a specific backup...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [INFO ] restoring server configuration from a specific backup...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
     backup_file="$DS_HOME/backup/$1"
   fi
   printf "%s | [DEBUG] backup file: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$backup_file"
@@ -130,9 +130,9 @@ function restore_ds_config() {
   if [[ -f "$backup_file" ]]; then
     stop_ds
     tar -xvf "$backup_file" -C "$DS_HOME"
-    printf "%s | [INFO]  server configuration has been restored\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [INFO ] server configuration has been restored\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   else
-    printf "%s | [WARN]  the provided backup file does not exist: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$backup_file"
+    printf "%s | [WARN ] the provided backup file does not exist: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$backup_file"
   fi
 }
 
@@ -155,10 +155,10 @@ function restore_ds_data() {
   keystore_password="changeit"
   
   if [[ "latest" == "${backup_from,,}" ]]; then
-    printf "%s | [INFO]  restoring the LDAP database from the latest backup...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [INFO ] restoring the LDAP database from the latest backup...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
     backup_file=$(get_latest_file "$DS_HOME/backup" "${backend_name}-ldap_????-??-??_??.??.??.tar.gz")
   else
-    printf "%s | [INFO]  restoring the LDAP database from a specific backup...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [INFO ] restoring the LDAP database from a specific backup...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
     backup_file="$DS_HOME/backup/$backup_from"
   fi
   printf "%s | [DEBUG] backup file: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$backup_file"
@@ -188,9 +188,9 @@ function restore_ds_data() {
             --certNickname "$fqdn" \
             --usePkcs12TrustStore "$keystore_file" \
             --trustStorePassword "$keystore_password"
-    printf "%s | [INFO]  LDAP database has been restored\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [INFO ] LDAP database has been restored\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   else
-    printf "%s | [WARN]  the provided backup file does not exist: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$backup_file"
+    printf "%s | [WARN ] the provided backup file does not exist: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$backup_file"
   fi
 }
 
@@ -201,7 +201,7 @@ function start_ds() {
   if [ "$(get_ds_server_state)" == "false" ]; then
     printf "%s | [DEBUG] removing previous lock files...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
     rm -vf "$DS_HOME"/locks/*
-    printf "%s | [INFO]  starting the LDAP server...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [INFO ] starting the LDAP server...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
     "$DS_HOME/bin/start-ds"
   fi
 }
@@ -213,6 +213,6 @@ function stop_ds() {
   if [ "$(get_ds_server_state)" == "true" ]; then
     "$DS_HOME/bin/stop-ds"
   else
-    printf "%s | [INFO]  LDAP server stopped\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [INFO ] LDAP server stopped\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   fi
 }

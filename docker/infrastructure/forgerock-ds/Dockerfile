@@ -32,7 +32,7 @@ ARG IMAGE_DESCRIPTION="N/A"
 # build time variables
 ARG DS_HOME="/opt/opendj"
 
-# environment variables
+# Environment configurations
 ENV IMAGE_NAME="${IMAGE_NAME}" \
     IMAGE_TAG="${IMAGE_TAG}" \
     IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
@@ -61,7 +61,7 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     LDAP_USER_PASSWORD="password" \
     LDAPS_PORT=636
 
-# set image metadata
+# Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.tag"="${IMAGE_TAG}" \
       "com.remal.image.author"="${IMAGE_AUTHOR}" \
@@ -69,13 +69,13 @@ LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.vendor"="Remal"
 
 
-# fat image
+# Fat image stage
 FROM base AS base-fat
 COPY "bin/${DS_INSTALL_KIT}" "/tmp/"
 RUN unzip "/tmp/${DS_INSTALL_KIT}" -d "/opt/"
 
 
-# slim image
+# Slim image stage
 FROM base AS base-slim
 RUN set -ue; \
     host_ip="$(ip route | awk '/default/ { print $3 }')"; \
@@ -84,7 +84,7 @@ RUN set -ue; \
     rm "/tmp/${DS_INSTALL_KIT}"
 
 
-# final image
+# Final image composition stage
 FROM base-${BUILD_TYPE} AS final
 COPY container-scripts/ds-functions.sh container-scripts/shutdown-actions.sh /
 COPY config/deployment-key.properties "${DS_HOME}/"

@@ -48,7 +48,7 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     GRAFANA_USER="admin" \
     GRAFANA_PASSWORD="password"
 
-# Set image metadata
+# Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.tag"="${IMAGE_TAG}" \
       "com.remal.image.author"="${IMAGE_AUTHOR}" \

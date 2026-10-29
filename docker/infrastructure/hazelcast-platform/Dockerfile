@@ -26,7 +26,7 @@ ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
-# environment variables
+# Environment configurations
 ENV IMAGE_NAME="${IMAGE_NAME}" \
     IMAGE_TAG="${IMAGE_TAG}" \
     IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
@@ -40,19 +40,14 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     HAZELCAST_INSTALL_KIT="hazelcast-5.6.0-slim.tar.gz" \
     HAZELCAST_CLUSTER_NAME="springbox-dev"
 
-# set image metadata
+# Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.tag"="${IMAGE_TAG}" \
       "com.remal.image.author"="${IMAGE_AUTHOR}" \
       "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
-# installing tools and settin up bash as a default shell
-RUN set -ue; \
-    apk add --no-cache curl
-
-
-# fat image
+# Fat image stage
 FROM base AS base-fat
 LABEL "com.remal.image.type"="fat"
 COPY "bin/${HAZELCAST_INSTALL_KIT}" "/tmp/"
@@ -63,7 +58,7 @@ RUN set -ue; \
     rm -f "/tmp/${HAZELCAST_INSTALL_KIT}"
 
 
-# slim image
+# Slim image stage
 FROM base AS base-slim
 LABEL "com.remal.image.type"="slim"
 RUN set -ue; \
@@ -75,7 +70,7 @@ RUN set -ue; \
     rm -f "/tmp/${HAZELCAST_INSTALL_KIT}"
 
 
-# final image
+# Final image composition stage
 FROM base-${BUILD_TYPE}
 COPY container-scripts/hazelcast-functions.sh /
 COPY config/hazelcast.xml "${HAZELCAST_CONFIG_TEMPLATE_DIR}"/

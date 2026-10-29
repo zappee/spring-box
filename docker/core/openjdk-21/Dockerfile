@@ -21,27 +21,28 @@ ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
-# environment variables
+# Environment configurations
 ENV IMAGE_NAME="${IMAGE_NAME}" \
     IMAGE_TAG="${IMAGE_TAG}" \
     IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
     IMAGE_DESCRIPTION="${IMAGE_DESCRIPTION}" \
     JAVA_HOME="/usr/lib/jvm/java-21-openjdk"
 
-# set image metadata
+# Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.tag"="${IMAGE_TAG}" \
       "com.remal.image.author"="${IMAGE_AUTHOR}" \
       "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
+# Install system tools
 RUN set -ue; \
     apk add --no-cache openssl java-cacerts openjdk21-jdk; \
 	java -version; \
 	javac -version; \
     printf "export %s=\"%s\"\n" "JAVA_HOME" "${JAVA_HOME}" >> /etc/profile
 
-# directory to share logs betweeen the container and the host machine
+# Create a directory to share logs betweeen container and host machine
 RUN set -ue; \
 	mkdir -p /logs /heap-dump
 

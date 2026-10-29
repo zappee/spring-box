@@ -25,7 +25,7 @@ function install_am() {
   truststore="/tmp/$fqdn.p12"
   trustStorePassword="changeit"
 
-  printf "%s | [INFO]  installing ForgeRock Access Management Server...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] installing ForgeRock Access Management Server...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]                AM_HOME: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$AM_HOME"
   printf "%s | [DEBUG]    AM_CONFIG_TOOL_HOME: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$AM_CONFIG_TOOL_HOME"
   printf "%s | [DEBUG]         AM_CONFIG_TOOL: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$AM_CONFIG_TOOL"
@@ -72,7 +72,7 @@ function prepare_am_config_file() {
   am_config_store_manager_dn="uid=am-config,ou=admins,$base_dn_config"
   am_user_store_manager_dn="uid=am-identity-bind-account,ou=admins,$base_dn_store"
 
-  printf "%s | [INFO]  preparing the ForgeRock Access Management Server configuration file for silent installation...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] preparing the ForgeRock Access Management Server configuration file for silent installation...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG] 1) general settings\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]                AM_HOME: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$AM_HOME"
   printf "%s | [DEBUG]            CONFIG_FILE: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$AM_CONFIG_FILE"

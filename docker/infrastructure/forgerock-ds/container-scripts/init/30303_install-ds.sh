@@ -23,7 +23,7 @@
 # two are a pair. You must have a deployment key's password to use the key.
 # ------------------------------------------------------------------------------
 function generate_ds_deployment_key() {
-  printf "%s | [INFO]  generating a new ForgeRock Directory Server deployment-key...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] generating a new ForgeRock Directory Server deployment-key...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 
   cd "$DS_HOME"
   local deployment_key deployment_key_password
@@ -60,7 +60,7 @@ function generate_ds_master_key() {
   deployment_key=$(get_value "$DEPLOYMENT_KEY_FILE" "KEY")
   deployment_key_password=$(get_value "$DEPLOYMENT_KEY_FILE" "PASSWORD")
 
-  printf "%s | [INFO]  creating a new ForgeRock Directory Server master-key...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] creating a new ForgeRock Directory Server master-key...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]                DS_HOME: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$DS_HOME"
   printf "%s | [DEBUG]                  alias: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$alias"
   printf "%s | [DEBUG]    deployment key file: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$DEPLOYMENT_KEY_FILE"
@@ -105,7 +105,7 @@ function install_ds() {
   base_dn_config="ou=am-config,$domain_dn"
   base_dn_store="ou=am-identity,$domain_dn"
 
-  printf "%s | [INFO]  installing ForgeRock Directory Service (DS)...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] installing ForgeRock Directory Service (DS)...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]                       FQDN: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fqdn"
   printf "%s | [DEBUG]                     domain: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$domain"
   printf "%s | [DEBUG]                  domain DN: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$domain_dn"

@@ -17,15 +17,12 @@ ARG IMAGE_FROM="unknown"
 ARG BUILD_TYPE="fat"
 FROM ${IMAGE_FROM} AS base
 
-EXPOSE 22/tcp
-EXPOSE 1331/tcp
-
 ARG IMAGE_NAME="N/A"
 ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
-# environment variables
+# Environment configurations
 ENV IMAGE_NAME="${IMAGE_NAME}" \
     IMAGE_TAG="${IMAGE_TAG}" \
     IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
@@ -46,37 +43,34 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     EASYRSA_KEY_SIZE=2048 \
     EASYRSA_PASS="changeit"
 
-# set image metadata
+# Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.tag"="${IMAGE_TAG}" \
       "com.remal.image.author"="${IMAGE_AUTHOR}" \
       "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
-
-# fat image
+# Fat image stage
 FROM base AS base-fat
 COPY "bin/${EASYRSA_INSTALL_KIT}" "/tmp/"
 RUN set -ue; \
-    printf "building fat image\n"; \
-    printf "Easy RSA version: %s\n" "${EASYRSA_INSTALL_KIT}"; \
+    printf "Building fat image...\n"; \
+    printf "Easy-RSA version: '%s'\n" "${EASYRSA_INSTALL_KIT}"; \
     ls -all "/tmp/"; \
     mkdir -p "${EASYRSA_HOME}"; \
     tar -xvf "/tmp/${EASYRSA_INSTALL_KIT}" --strip-components=1 -C "${EASYRSA_HOME}"; \
     rm -f "/tmp/${EASYRSA_INSTALL_KIT}"
 
-
-# slim image
+# Slim image stage
 FROM base AS base-slim
 RUN set -ue; \
-    printf "building slim image\n"; \
+    printf "Building slim image...\n"; \
     host_ip="$(ip route | awk '/default/ { print $3 }')"; \
     wget -O "/tmp/${EASYRSA_INSTALL_KIT}" http://${host_ip}:8080/docker-build/${EASYRSA_INSTALL_KIT}; \
     mkdir -p "${EASYRSA_HOME}"; \
     tar -xvf "/tmp/${EASYRSA_INSTALL_KIT}" --strip-components=1 -C "${EASYRSA_HOME}"; \
     rm -f "/tmp/${EASYRSA_INSTALL_KIT}"
 
-
-# final image
+# Final image composition stage
 FROM base-${BUILD_TYPE} AS final
 COPY container-scripts/generate-cert.sh ${EASYRSA_HOME}/

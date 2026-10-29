@@ -35,7 +35,7 @@ function tomcat_configuration() {
       -XX:MetaspaceSize=256m \
       -XX:MaxMetaspaceSize=256m"
 
-  printf "%s | [INFO]  configuring tomcat's JVM settings...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] configuring tomcat's JVM settings...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]            truststore: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$truststore_file"
   printf "%s | [DEBUG]   truststore password: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$truststore_password"
   printf "%s | [DEBUG]             JAVA_OPTS: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$JAVA_OPTS"

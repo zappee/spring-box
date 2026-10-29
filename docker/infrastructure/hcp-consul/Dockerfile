@@ -26,7 +26,7 @@ ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
-# environment variables
+# Environment configurations
 ENV IMAGE_NAME="${IMAGE_NAME}" \
     IMAGE_TAG="${IMAGE_TAG}" \
     IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
@@ -40,7 +40,7 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     CONSUL_CONFIG_DIR="/tmp/consul-config" \
     CONSUL_DATA_DIR="/tmp/consul-data"
 
-# set image metadata
+# Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.tag"="${IMAGE_TAG}" \
       "com.remal.image.author"="${IMAGE_AUTHOR}" \
@@ -48,7 +48,7 @@ LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.vendor"="Remal"
 
 
-# fat image
+# Fat image stage
 FROM base AS base-fat
 COPY "bin/${CONSUL_INSTALL_KIT}" "/tmp/"
 RUN set -ue; \
@@ -56,7 +56,7 @@ RUN set -ue; \
     rm "/tmp/${CONSUL_INSTALL_KIT}"
 
 
-# slim image
+# Slim image stage
 FROM base AS base-slim
 RUN set -ue; \
     host_ip="$(ip route | awk '/default/ { print $3 }')"; \
@@ -65,7 +65,7 @@ RUN set -ue; \
     rm "/tmp/${CONSUL_INSTALL_KIT}"
 
 
-# final image
+# Final image composition stage
 FROM base-${BUILD_TYPE} AS final
 COPY container-scripts/consul-functions.sh /
 COPY config/consul-template.json "${CONSUL_CONFIG_TEMPLATE_DIR}/"

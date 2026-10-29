@@ -35,11 +35,11 @@ consul_key_exists() {
   # -f fails on 4xx/5xx errors (like 404 Not Found or 403 Forbidden).
   if curl -s -f -I "${_consul_url}/v1/kv/${_key_path}" > /dev/null 2>&1; then
     # true: key exists
-    printf "%s | [INFO]  Consul key check: '%s' -> exists\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_key_path"
+    printf "%s | [INFO ] Consul key check: '%s' -> exists\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_key_path"
     return 0
   else
     # false: key missing, unauthorized, or server down
-    printf "%s | [INFO]  Consul key check: '%s' -> not found\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_key_path"
+    printf "%s | [INFO ] Consul key check: '%s' -> not found\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_key_path"
     return 1
   fi
 }
@@ -65,7 +65,7 @@ consul_put_key() {
 
   # Execute a PUT request, -f makes curl fail silently on HTTP errors instead of returning 0.
   if curl -s -f -X PUT --data "$_key_value" "${_consul_url}/v1/kv/${_key_path}" > /dev/null 2>&1; then
-    printf "%s | [INFO]  Consul key successfully synchronized: %s=\"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_key_path" "$_key_value"
+    printf "%s | [INFO ] Consul key successfully synchronized: %s=\"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_key_path" "$_key_value"
     return 0
   else
     printf "%s | [ERROR] Failed to synchronize configuration key '%s'.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_key_path"
@@ -114,7 +114,7 @@ function decrypt_private_key() {
   local remote_cmd
   remote_cmd=$(printf "bash -lc 'openssl pkey -in /opt/easy-rsa/pki/private/%q.key -out /opt/easy-rsa/pki/private/%q.pem -passin pass:%q'" "$host_name" "$host_name" "$keystore_pass")
 
-  printf "%s | [INFO]  Decrypting the private key...\n" "$timestamp"
+  printf "%s | [INFO ] Decrypting the private key...\n" "$timestamp"
   printf "%s | [DEBUG]        PKI_HOST: \"%s\"\n" "$timestamp" "$PKI_HOST"
   printf "%s | [DEBUG]        SSH_USER: \"%s\"\n" "$timestamp" "$SSH_USER"
   printf "%s | [DEBUG]    SSH_PASSWORD: \"%s\"\n" "$timestamp" "$SSH_PASSWORD"
@@ -174,7 +174,7 @@ function generate_certificate() {
   local remote_cmd
   remote_cmd=$(printf "bash -lc '/opt/easy-rsa/generate-cert.sh %q %q %q'" "$cert_type" "$domain" "$san")
 
-  printf "%s | [INFO]  Generating a server certificate...\n" "$timestamp"
+  printf "%s | [INFO ] Generating a server certificate...\n" "$timestamp"
   printf "%s | [DEBUG]        PKI_HOST: \"%s\"\n" "$timestamp" "$PKI_HOST"
   printf "%s | [DEBUG]        SSH_USER: \"%s\"\n" "$timestamp" "$SSH_USER"
   printf "%s | [DEBUG]    SSH_PASSWORD: \"%s\"\n" "$timestamp" "$SSH_PASSWORD"
@@ -271,7 +271,7 @@ log_end() {
 # This process runs in the background so it does not block execution.
 # ------------------------------------------------------------------------------
 function set_container_up_state() {
-  printf "%s | [INFO]  Docker container is READY to serve incoming requests.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] Docker container is READY to serve incoming requests.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG] Opening readiness signal port %s...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$UP_SIGNAL_PORT"
 
   local marker_file="/tmp/first-startup.marker"
@@ -291,21 +291,21 @@ function show_ready_message() {
   local timestamp
   timestamp=$(date +"%Y-%m-%d %H:%M:%S")
 
-  printf "%s | [INFO]  Container %s has been started.\n" "$timestamp" "$fqdn"
+  printf "%s | [INFO ] Container %s has been started.\n" "$timestamp" "$fqdn"
   printf "%s | [DEBUG]  _                   _                             _             _           _ \n" "$timestamp"
   printf "%s | [DEBUG] | |                 | |                           | |           | |         | |\n" "$timestamp"
   printf "%s | [DEBUG] | |__   __ _ ___    | |__   ___  ___ _ __      ___| |_ __ _ _ __| |_ ___  __| |\n" "$timestamp"
   printf "%s | [DEBUG] | '_ \\ / _\` / __|   | '_ \\ / _ \\/ _ \\ '_ \\    / __| __/ _\` | \\'__| __/ _ \\/ _\` |\n" "$timestamp"
   printf "%s | [DEBUG] | | | | (_| \__ \   | |_) |  __/  __/ | | |   \__ \ || (_| | |  | ||  __/ (_| |\n" "$timestamp"
   printf "%s | [DEBUG] |_| |_|\__,_|___/   |_.__/ \___|\___|_| |_|   |___/\__\__,_|_|   \__\___|\__,_|\n" "$timestamp"
-  printf "%s | [DEBUG] Copyright (c) 2020-2026 Remal Software and Arnold Somogyi. All rights reserved.\n" "$timestamp"
+  printf "%s | [DEBUG] Copyright (c) 2020-2026 Remal Software. All rights reserved.\n" "$timestamp"
 }
 
 # ------------------------------------------------------------------------------
 # Handle the SIGTERM signal for graceful shutdown.
 # ------------------------------------------------------------------------------
 function shutdown_trap() {
-  printf "%s | [INFO]  Shutting down the container...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] Shutting down the container...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 
   local script_file
   script_file="/shutdown-actions.sh"
@@ -323,10 +323,10 @@ function shutdown_trap() {
     local minutes=$(( (elapsed_seconds % 3600) / 60 ))
     local seconds=$((elapsed_seconds % 60))
 
-    printf "%s | [INFO]  Shutdown completed in %02d hour(s) %02d min(s) %02d sec(s)\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$hours" "$minutes" "$seconds"
+    printf "%s | [INFO ] Shutdown completed in %02d hour(s) %02d min(s) %02d sec(s)\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$hours" "$minutes" "$seconds"
     log_end "$script_file"
   else
-    printf "%s | [WARN]  Script \"%s\" does not exist, skipping execution.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$script_file"
+    printf "%s | [WARN ] Script \"%s\" does not exist, skipping execution.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$script_file"
   fi
 }
 
@@ -353,11 +353,11 @@ function is_first_startup() {
 # ------------------------------------------------------------------------------
 wait_for_container() {
   local domain="$1"
-  printf "%s | [INFO]  Waiting for container \"%s\" on port \"%s\"...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$domain" "$UP_SIGNAL_PORT"
+  printf "%s | [INFO ] Waiting for container \"%s\" on port \"%s\"...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$domain" "$UP_SIGNAL_PORT"
   while ! nc -w 5 -z "$domain" "$UP_SIGNAL_PORT" 2>/dev/null; do
     sleep 0.5
   done
-  printf "%s | [INFO]  Container \"%s\" is up and running.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$domain"
+  printf "%s | [INFO ] Container \"%s\" is up and running.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$domain"
 }
 
 # ------------------------------------------------------------------------------

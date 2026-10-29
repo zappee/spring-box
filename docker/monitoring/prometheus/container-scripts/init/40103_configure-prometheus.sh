@@ -23,7 +23,7 @@ function configure_server_ssl() {
   local fqdn
   fqdn=$(hostname -f)
 
-  printf "%s | [INFO]  Configuring Prometheus to use SSL (HTTPS) for web console...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] Configuring Prometheus to use SSL (HTTPS) for web console...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]    PROMETHEUS_WEB_CONFIG: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_WEB_CONFIG"
   printf "%s | [DEBUG]                     FQDN: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fqdn"
   printf "%s | [DEBUG]            KEYSTORE_HOME: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$KEYSTORE_HOME"
@@ -41,7 +41,7 @@ function configure_scrape() {
   local fqdn
   fqdn=$(hostname -f)
 
-  printf "%s | [INFO]  Configuring how Prometheus scrapes targets...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] Configuring how Prometheus scrapes targets...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]    PROMETHEUS_CONFIG: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_CONFIG"
   printf "%s | [DEBUG]          CONSUL_HOST: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$CONSUL_HOST"
   printf "%s | [DEBUG]                 FQDN: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fqdn"

@@ -26,7 +26,7 @@ ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
-# environment variables
+# Environment configurations
 ENV IMAGE_NAME="${IMAGE_NAME}" \
     IMAGE_TAG="${IMAGE_TAG}" \
     IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
@@ -47,20 +47,20 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     HEALTH_CHECK_URI="https://localhost:8443/actuator/health" \
     EXPECTED_HEALTH_CHECK_STATE='\"status\":\"UP\"'
 
-# set image metadata
+# Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.tag"="${IMAGE_TAG}" \
       "com.remal.image.author"="${IMAGE_AUTHOR}" \
       "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
-# fat image
+# Fat image stage
 FROM base AS base-fat
 
-# slim image
+# Slim image stage
 FROM base AS base-slim
 
-# final image
+# Final image composition stage
 FROM base-${BUILD_TYPE} AS final
 
 COPY container-scripts/init/* /docker.init/

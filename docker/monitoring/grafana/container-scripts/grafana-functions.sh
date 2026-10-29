@@ -25,10 +25,10 @@ function create_grafana_datasources() {
   fqdn=$(hostname -f)
 
 
-  printf "%s | [INFO]  Creating Grafana data source...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] Creating Grafana data source...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]        GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
   printf "%s | [DEBUG]        GRAFANA_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PORT"
-  printf "%s | [DEBUG]          json_files: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$json_files"
+  printf "%s | [DEBUG]          json_files: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "${json_files[*]}"
   printf "%s | [DEBUG]        GRAFANA_USER: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_USER"
   printf "%s | [DEBUG]    GRAFANA_PASSWORD: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PASSWORD"
   printf "%s | [DEBUG]    GRAFANA_PROTOCOL: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PROTOCOL"
@@ -36,7 +36,7 @@ function create_grafana_datasources() {
 
   # Check if any JSON files actually exist
   if [ ! -e "${json_files[0]}" ]; then
-    printf "%s | [WARN]  No data source JSON files found.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [WARN ] No data source JSON files found.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
     return 1
   fi
 
@@ -61,7 +61,7 @@ function grafana_configuration() {
   local fqdn
   fqdn=$(hostname -f)
 
-  printf "%s | [INFO]  Configuring Grafana server...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] Configuring Grafana server...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]             GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
   printf "%s | [DEBUG]             GRAFANA_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PORT"
   printf "%s | [DEBUG]           GRAFANA_CONFIG: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_CONFIG"
@@ -98,7 +98,7 @@ function prepare_grafana_datasource_files() {
   local json_files
   json_files=("$GRAFANA_HOME"/customization/datasources/*.json)
 
-  printf "%s | [INFO]  Updating Grafana data source JSON files...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] Updating Grafana data source JSON files...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]        PROMETHEUS_HOST: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_HOST"
   printf "%s | [DEBUG]        PROMETHEUS_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_PORT"
   printf "%s | [DEBUG]    PROMETHEUS_PROTOCOL: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_PROTOCOL"
@@ -121,7 +121,7 @@ function start_grafana() {
   local grafana_log
   grafana_log="$GRAFANA_LOG_DIR/grafana.log"
 
-  printf "%s | [INFO]  Starting Grafana server...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] Starting Grafana server...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]    GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
   printf "%s | [DEBUG]        Log file: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$grafana_log"
 
@@ -130,7 +130,7 @@ function start_grafana() {
 
   tail -n +1 -F "$grafana_log" &
   wait_until_content_found "$grafana_log" "Adding GroupVersion featuretoggle.grafana.app"
-  printf "%s | [INFO]  Grafana server is fully started.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] Grafana server is fully started.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 }
 
 # ------------------------------------------------------------------------------
@@ -139,12 +139,12 @@ function start_grafana() {
 function stop_grafana() {
   local process_name="grafana"
 
-  printf "%s | [INFO]  Stopping Grafana server...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] Stopping Grafana server...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]    Process name: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$process_name"
   if pkill "$process_name"; then
-    printf "%s | [INFO]  Grafana server stopped successfully.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [INFO ] Grafana server stopped successfully.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   else
-    printf "%s | [WARN]  No running Grafana server process found.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [WARN ] No running Grafana server process found.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   fi
 }
 
@@ -152,7 +152,7 @@ function stop_grafana() {
 # Reset the password for the Grafana administrative account.
 # ------------------------------------------------------------------------------
 function update_grafana_password() {
-  printf "%s | [INFO]  Setting up Grafana password for the 'admin' user...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] Setting up Grafana password for the 'admin' user...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]        GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
   printf "%s | [DEBUG]        GRAFANA_USER: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_USER"
   printf "%s | [DEBUG]    GRAFANA_PASSWORD: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PASSWORD"

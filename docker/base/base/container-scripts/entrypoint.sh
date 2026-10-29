@@ -21,15 +21,17 @@ printf "%s | [INFO ] Starting OpenSSH Daemon as a background process...\n" "$(da
 /usr/sbin/sshd -e -D &
 
 if [ "$(is_first_startup)" = "true" ]; then
-  printf "%s | [DEBUG] First startup detected, running first-time initialization tasks...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG] First startup detected, running first-time initialization scripts...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   /bin/run-parts --exit-on-error /docker.init
+  printf "%s | [DEBUG] First-time initialization scripts completed successfully.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 fi
 
 printf "%s | [DEBUG] Executing container startup scripts...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 /bin/run-parts --exit-on-error /docker.startup
+printf "%s | [DEBUG] Startup scripts completed successfully.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 
 set_container_up_state
-printf "%s | [INFO]  Container is fully running.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+printf "%s | [INFO ] Container is fully running.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 
 # Keep container running.
 # Control must stay in this script, or the 'trap' will fail.
