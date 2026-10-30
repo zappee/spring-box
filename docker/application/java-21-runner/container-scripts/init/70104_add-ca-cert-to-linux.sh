@@ -21,8 +21,6 @@
 # Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
-
 cp /tmp/ca.crt /usr/local/share/ca-certificates/
 cat /usr/local/share/ca-certificates/ca.crt >> /etc/ssl/certs/ca-certificates.crt
-
 log_end "$0"

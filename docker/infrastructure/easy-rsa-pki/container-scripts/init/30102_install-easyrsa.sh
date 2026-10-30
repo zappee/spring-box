@@ -15,7 +15,12 @@
 #   for commercial gain.
 # ******************************************************************************
 . /shared.sh
+
+# ------------------------------------------------------------------------------
+# Main program execution.
+# ------------------------------------------------------------------------------
 log_start "$0"
+
 cd "$EASYRSA_HOME"
 
 # installing easy-rsa
@@ -48,4 +53,5 @@ printf "%s | [INFO ] Generating the root CA key and certificate...\n" "$(date +"
 # Generating a server certificate for this server.
 FQDN=$(hostname -f)
 ./generate-cert.sh "server" "$FQDN" "DNS:$FQDN,DNS:localhost,IP:127.0.0.1"
+
 log_end "$0"

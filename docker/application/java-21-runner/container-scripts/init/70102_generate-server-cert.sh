@@ -22,7 +22,6 @@
 log_start "$0"
 
 FQDN=$(hostname -f)
-
 generate_certificate "serverClient" "$FQDN" "DNS:$FQDN,DNS:localhost,IP:127.0.0.1"
 copy_from_remote_machine "$PKI_HOST" "$SSH_USER" "$SSH_PASSWORD" "/opt/easy-rsa/pki/private/$FQDN.key" "$KEYSTORE_HOME"
 copy_from_remote_machine "$PKI_HOST" "$SSH_USER" "$SSH_PASSWORD" "/opt/easy-rsa/pki/issued/$FQDN.crt" "$KEYSTORE_HOME"
