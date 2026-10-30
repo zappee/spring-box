@@ -1,3 +1,18 @@
+# ******************************************************************************
+# Remal Spring Box Docker Compose reference.
+#
+# Credits:
+#   Contact:   arnold.somogyi@gmail.com
+#   Copyright: Copyright (c) 2020-2026 Remal Software
+#
+#   This work is licensed under the Creative Commons Attribution-
+#   NonCommercial 4.0 International License. To view a copy of this license,
+#   visit: https://creativecommons.org
+#
+#   You are free to share and adapt the material for personal or hobby
+#   purposes, provided you give appropriate credit and do not use the material
+#   for commercial gain.
+# ******************************************************************************
 services:
     # ----- Private Certificate Authority Server -------------------------------
     pki:
@@ -12,13 +27,14 @@ services:
             - EASYRSA_REQ_PROVINCE=${EASYRSA_REQ_PROVINCE}
             - EASYRSA_REQ_CITY=${EASYRSA_REQ_CITY}
             - EASYRSA_REQ_ORG=${EASYRSA_REQ_ORG}
+        networks:
+            - springbox-net
 
     # ----- LDAP Directory Server ----------------------------------------------
-    ds:
+    forgerock-ds:
         image: springbox-ds-7.3:0.8.0
         container_name: ds.${DOMAIN_NAME}
         hostname: ds.${DOMAIN_NAME}
-        entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
         ports:
             - "13022:22"   # SSH
             - "13024:4444" # admin connector port
@@ -32,6 +48,8 @@ services:
             - AM_IDENTITY_STORE_RESTORE_FROM=xlatest
             - AM_CONFIG_STORE_BACKUP=false
             - AM_CONFIG_STORE_RESTORE_FROM=xlatest
+        networks:
+            - springbox-net
         volumes:
             - $HOME/dev/java/springbox/backups/containers:/opt/opendj/backup
 
@@ -40,7 +58,6 @@ services:
         image: springbox-am-7.3:0.8.0
         container_name: am.${DOMAIN_NAME}
         hostname: am.${DOMAIN_NAME}
-        entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
         ports:
             - "13032:22"   # SSH
             - "13038:8080" # HTTP
@@ -51,6 +68,8 @@ services:
             - AM_USER_STORE_HOST=ds.${DOMAIN_NAME}
             - AM_CONFIG_BACKUP=false
             - AM_CONFIG_RESTORE_FROM=xlatest
+        networks:
+            - springbox-net
         volumes:
             - $HOME/dev/java/springbox/backups/containers:/opt/openam/backup
 
@@ -66,6 +85,8 @@ services:
         environment:
             - PKI_HOST=pki.${DOMAIN_NAME}
             - HAZELCAST_CLUSTER_NAME=springbox-dev
+        networks:
+            - springbox-net
 
     # ----- HashiCorp Vault ----------------------------------------------------
     vault:
@@ -78,6 +99,8 @@ services:
             - "13058:8200" # vault listening
         environment:
             - PKI_HOST=pki.${DOMAIN_NAME}
+        networks:
+            - springbox-net
 
     # ----- HashiCorp Consul ---------------------------------------------------
     consul:
@@ -90,6 +113,8 @@ services:
             - "13063:8501" # Consul UI HTTPS
         environment:
             - PKI_HOST=pki.${DOMAIN_NAME}
+        networks:
+            - springbox-net
 
     # ----- Monitoring: Prometheus ---------------------------------------------
     prometheus:
@@ -103,6 +128,8 @@ services:
         environment:
             - PKI_HOST=pki.${DOMAIN_NAME}
             - CONSUL_HOST=consul.${DOMAIN_NAME}
+        networks:
+            - springbox-net
 
     # ----- Monitoring: Grafana ------------------------------------------------
     grafana:
@@ -118,6 +145,8 @@ services:
             - PROMETHEUS_HOST=prometheus.${DOMAIN_NAME}
             - GRAFANA_USER=admin
             - GRAFANA_PASSWORD=password
+        networks:
+            - springbox-net
 
     # ----- Services -----------------------------------------------------------
     echo-service:
@@ -134,6 +163,8 @@ services:
             - CONSUL_SERVER_HOSTNAME=consul.${DOMAIN_NAME}
             - HAZELCAST_CLUSTER_NAME=springbox-dev
             - HAZELCAST_CLUSTER_MEMBERS=hazelcast-1.${DOMAIN_NAME}, hazelcast-2.${DOMAIN_NAME}
+        networks:
+            - springbox-net
         volumes:
             - $HOME/dev/workspace/java/remal/volumes/service-hello:/jar-to-run
 
@@ -153,9 +184,15 @@ services:
             - HAZELCAST_CLUSTER_NAME=springbox-dev
             - HAZELCAST_CLUSTER_MEMBERS="hazelcast-1.${DOMAIN_NAME}, hazelcast-2.${DOMAIN_NAME}"
             - START_DB=true
+        networks:
+            - springbox-net
         volumes:
             - $HOME/dev/workspace/java/remal/volumes/service-user:/jar-to-run
             - user-service-data:/var/lib/postgresql/data
+
+networks:
+    springbox-net:
+        driver: bridge
 
 volumes:
     user-service-data:

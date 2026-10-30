@@ -31,6 +31,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
         volumes:
             - $HOME/Java/spring-box/volumes/user-service-1/jar-to-run:/jar-to-run
             - $HOME/Java/spring-box/volumes/user-service-1/logs:/logs
@@ -68,6 +70,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
         volumes:
             - $HOME/Java/spring-box/volumes/user-service-2/jar-to-run:/jar-to-run
             - $HOME/Java/spring-box/volumes/user-service-2/logs:/logs
@@ -101,6 +105,8 @@ services:
             resources:
                 limits:
                     memory: 256M
+        networks:
+            - springbox-net
         volumes:
             - $HOME/Java/spring-box/volumes/welcome-service-1/jar-to-run:/jar-to-run
             - $HOME/Java/spring-box/volumes/welcome-service-1/logs:/logs
@@ -133,6 +139,8 @@ services:
             resources:
                 limits:
                     memory: 256M
+        networks:
+            - springbox-net
         volumes:
                 - $HOME/Java/spring-box/volumes/kafka-producer-service-1/jar-to-run:/jar-to-run
                 - $HOME/Java/spring-box/volumes/kafka-producer-service-1/logs:/logs
@@ -179,6 +187,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
         volumes:
             - $HOME/Java/spring-box/volumes/kafka-consumer-service-1/jar-to-run:/jar-to-run
             - $HOME/Java/spring-box/volumes/kafka-consumer-service-1/logs:/logs
@@ -223,6 +233,8 @@ services:
             resources:
                 limits:
                     memory: 256M
+        networks:
+            - springbox-net
         volumes:
             - $HOME/Java/spring-box/volumes/hazelcast-counter-service-1/jar-to-run:/jar-to-run
             - $HOME/Java/spring-box/volumes/hazelcast-counter-service-1/logs:/logs
@@ -256,6 +268,8 @@ services:
             resources:
                 limits:
                     memory: 256M
+        networks:
+            - springbox-net
         volumes:
             - $HOME/Java/spring-box/volumes/hazelcast-counter-service-2/jar-to-run:/jar-to-run
             - $HOME/Java/spring-box/volumes/hazelcast-counter-service-2/logs:/logs
@@ -276,6 +290,8 @@ services:
             resources:
                 limits:
                     memory: 128M
+        networks:
+            - springbox-net
 
     # ----- Grafana monitoring --------------------------------------------------------------------
     grafana:
@@ -293,6 +309,8 @@ services:
             resources:
                 limits:
                     memory: 128M
+        networks:
+            - springbox-net
 
     # ----- Prometheus monitoring -----------------------------------------------------------------
     prometheus:
@@ -310,6 +328,8 @@ services:
             resources:
                 limits:
                     memory: 128M
+        networks:
+            - springbox-net
 
     # ----- Hazelcast -----------------------------------------------------------------------------
     hazelcast-1:
@@ -327,6 +347,8 @@ services:
             resources:
                 limits:
                     memory: 256M
+        networks:
+            - springbox-net
 
     hazelcast-2:
         image: springbox-hazelcast:0.8.0
@@ -343,6 +365,8 @@ services:
             resources:
                 limits:
                     memory: 256M
+        networks:
+            - springbox-net
 
     # ----- Kafka ---------------------------------------------------------------------------------
     #          When you operate Apache Kafka® in KRaft mode, you must set the process.roles
@@ -388,6 +412,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
 
     kafka-2:
         image: docker.io/apache/kafka:4.1.1
@@ -414,6 +440,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
 
     kafka-3:
         image: docker.io/apache/kafka:4.1.1
@@ -440,6 +468,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
 
     # ----- Kafka brokers -----
     kafka-4:
@@ -479,6 +509,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
 
     kafka-5:
         image: docker.io/apache/kafka:4.1.1
@@ -517,6 +549,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
 
     kafka-6:
         image: docker.io/apache/kafka:4.1.1
@@ -555,6 +589,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
 
     kafka-7:
         image: docker.io/apache/kafka:4.1.1
@@ -593,6 +629,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
 
     # ----- Kafka UI -----
     kafka-ui:
@@ -622,6 +660,8 @@ services:
             resources:
                 limits:
                     memory: 256M
+        networks:
+            - springbox-net
 
     # ----- Private Certificate Authority Server --------------------------------------------------
     pki:
@@ -640,6 +680,12 @@ services:
             resources:
                 limits:
                     memory: 64M
+        networks:
+            - springbox-net
+
+networks:
+    springbox-net:
+        driver: bridge
 
 volumes:
     user-service-1-data:
