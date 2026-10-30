@@ -94,11 +94,11 @@ function init_docker_volume {
 function demo_start {
   local _relative_path_to_src="$1"
   local _environment_file="$WORKSPACE/$_relative_path_to_src/$ENVIRONMENT_FILE"
-  local _compose_file="$WORKSPACE/$_relative_path_to_src/docker-compose.yml"
+  local _compose_file="$WORKSPACE/$_relative_path_to_src/compose.yml"
 
   printf "%s\n" "Starting the Demo Docker stack in the background..."
-  printf "   environment file: %s\n" "$_environment_file"
-  printf "   docker-compose:   %s\n" "$_compose_file"
+  printf "      Environment file: '%s'\n" "$_environment_file"
+  printf "   Docker compose file: '%s'\n" "$_compose_file"
 
   init_docker_volume "springbox-user-service" "user-service-1"
   init_docker_volume "springbox-user-service" "user-service-2"
