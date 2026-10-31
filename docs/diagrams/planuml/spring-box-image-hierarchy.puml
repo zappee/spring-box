@@ -94,7 +94,6 @@ rectangle "<b>OpenJDK-25\nspringbox-openjdk-25"                                 
 rectangle "Private PKI"                                                             as pki             <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
 rectangle "Apache Tomcat 9"                                                         as tomcat9         <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
 rectangle "ForgeRock Directory Services"                                            as ds              <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
-rectangle "ForgeRock Access Management"                                             as am              <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
 rectangle "<b>HashiCorp Vault\nspringbox-hashicorp-vault"                           as vault           <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
 rectangle "<b>HashiCorp Consul\nspringbox-hashicorp-consul"                         as consul          <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
 rectangle "<b>OpenJDK-21 Runner\nspringbox-openjdk-21-runner"                       as java_runner_21  <<$APP_IMAGE>>      <<STYLE_APP>>
@@ -118,7 +117,6 @@ base -------> grafana
 java11 --> tomcat9
 java17 --> ds
 java21 --> hazelcast
-tomcat9 --> am
 java21 --> java_runner_21
 java_runner_21 --> java_runner_21p
 java_runner_21p --> java_runner_21o

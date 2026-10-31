@@ -13,6 +13,10 @@ All notable changes to this project will be documented in this file.
 * [#42](https://github.com/zappee/spring-box/issues/42): Refactor log messages in shell scripts to ensure clarity and eliminate typos.
 * [#55](https://github.com/zappee/spring-box/issues/55): Fix the multi-stage variable ingestion bug.
 * [#43](https://github.com/zappee/spring-box/issues/43): Resolve critical shell script bugs flagged by static analysis to ensure system reliability under extreme conditions.
+* [#56](https://github.com/zappee/spring-box/issues/56): Bash environment setup for the Apache Tomcat container.
+* [#57](https://github.com/zappee/spring-box/issues/57): Assign 'admin' user to the built-in Tomcat manager roles.
+* [#58](https://github.com/zappee/spring-box/issues/58): Remove ForgeRock AM 7.3.0 as it is no longer supported by ForgeRock.
+* [#59](https://github.com/zappee/spring-box/issues/59): Remove ForgeRock DS 7.3.0 as it is no longer supported by ForgeRock.
 
 #### Deprecated
 * [#51](https://github.com/zappee/spring-box/issues/51), **Update Java sample project**: The dependencies for the Java projects ([spring-box/projects](https://github.com/zappee/spring-box/tree/main/projects)) are currently outdated. As a solo maintainer, I cannot prioritize updating them at this time. Contributions and Pull Requests to update these examples are highly welcome!
