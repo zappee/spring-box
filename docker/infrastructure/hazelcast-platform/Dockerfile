@@ -17,8 +17,6 @@ ARG IMAGE_FROM="unknown"
 ARG BUILD_TYPE="fat"
 FROM ${IMAGE_FROM} AS base
 
-EXPOSE 22/tcp
-EXPOSE 5555/tcp
 EXPOSE 5701/tcp
 
 ARG IMAGE_NAME="N/A"
@@ -52,17 +50,16 @@ FROM base AS base-fat
 LABEL "com.remal.image.type"="fat"
 COPY "bin/${HAZELCAST_INSTALL_KIT}" "/tmp/"
 RUN set -ue; \
-    printf "building the fat image\n"; \
+    printf "Building fat image...\n"; \
     mkdir -p "${HAZELCAST_HOME}"; \
     tar -xvf "/tmp/${HAZELCAST_INSTALL_KIT}" --strip-components=1 -C "${HAZELCAST_HOME}"; \
     rm -f "/tmp/${HAZELCAST_INSTALL_KIT}"
-
 
 # Slim image stage
 FROM base AS base-slim
 LABEL "com.remal.image.type"="slim"
 RUN set -ue; \
-    printf "building the slim image\n"; \
+    printf "Building slim image...\n"; \
     host_ip="$(ip route | awk '/default/ { print $3 }')"; \
     wget -O "/tmp/${HAZELCAST_INSTALL_KIT}" http://${host_ip}:8080/docker-build/${HAZELCAST_INSTALL_KIT}; \
     mkdir -p "${HAZELCAST_HOME}"; \
