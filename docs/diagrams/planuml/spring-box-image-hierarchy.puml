@@ -91,8 +91,8 @@ rectangle "<b>OpenJDK-11\nspringbox-openjdk-11"                                 
 rectangle "<b>OpenJDK-17\nspringbox-openjdk-17"                                     as java17          <<$CORE_IMAGE>>     <<STYLE_CORE>>
 rectangle "<b>OpenJDK-21\nspringbox-openjdk-21"                                     as java21          <<$CORE_IMAGE>>     <<STYLE_CORE>>
 rectangle "<b>OpenJDK-25\nspringbox-openjdk-25"                                     as java25          <<$CORE_IMAGE>>     <<STYLE_CORE>>
-rectangle "Private PKI"                                                             as pki             <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
-rectangle "Apache Tomcat 9"                                                         as tomcat9         <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
+rectangle "<b>Private PKI\nspringbox-private-ca"                                    as pki             <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
+rectangle "<b>Apache Tomcat 10\nspringbox-tomcat-10"                                as tomcat10        <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
 rectangle "<b>HashiCorp Vault\nspringbox-hashicorp-vault"                           as vault           <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
 rectangle "<b>HashiCorp Consul\nspringbox-hashicorp-consul"                         as consul          <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
 rectangle "<b>OpenJDK-21 Runner\nspringbox-openjdk-21-runner"                       as java_runner_21  <<$APP_IMAGE>>      <<STYLE_APP>>
@@ -113,7 +113,7 @@ java17 --> pki
 base ---> vault
 base -------> prometheus
 base -------> grafana
-java11 --> tomcat9
+java11 --> tomcat10
 java21 --> hazelcast
 java21 --> java_runner_21
 java_runner_21 --> java_runner_21p

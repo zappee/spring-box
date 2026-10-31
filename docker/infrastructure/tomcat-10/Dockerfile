@@ -1,5 +1,5 @@
 # ******************************************************************************
-# Remal Spring Box Apache tomcat 9 Docker image assemble and build file.
+# Remal Spring Box Apache tomcat 10 Docker image assemble and build file.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -34,7 +34,7 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     CATALINA_HOME="/opt/tomcat" \
     CATALINA_USER="admin" \
     CATALINA_PASSWORD="password" \
-    TOMCAT_INSTALL_KIT="apache-tomcat-9.0.71.tar.gz" \
+    TOMCAT_INSTALL_KIT="apache-tomcat-10.1.61.tar.gz" \
     JAVA_OPTIONS="-Xms512m \
                   -Xmx1024m \
                   -XX:+UseParallelGC \
@@ -97,13 +97,13 @@ RUN set -ue; \
     printf "Configuring access for 'host-manager' application...\n"; \
     xmlstarlet edit \
         --inplace \
-        --update "/Context/Valve[@className='org.apache.catalina.valves.RemoteAddrValve']/@allow" -v ".*" \
+        --update "/Context/Valve[@className='org.apache.catalina.valves.RemoteCIDRValve']/@allow" -v "0.0.0.0/0, ::/0" \
         "${CATALINA_HOME}/webapps/host-manager/META-INF/context.xml"; \
     \
     printf "Configuring access for 'manager' application...\n"; \
     xmlstarlet edit \
         --inplace \
-        --update "/Context/Valve[@className='org.apache.catalina.valves.RemoteAddrValve']/@allow" -v ".*" \
+        --update "/Context/Valve[@className='org.apache.catalina.valves.RemoteCIDRValve']/@allow" -v "0.0.0.0/0, ::/0" \
         "${CATALINA_HOME}/webapps/manager/META-INF/context.xml"
 
 COPY container-scripts/tomcat-functions.sh /

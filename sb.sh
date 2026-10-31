@@ -29,7 +29,7 @@ LABEL_JAVA_17="OpenJDK 17;core/openjdk-17"
 LABEL_JAVA_21="OpenJDK 21;core/openjdk-21"
 LABEL_JAVA_25="OpenJDK 25;core/openjdk-25"
 LABEL_PKI="PKI Private Certificate Authority (CA);infrastructure/easy-rsa-pki"
-LABEL_TOMCAT_9="Apache Tomcat 9;infrastructure/tomcat-9"
+LABEL_TOMCAT_10="Apache Tomcat 10;infrastructure/tomcat-10"
 LABEL_HCP_CONSUL="HashiCorp Consul;infrastructure/hcp-consul"
 LABEL_HCP_VAULT="HashiCorp Vault;infrastructure/hcp-vault"
 LABEL_HAZELCAST_PLATFORM="Hazelcast Platform;infrastructure/hazelcast-platform"
@@ -329,7 +329,7 @@ function show_help() {
     print_subtask "b4" "$(get_name "$LABEL_JAVA_25")"
     print_task "c" "Infrastructure"
     print_subtask "c1" "$(get_name "$LABEL_PKI")"
-    print_subtask "c2" "$(get_name "$LABEL_TOMCAT_9")"
+    print_subtask "c2" "$(get_name "$LABEL_TOMCAT_10")"
     print_subtask "c3" "$(get_name "$LABEL_HCP_CONSUL")"
     print_subtask "c4" "$(get_name "$LABEL_HCP_VAULT")"
     print_subtask "c5" "$(get_name "$LABEL_HAZELCAST_PLATFORM")"
@@ -445,7 +445,7 @@ for TASK in "${FINAL_TASK_LIST[@]}"; do
     b3) docker_image_build "$LABEL_JAVA_21" ;;
     b4) docker_image_build "$LABEL_JAVA_25" ;;
     c1) docker_image_build "$LABEL_PKI" ;;
-    c2) docker_image_build "$LABEL_TOMCAT_9" ;;
+    c2) docker_image_build "$LABEL_TOMCAT_10" ;;
     c3) docker_image_build "$LABEL_HCP_CONSUL" ;;
     c4) docker_image_build "$LABEL_HCP_VAULT" ;;
     c5) docker_image_build "$LABEL_HAZELCAST_PLATFORM" ;;

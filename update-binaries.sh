@@ -35,8 +35,7 @@ REMAL_BINARY_HOME="$HOME/Applications/tomcat/apache-tomcat-10.1.33/webapps/docke
 PROJECT_HOME="$HOME/Java/spring-box"
 
 BINARIES=(
-  "DS-7.3.0.zip;docker/infrastructure/forgerock-ds/bin"
-  "apache-tomcat-9.0.71.tar.gz;docker/infrastructure/tomcat-9/bin"
+  "apache-tomcat-10.1.61.tar.gz;docker/infrastructure/tomcat-10/bin"
   "EasyRSA-3.2.5.tgz;docker/infrastructure/easy-rsa-pki/bin"
   "consul_1.22.5_linux_386.zip;docker/infrastructure/hcp-consul/bin"
   "vault_1.21.4_linux_386.zip;docker/infrastructure/hcp-vault/bin"

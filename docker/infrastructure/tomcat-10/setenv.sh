@@ -15,6 +15,6 @@
 #   for commercial gain.
 # ******************************************************************************
 export IMAGE_FROM="springbox-openjdk-11:$1"
-export IMAGE_NAME="springbox-tomcat-9"
+export IMAGE_NAME="springbox-tomcat-10"
 export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Spring Box - Apache Tomcat 9 image"
+export IMAGE_DESCRIPTION="Remal Spring Box - Apache Tomcat 10 image"
