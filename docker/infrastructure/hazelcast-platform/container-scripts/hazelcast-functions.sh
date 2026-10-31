@@ -19,7 +19,7 @@
 # ----------------------------------------------------------------------------
 # Generates Hazelcast Platform configuration file.
 #
-# Global dependencies:
+# Global dependencies
 #    HAZELCAST_HOME:                Root installation path of Hazelcast.
 #    HAZELCAST_CONFIG_TEMPLATE_DIR: Directory containing the config file templates.
 #    HAZELCAST_CLUSTER_NAME:        Hazelcast cluster identification name.
@@ -51,7 +51,7 @@ function setup_hazelcast() {
 # Launches the Hazelcast Platform node in the background and monitors the
 # log until a successful initialization state is found.
 #
-# Global dependencies:
+# Global dependencies
 #    HAZELCAST_HOME: Root installation path of Hazelcast.
 # ------------------------------------------------------------------------------
 function start_hazelcast() {
