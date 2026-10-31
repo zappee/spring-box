@@ -36,7 +36,6 @@ PROJECT_HOME="$HOME/Java/spring-box"
 
 BINARIES=(
   "DS-7.3.0.zip;docker/infrastructure/forgerock-ds/bin"
-  "AM-SSOConfiguratorTools-5.1.3.18.zip;docker/infrastructure/forgerock-am/bin"
   "apache-tomcat-9.0.71.tar.gz;docker/infrastructure/tomcat-9/bin"
   "EasyRSA-3.2.5.tgz;docker/infrastructure/easy-rsa-pki/bin"
   "consul_1.22.5_linux_386.zip;docker/infrastructure/hcp-consul/bin"

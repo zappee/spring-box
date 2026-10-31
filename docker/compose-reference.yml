@@ -30,29 +30,6 @@ services:
         networks:
             - springbox-net
 
-    # ----- LDAP Directory Server ----------------------------------------------
-    forgerock-ds:
-        image: springbox-ds-7.3:0.8.0
-        container_name: ds.${DOMAIN_NAME}
-        hostname: ds.${DOMAIN_NAME}
-        ports:
-            - "13022:22"   # SSH
-            - "13024:4444" # admin connector port
-            - "13026:636"  # LDAP over SSL
-        environment:
-            - PKI_HOST=pki.${DOMAIN_NAME}
-            - NEW_DS_DEPLOYMENT_KEY=false
-            - DS_CONFIG_BACKUP=false
-            - DS_CONFIG_RESTORE_FROM=xlatest
-            - AM_IDENTITY_STORE_BACKUP=false
-            - AM_IDENTITY_STORE_RESTORE_FROM=xlatest
-            - AM_CONFIG_STORE_BACKUP=false
-            - AM_CONFIG_STORE_RESTORE_FROM=xlatest
-        networks:
-            - springbox-net
-        volumes:
-            - $HOME/dev/java/springbox/backups/containers:/opt/opendj/backup
-
     # ----- Hazelcast ----------------------------------------------------------
     hazelcast:
         image: springbox-hazelcast:0.8.0

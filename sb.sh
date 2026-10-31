@@ -30,7 +30,6 @@ LABEL_JAVA_21="OpenJDK 21;core/openjdk-21"
 LABEL_JAVA_25="OpenJDK 25;core/openjdk-25"
 LABEL_PKI="PKI Private Certificate Authority (CA);infrastructure/easy-rsa-pki"
 LABEL_TOMCAT_9="Apache Tomcat 9;infrastructure/tomcat-9"
-LABEL_FORGEROCK_DS="ForgeRock Directory Server;infrastructure/forgerock-ds"
 LABEL_HCP_CONSUL="HashiCorp Consul;infrastructure/hcp-consul"
 LABEL_HCP_VAULT="HashiCorp Vault;infrastructure/hcp-vault"
 LABEL_HAZELCAST_PLATFORM="Hazelcast Platform;infrastructure/hazelcast-platform"
@@ -331,10 +330,9 @@ function show_help() {
     print_task "c" "Infrastructure"
     print_subtask "c1" "$(get_name "$LABEL_PKI")"
     print_subtask "c2" "$(get_name "$LABEL_TOMCAT_9")"
-    print_subtask "c3" "$(get_name "$LABEL_FORGEROCK_DS")"
-    print_subtask "c4" "$(get_name "$LABEL_HCP_CONSUL")"
-    print_subtask "c5" "$(get_name "$LABEL_HCP_VAULT")"
-    print_subtask "c6" "$(get_name "$LABEL_HAZELCAST_PLATFORM")"
+    print_subtask "c3" "$(get_name "$LABEL_HCP_CONSUL")"
+    print_subtask "c4" "$(get_name "$LABEL_HCP_VAULT")"
+    print_subtask "c5" "$(get_name "$LABEL_HAZELCAST_PLATFORM")"
     print_task "d" "Monitoring"
     print_subtask "d1" "$(get_name "$LABEL_PROMETHEUS")"
     print_subtask "d2" "$(get_name "$LABEL_GRAFANA")"
@@ -427,7 +425,7 @@ while [ -n "$TASKS" ]; do
   case "$TOKEN" in
     a) FINAL_TASK_LIST+=( "a1" ) ;;
     b) FINAL_TASK_LIST+=( "b1" "b2" "b3" "b4" ) ;;
-    c) FINAL_TASK_LIST+=( "c1" "c2" "c3" "c4" "c5" "c6" ) ;;
+    c) FINAL_TASK_LIST+=( "c1" "c2" "c3" "c4" "c5" ) ;;
     d) FINAL_TASK_LIST+=( "d1" "d2" ) ;;
     e) FINAL_TASK_LIST+=( "e1" "e2" "e3" "e4" "e5" ) ;;
     s) FINAL_TASK_LIST+=( "s1" ) ;;
@@ -448,10 +446,9 @@ for TASK in "${FINAL_TASK_LIST[@]}"; do
     b4) docker_image_build "$LABEL_JAVA_25" ;;
     c1) docker_image_build "$LABEL_PKI" ;;
     c2) docker_image_build "$LABEL_TOMCAT_9" ;;
-    c3) docker_image_build "$LABEL_FORGEROCK_DS" ;;
-    c4) docker_image_build "$LABEL_HCP_CONSUL" ;;
-    c5) docker_image_build "$LABEL_HCP_VAULT" ;;
-    c6) docker_image_build "$LABEL_HAZELCAST_PLATFORM" ;;
+    c3) docker_image_build "$LABEL_HCP_CONSUL" ;;
+    c4) docker_image_build "$LABEL_HCP_VAULT" ;;
+    c5) docker_image_build "$LABEL_HAZELCAST_PLATFORM" ;;
     d1) docker_image_build "$LABEL_PROMETHEUS" ;;
     d2) docker_image_build "$LABEL_GRAFANA" ;;
     e1) docker_image_build "$LABEL_JAVA_21_RUNNER" ;;
