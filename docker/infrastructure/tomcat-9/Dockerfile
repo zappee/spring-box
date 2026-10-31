@@ -17,9 +17,8 @@ ARG IMAGE_FROM="unknown"
 ARG BUILD_TYPE="fat"
 FROM ${IMAGE_FROM} AS base
 
-EXPOSE 22/tcp
-EXPOSE 1331/tcp
 EXPOSE 8080/tcp
+EXPOSE 8443/tcp
 
 ARG IMAGE_NAME="N/A"
 ARG IMAGE_TAG="N/A"
@@ -48,7 +47,6 @@ LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
-
 # Fat image stage
 FROM base AS base-fat
 COPY "bin/${TOMCAT_INSTALL_KIT}" "/tmp/"
@@ -57,7 +55,6 @@ RUN set -ue; \
     mkdir -p "${CATALINA_HOME}"; \
     tar -xvf "/tmp/${TOMCAT_INSTALL_KIT}" --strip-components=1 -C "${CATALINA_HOME}"; \
     rm -f "/tmp/${TOMCAT_INSTALL_KIT}"
-
 
 # Slim image stage
 FROM base AS base-slim
@@ -75,44 +72,39 @@ RUN set -ue; \
 # Final image composition stage
 FROM base-${BUILD_TYPE} AS final
 RUN set -ue; \
-    printf "installing XMLStarlet...\n"; \
+    printf "Installing XMLStarlet...\n"; \
     apk add --no-cache xmlstarlet; \
     \
-    printf "installing native resources optional component for Apache Tomcat...\n"; \
+    printf "Installing native resources optional component for Apache Tomcat...\n"; \
     apk add --no-cache --upgrade tomcat-native; \
     \
-    printf "configuring tomcat log to track access to resources...\n"; \
+    printf "Configuring log to show access to resources...\n"; \
     xmlstarlet edit \
         --update "/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']/@pattern" -v "%t, %h, %u, &quot;%r&quot;, %s, %b, &quot;%{Referer}i&quot;, &quot;%{User-Agent}i&quot;, %D, %F" \
         "${CATALINA_HOME}/conf/server.xml" | \
     xmlstarlet unesc > "${CATALINA_HOME}/conf/server.xml.new"; \
     mv ${CATALINA_HOME}/conf/server.xml.new ${CATALINA_HOME}/conf/server.xml; \
     \
-    printf "adding new tomcat user and role entries...\n"; \
+    printf "Creating a new tomcat user and role...\n"; \
     xmlstarlet edit \
         --inplace \
         -N "s=http://tomcat.apache.org/xml" \
-        -s "/s:tomcat-users" -t elem -n "role" -s "/s:tomcat-users/role" -t attr -n "rolename" -v "manager-gui" \
-        -s "/s:tomcat-users" -t elem -n "role" -s "/s:tomcat-users/role[last()]" -t attr -n "rolename" -v "admin-gui" \
         -s "/s:tomcat-users" -t elem -n "user" -s "/s:tomcat-users/user" -t attr -n "username" -v "${CATALINA_USER}" \
         -s "/s:tomcat-users/user[@username='${CATALINA_USER}']" -t attr -n "password" -v "${CATALINA_PASSWORD}" \
-        -s "/s:tomcat-users/user[@username='${CATALINA_USER}']" -t attr -n "roles" -v "manager-gui,admin-gui" \
+        -s "/s:tomcat-users/user[@username='${CATALINA_USER}']" -t attr -n "roles" -v "manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script" \
         "${CATALINA_HOME}/conf/tomcat-users.xml"; \
     \
-   printf "updating the access right of 'host-manager' webapp...\n"; \
+   printf "Configuring access for 'host-manager'...\n"; \
    xmlstarlet edit \
         --inplace \
         --update "/Context/Valve[@className='org.apache.catalina.valves.RemoteAddrValve']/@allow" -v "\d+\.\d+\.\d+\.\d+" \
         "${CATALINA_HOME}/webapps/host-manager/META-INF/context.xml"; \
     \
-   printf "updating the access right of 'manager' webapp...\n"; \
+   printf "Configuring access for 'manager'...\n"; \
    xmlstarlet edit \
         --inplace \
         --update "/Context/Valve[@className='org.apache.catalina.valves.RemoteAddrValve']/@allow" -v "\d+\.\d+\.\d+\.\d+" \
-        "${CATALINA_HOME}/webapps/manager/META-INF/context.xml"; \
-   \
-   printf "setting up environment variables...\n"; \
-   printf "export %s=\"%s\"\n" "CATALINA_HOME" "${CATALINA_HOME}" >> /etc/profile
+        "${CATALINA_HOME}/webapps/manager/META-INF/context.xml"
 
 COPY container-scripts/tomcat-functions.sh /
 ONBUILD COPY container-scripts/init/* /docker.init/
