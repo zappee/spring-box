@@ -17,7 +17,7 @@
 . /shared.sh
 
 # ----------------------------------------------------------------------------
-# Generates the core configuration files for the Hazelcast Platform.
+# Generates Hazelcast Platform configuration file.
 #
 # Global dependencies:
 #    HAZELCAST_HOME:                Root installation path of Hazelcast.
