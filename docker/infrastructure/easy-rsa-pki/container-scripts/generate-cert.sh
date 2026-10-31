@@ -118,7 +118,7 @@ function revoke_existing_certificate() {
 #    $2: Optional Subject Alternative Names (SAN) string.
 #
 # Exits:
-#   1 - If directories are inaccessible or Easy-RSA context shifting fails.
+#    1 - If directories are inaccessible or Easy-RSA context shifting fails.
 # ------------------------------------------------------------------------------
 function generate_cert_req_and_key() {
   local domain="$1"
@@ -160,7 +160,7 @@ function generate_cert_req_and_key() {
 #    $2: Domain name of the target infrastructure.
 #
 # Exits:
-#   1 - If directories are inaccessible or Easy-RSA workspace shifting fails.
+#    1 - If directories are inaccessible or Easy-RSA workspace shifting fails.
 # ------------------------------------------------------------------------------
 function signing_cert_req() {
   local cert_type="$1"

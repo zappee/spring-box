@@ -64,7 +64,6 @@ function docker_push() {
 
 # ------------------------------------------------------------------------------
 # Configures the environment variables by sourcing the target lifecycle script.
-# Configures the environment variables by sourcing the target lifecycle script.
 # ------------------------------------------------------------------------------
 function set_context() {
   local script_to_run="$IMAGE_SRC/setenv.sh"

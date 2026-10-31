@@ -48,11 +48,11 @@ consul_key_exists() {
 # Inserts or updates a key-value pair in the Consul Key-Value store.
 #
 # Arguments:
-#   $1 - String. The full path of the Consul KV key.
-#   $2 - String. The value to assign to the key.
+#    $1 - String. The full path of the Consul KV key.
+#    $2 - String. The value to assign to the key.
 #
 # Returns:
-#   0 if the key-value pair was successfully inserted, 1 otherwise.
+#    0 if the key-value pair was successfully inserted, 1 otherwise.
 # ------------------------------------------------------------------------------
 consul_put_key() {
   local _key_path="$1"
