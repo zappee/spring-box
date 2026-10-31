@@ -94,16 +94,16 @@ RUN set -ue; \
         -s "/s:tomcat-users/user[@username='${CATALINA_USER}']" -t attr -n "roles" -v "manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script" \
         "${CATALINA_HOME}/conf/tomcat-users.xml"; \
     \
-   printf "Configuring access for 'host-manager'...\n"; \
-   xmlstarlet edit \
+    printf "Configuring access for 'host-manager' application...\n"; \
+    xmlstarlet edit \
         --inplace \
-        --update "/Context/Valve[@className='org.apache.catalina.valves.RemoteAddrValve']/@allow" -v "\d+\.\d+\.\d+\.\d+" \
+        --update "/Context/Valve[@className='org.apache.catalina.valves.RemoteAddrValve']/@allow" -v ".*" \
         "${CATALINA_HOME}/webapps/host-manager/META-INF/context.xml"; \
     \
-   printf "Configuring access for 'manager'...\n"; \
-   xmlstarlet edit \
+    printf "Configuring access for 'manager' application...\n"; \
+    xmlstarlet edit \
         --inplace \
-        --update "/Context/Valve[@className='org.apache.catalina.valves.RemoteAddrValve']/@allow" -v "\d+\.\d+\.\d+\.\d+" \
+        --update "/Context/Valve[@className='org.apache.catalina.valves.RemoteAddrValve']/@allow" -v ".*" \
         "${CATALINA_HOME}/webapps/manager/META-INF/context.xml"
 
 COPY container-scripts/tomcat-functions.sh /
