@@ -65,16 +65,19 @@ function init_docker_volume {
   local _separator="--------------------------------------------------------------------------------"
   printf "%b%s\n" "$_style_text" "$_separator"
   printf "Initializing a Docker shared volume...\n"
-  printf "   java project:   \"%s\"\n" "$_java_project"
-  printf "   container name: \"%s\"\n" "$_container_name"
-  printf "   copy jars from: \"%s\"\n" "$_jar_source_dir"
-  printf "   copy jars to:   \"%s\"\n" "$_jar_dir"
-  printf "   logs dir:       \"%s\"\n" "$_logs_dir"
-  printf "   heap dump dir:  \"%s\"\n" "$_heap_dump_dir"
+  printf "              Java project: '%s'\n" "$_java_project"
+  printf "            Container name: '%s'\n" "$_container_name"
+  printf "       Copy JAR files from: '%s'\n" "$_jar_source_dir"
+  printf "         Copy JAR files to: '%s'\n" "$_jar_dir"
+  printf "            Logs directory: '%s'\n" "$_logs_dir"
+  printf "   JVM heap dump directory: '%s'\n" "$_heap_dump_dir"
   printf "%s%b\n" "$_separator" "$_style_reset"
 
   rm -rf "${_volume_home:?}/"* # to ensure this never expands to /*
-  mkdir -p "$_jar_dir" "$_logs_dir" "$_heap_dump_dir"
+  mkdir -p "$_jar_dir" \
+           "$_logs_dir" \
+           "$_heap_dump_dir"
+
   rsync --archive \
         --include '*.jar' \
         --exclude '**' \

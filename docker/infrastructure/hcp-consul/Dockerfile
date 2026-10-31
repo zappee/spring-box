@@ -1,6 +1,5 @@
 # ******************************************************************************
-# Remal Spring Box HashiCorp Consul for OpenJDK 25 Docker image assemble and
-# build file.
+# Remal Spring Box HashiCorp Consul Docker image assemble and build file.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -18,7 +17,7 @@ ARG IMAGE_FROM="unknown"
 ARG BUILD_TYPE="fat"
 FROM ${IMAGE_FROM} AS base
 
-EXPOSE 22/tcp
+EXPOSE 8500/tcp
 EXPOSE 8501/tcp
 
 ARG IMAGE_NAME="N/A"
@@ -47,29 +46,28 @@ LABEL "com.remal.image.name"="${IMAGE_NAME}" \
       "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
-
 # Fat image stage
 FROM base AS base-fat
 COPY "bin/${CONSUL_INSTALL_KIT}" "/tmp/"
 RUN set -ue; \
+    printf "Building fat image...\n"; \
     unzip "/tmp/${CONSUL_INSTALL_KIT}" -d "/usr/local/bin/"; \
     rm "/tmp/${CONSUL_INSTALL_KIT}"
-
 
 # Slim image stage
 FROM base AS base-slim
 RUN set -ue; \
+    printf "Building slim image...\n"; \
     host_ip="$(ip route | awk '/default/ { print $3 }')"; \
     wget -O "/tmp/${CONSUL_INSTALL_KIT}" http://${host_ip}:8080/docker-build/${CONSUL_INSTALL_KIT}; \
     unzip "/tmp/${CONSUL_INSTALL_KIT}" -d "/usr/local/bin/"; \
     rm "/tmp/${CONSUL_INSTALL_KIT}"
 
-
 # Final image composition stage
 FROM base-${BUILD_TYPE} AS final
+RUN set -ue; \
+    mkdir -p "${CONSUL_DATA_DIR}" \
+             "${CONSUL_CONFIG_DIR}" \
+             "${CONSUL_CONFIG_TEMPLATE_DIR}"
 COPY container-scripts/consul-functions.sh /
 COPY config/consul-template.json "${CONSUL_CONFIG_TEMPLATE_DIR}/"
-RUN set -ue; \
-    mkdir -p "${CONSUL_DATA_DIR}"; \
-    mkdir -p "${CONSUL_CONFIG_DIR}"; \
-    mkdir -p "${CONSUL_CONFIG_TEMPLATE_DIR}"

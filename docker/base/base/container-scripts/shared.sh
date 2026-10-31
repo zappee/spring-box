@@ -29,7 +29,7 @@ consul_key_exists() {
 
   local _consul_url="${CONSUL_SERVER_HOSTNAME:+https://${CONSUL_SERVER_HOSTNAME}:8501}"
   _consul_url="${_consul_url:-http://localhost:8500}"
-  printf "%s | [DEBUG] Consul URL: %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_consul_url"
+  printf "%s | [DEBUG] Consul URL: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_consul_url"
 
   # Make a silent HEAD request to the KV endpoint.
   # -f fails on 4xx/5xx errors (like 404 Not Found or 403 Forbidden).
@@ -61,7 +61,7 @@ consul_put_key() {
 
   local _consul_url="${CONSUL_SERVER_HOSTNAME:+https://${CONSUL_SERVER_HOSTNAME}:8501}"
   _consul_url="${_consul_url:-http://localhost:8500}"
-  printf "%s | [DEBUG] Consul URL: %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_consul_url"
+  printf "%s | [DEBUG] Consul URL: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$_consul_url"
 
   # Execute a PUT request, -f makes curl fail silently on HTTP errors instead of returning 0.
   if curl -s -f -X PUT --data "$_key_value" "${_consul_url}/v1/kv/${_key_path}" > /dev/null 2>&1; then
