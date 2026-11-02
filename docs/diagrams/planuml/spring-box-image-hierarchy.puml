@@ -101,8 +101,8 @@ rectangle "<b>OpenJDK-21 Omni Runner\nspringbox-openjdk-21-omni-runner"         
 rectangle "<b>OpenJDK-25 Runner\nspringbox-openjdk-25-runner"                       as java_runner_25  <<$APP_IMAGE>>      <<STYLE_APP>>
 rectangle "<b>OpenJDK-25 Runner + PostgreSQL\nspringbox-openjdk-25-postgres-runner" as java_runner_25p <<$APP_IMAGE>>      <<STYLE_APP>>
 rectangle "<b>Hazelcast Platform\nspringbox-hazelcast"                              as hazelcast       <<$INFRA_IMAGE>>    <<STYLE_INFRA>>
-rectangle "Prometheus"                                                              as prometheus      <<$MONITOR_IMAGE>>  <<STYLE_MONITOR>>
-rectangle "Grafana"                                                                 as grafana         <<$MONITOR_IMAGE>>  <<STYLE_MONITOR>>
+rectangle "<b>Prometheus\nspringbox-prometheus"                                                              as prometheus      <<$MONITOR_IMAGE>>  <<STYLE_MONITOR>>
+rectangle "<b>Grafana\nspringbox-grafana"                                                                 as grafana         <<$MONITOR_IMAGE>>  <<STYLE_MONITOR>>
 
 alpine --> base
 base --> java11

@@ -121,7 +121,6 @@ SEPARATOR="---------------------------------------------------------------------
 
 validate_arguments "$@"
 set_context
-show_build_info "Preparing build environment..."
 
 docker_build
 docker_prune

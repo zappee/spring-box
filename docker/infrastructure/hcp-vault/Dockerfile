@@ -17,8 +17,8 @@ ARG IMAGE_FROM="unknown"
 ARG BUILD_TYPE="fat"
 FROM ${IMAGE_FROM} AS base
 
-EXPOSE 22/tcp
 EXPOSE 8200/tcp
+EXPOSE 8201/tcp
 
 ARG IMAGE_NAME="N/A"
 ARG IMAGE_TAG="N/A"
@@ -36,10 +36,10 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     \
     VAULT_INSTALL_KIT="vault_1.21.4_linux_386.zip" \
     VAULT_CONFIG_FILE="/etc/vault.hcl" \
-    VAULT_INIT_LOG="/var/log/vault-tokens.txt" \
     VAULT_FILE_STORE="/opt/vault/data" \
     VAULT_API_PORT="8200" \
     VAULT_LOG_LEVEL="info" \
+    VAULT_INIT_LOG="/var/log/vault-tokens.txt" \
     VAULT_LOG="/var/log/vault.log" \
     VAULT_AUDIT_LOG="/var/log/vault-audit.log"
 
@@ -54,14 +54,12 @@ LABEL "com.remal.image.name"="${IMAGE_NAME}" \
 RUN set -ue; \
     apk add --no-cache openssl
 
-
 # Fat image stage
 FROM base AS base-fat
 COPY "bin/${VAULT_INSTALL_KIT}" "/tmp/"
 RUN set -ue; \
     unzip "/tmp/${VAULT_INSTALL_KIT}" -d "/usr/local/bin/"; \
     rm "/tmp/${VAULT_INSTALL_KIT}"
-
 
 # Slim image stage
 FROM base AS base-slim
@@ -70,7 +68,6 @@ RUN set -ue; \
     wget -O "/tmp/${VAULT_INSTALL_KIT}" http://${host_ip}:8080/docker-build/${VAULT_INSTALL_KIT}; \
     unzip "/tmp/${VAULT_INSTALL_KIT}" -d "/usr/local/bin/"; \
     rm "/tmp/${VAULT_INSTALL_KIT}"
-
 
 # Final image composition stage
 FROM base-${BUILD_TYPE} AS final
