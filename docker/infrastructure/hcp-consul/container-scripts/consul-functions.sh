@@ -16,7 +16,7 @@
 # ******************************************************************************
 . /shared.sh
 
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Generates HashiCorp Consul configuration file.
 #
 # Global dependencies
@@ -59,7 +59,7 @@ function setup_consul() {
     "$config_file"
 }
 
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Start HashiCorp Consul.
 # Launches the Consul in the background and loops until the node shows up with
 # an active "alive" status footprint in the log.

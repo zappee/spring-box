@@ -16,7 +16,7 @@
 # ******************************************************************************
 . /shared.sh
 
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Prometheus server SSL configuration for the web console.
 # ------------------------------------------------------------------------------
 function configure_server_ssl() {
@@ -32,7 +32,7 @@ function configure_server_ssl() {
   sed -i "s|\${FQDN}|$fqdn|g" "$PROMETHEUS_WEB_CONFIG"
 }
 
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Set up scrape_configs of the Prometheus server.
 # A scrape_config section specifies a set of targets and parameters describing
 # how to scrape them.

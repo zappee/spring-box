@@ -16,7 +16,7 @@
 # ******************************************************************************
 . /shared.sh
 
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Generates Hazelcast Platform configuration file.
 #
 # Global dependencies
@@ -47,7 +47,7 @@ function setup_hazelcast() {
     "$HAZELCAST_HOME/config/$hazelcast_config"
 }
 
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Launches the Hazelcast Platform node in the background and monitors the
 # log until a successful initialization state is found.
 #
