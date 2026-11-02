@@ -5,7 +5,7 @@ Start:
 * In the background: `OMAIN_NAME=remal.com docker compose up -d`
 * Login to container: `sshpass -p password ssh -oStrictHostKeyChecking=no root@vault.remal.com -p 13102`
 * Open this: https://localhost:13103
-* Search for the login token in the docker log: `Initial Root Token: hvs.HEqjEeCI3jySeYBdXrEQRqbC`
+* Search for the login token in the docker log: `Initial Root Token: hvs.HE....................bC`
 
 ## License and Copyright
 Contact:   arnold.somogyi@gmail.com
