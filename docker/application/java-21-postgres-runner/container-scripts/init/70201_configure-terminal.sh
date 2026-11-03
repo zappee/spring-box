@@ -16,8 +16,10 @@
 # ******************************************************************************
 . /shared.sh
 
+# ------------------------------------------------------------------------------
+# Main program execution.
+# ------------------------------------------------------------------------------
 log_start "$0"
-
 {
   printf "export %s=\"%s\"\n" "POSTGRES_HOME" "$POSTGRES_HOME"
   printf "export %s=\"%s\"\n" "POSTGRES_DATA" "$POSTGRES_DATA"
@@ -29,5 +31,4 @@ log_start "$0"
   printf "export %s=\"%s\"\n" "DB_APP_USER" "$DB_APP_USER"
   printf "export %s=\"%s\"\n" "DB_APP_PASSWORD" "$DB_APP_PASSWORD"
 } >> /etc/profile
-
 log_end "$0"

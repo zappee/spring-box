@@ -17,43 +17,34 @@ ARG IMAGE_FROM="unknown"
 ARG BUILD_TYPE="fat"
 FROM ${IMAGE_FROM} AS base
 
-EXPOSE 22/tcp
-EXPOSE 5432/tcp
-EXPOSE 8000/tcp
-EXPOSE 8443/tcp
-EXPOSE 8500/tcp
-
 ARG IMAGE_NAME="N/A"
 ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
-# environment variables
-ENV IMAGE_NAME="$IMAGE_NAME" \
-    IMAGE_TAG="$IMAGE_TAG" \
-    IMAGE_AUTHOR="$IMAGE_AUTHOR" \
-    IMAGE_DESCRIPTION="$IMAGE_DESCRIPTION"
+# Environment configurations
+ENV IMAGE_NAME="${IMAGE_NAME}" \
+    IMAGE_TAG="${IMAGE_TAG}" \
+    IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
+    IMAGE_DESCRIPTION="${IMAGE_DESCRIPTION}"
 
-# set image metadata
-LABEL "com.remal.image.name"="$IMAGE_NAME" \
-      "com.remal.image.tag"="$IMAGE_TAG" \
-      "com.remal.image.author"="$IMAGE_AUTHOR" \
-      "com.remal.image.description"="$IMAGE_DESCRIPTION" \
+# Image metadata labels
+LABEL "com.remal.image.name"="${IMAGE_NAME}" \
+      "com.remal.image.tag"="${IMAGE_TAG}" \
+      "com.remal.image.author"="${IMAGE_AUTHOR}" \
+      "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
-
-# fat image
+# Fat image stage
 FROM base AS base-fat
 
-
-# slim image
+# Slim image stage
 FROM base AS base-slim
 
+# Final image composition stage
+FROM base-${BUILD_TYPE} AS final
 
-# final image
-FROM base-$BUILD_TYPE AS final
-
-# installing tools
+# Install system tools
 RUN set -ue; \
     apk update; \
     apk add --no-cache font-dejavu

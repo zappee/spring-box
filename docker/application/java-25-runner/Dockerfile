@@ -17,19 +17,20 @@ ARG IMAGE_FROM="unknown"
 ARG BUILD_TYPE="fat"
 FROM ${IMAGE_FROM} AS base
 
-EXPOSE 22/tcp
-EXPOSE 8500/tcp
+EXPOSE 80/tcp
+EXPOSE 8443/tcp
+EXPOSE 5005/tcp
 
 ARG IMAGE_NAME="N/A"
 ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
-# environment variables
-ENV IMAGE_NAME="$IMAGE_NAME" \
-    IMAGE_TAG="$IMAGE_TAG" \
-    IMAGE_AUTHOR="$IMAGE_AUTHOR" \
-    IMAGE_DESCRIPTION="$IMAGE_DESCRIPTION" \
+# Environment configurations
+ENV IMAGE_NAME="${IMAGE_NAME}" \
+    IMAGE_TAG="${IMAGE_TAG}" \
+    IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
+    IMAGE_DESCRIPTION="${IMAGE_DESCRIPTION}" \
     \
     PKI_HOST="pki.remal.com" \
     KEYSTORE_HOME="/tmp" \
@@ -40,30 +41,27 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     JAR_HOME="/jar-to-run" \
     JAVA_OPTS="-Xms512m -Xmx512m -XX:+UseZGC" \
     JAVA_DEBUG="true" \
-    JAVA_DEBUG_PORT=8000 \
+    JAVA_DEBUG_PORT=5005 \
     \
     HEALTH_CHECK="true" \
     HEALTH_CHECK_URI="https://localhost:8443/actuator/health" \
     EXPECTED_HEALTH_CHECK_STATE='\"status\":\"UP\"'
 
-# set image metadata
-LABEL "com.remal.image.name"="$IMAGE_NAME" \
-      "com.remal.image.tag"="$IMAGE_TAG" \
-      "com.remal.image.author"="$IMAGE_AUTHOR" \
-      "com.remal.image.description"="$IMAGE_DESCRIPTION" \
+# Image metadata labels
+LABEL "com.remal.image.name"="${IMAGE_NAME}" \
+      "com.remal.image.tag"="${IMAGE_TAG}" \
+      "com.remal.image.author"="${IMAGE_AUTHOR}" \
+      "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
-
-# fat image
+# Fat image stage
 FROM base AS base-fat
 
-
-# slim image
+# Slim image stage
 FROM base AS base-slim
 
-
-# final image
-FROM base-$BUILD_TYPE AS final
+# Final image composition stage
+FROM base-${BUILD_TYPE} AS final
 
 COPY container-scripts/init/* /docker.init/
 COPY container-scripts/startup/* /docker.startup/

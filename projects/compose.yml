@@ -1,7 +1,7 @@
 services:
     # ----- user-services -------------------------------------------------------------------------
     user-service-1:
-        image: springbox-java-25-postgres-runner:0.8.0
+        image: springbox-openjdk-25-postgres-runner:0.8.0
         container_name: user-service-1.${DOMAIN_NAME}
         hostname: user-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -31,6 +31,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
         volumes:
             - $HOME/Java/spring-box/volumes/user-service-1/jar-to-run:/jar-to-run
             - $HOME/Java/spring-box/volumes/user-service-1/logs:/logs
@@ -38,7 +40,7 @@ services:
             - user-service-1-data:/var/lib/postgresql/data
 
     user-service-2:
-        image: springbox-java-25-postgres-runner:0.8.0
+        image: springbox-openjdk-25-postgres-runner:0.8.0
         container_name: user-service-2.${DOMAIN_NAME}
         hostname: user-service-2.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -68,6 +70,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
         volumes:
             - $HOME/Java/spring-box/volumes/user-service-2/jar-to-run:/jar-to-run
             - $HOME/Java/spring-box/volumes/user-service-2/logs:/logs
@@ -76,7 +80,7 @@ services:
 
     # ----- welcome-services ----------------------------------------------------------------------
     welcome-service-1:
-        image: springbox-java-25-runner:0.8.0
+        image: springbox-openjdk-25-runner:0.8.0
         container_name: welcome-service-1.${DOMAIN_NAME}
         hostname: welcome-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -101,6 +105,8 @@ services:
             resources:
                 limits:
                     memory: 256M
+        networks:
+            - springbox-net
         volumes:
             - $HOME/Java/spring-box/volumes/welcome-service-1/jar-to-run:/jar-to-run
             - $HOME/Java/spring-box/volumes/welcome-service-1/logs:/logs
@@ -108,7 +114,7 @@ services:
 
     # ----- kafka-producer-services ---------------------------------------------------------------
     kafka-producer-service-1:
-        image: springbox-java-25-runner:0.8.0
+        image: springbox-openjdk-25-runner:0.8.0
         container_name: kafka-producer-service-1.${DOMAIN_NAME}
         hostname: kafka-producer-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -133,6 +139,8 @@ services:
             resources:
                 limits:
                     memory: 256M
+        networks:
+            - springbox-net
         volumes:
                 - $HOME/Java/spring-box/volumes/kafka-producer-service-1/jar-to-run:/jar-to-run
                 - $HOME/Java/spring-box/volumes/kafka-producer-service-1/logs:/logs
@@ -149,7 +157,7 @@ services:
 
     # ----- kafka-consumer-services ---------------------------------------------------------------
     kafka-consumer-service-1:
-        image: springbox-java-25-postgres-runner:0.8.0
+        image: springbox-openjdk-25-postgres-runner:0.8.0
         container_name: kafka-consumer-service-1.${DOMAIN_NAME}
         hostname: kafka-consumer-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -179,6 +187,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
         volumes:
             - $HOME/Java/spring-box/volumes/kafka-consumer-service-1/jar-to-run:/jar-to-run
             - $HOME/Java/spring-box/volumes/kafka-consumer-service-1/logs:/logs
@@ -196,7 +206,7 @@ services:
 
     # ----- hazelcast-counter-services ------------------------------------------------------------
     hazelcast-counter-service-1:
-        image: springbox-java-25-runner:0.8.0
+        image: springbox-openjdk-25-runner:0.8.0
         container_name: hazelcast-counter-service-1.${DOMAIN_NAME}
         hostname: hazelcast-counter-service-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -223,13 +233,15 @@ services:
             resources:
                 limits:
                     memory: 256M
+        networks:
+            - springbox-net
         volumes:
             - $HOME/Java/spring-box/volumes/hazelcast-counter-service-1/jar-to-run:/jar-to-run
             - $HOME/Java/spring-box/volumes/hazelcast-counter-service-1/logs:/logs
             - $HOME/Java/spring-box/volumes/hazelcast-counter-service-1/heap-dump:/heap-dump
 
     hazelcast-counter-service-2:
-        image: springbox-java-25-runner:0.8.0
+        image: springbox-openjdk-25-runner:0.8.0
         container_name: hazelcast-counter-service-2.${DOMAIN_NAME}
         hostname: hazelcast-counter-service-2.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
@@ -256,6 +268,8 @@ services:
             resources:
                 limits:
                     memory: 256M
+        networks:
+            - springbox-net
         volumes:
             - $HOME/Java/spring-box/volumes/hazelcast-counter-service-2/jar-to-run:/jar-to-run
             - $HOME/Java/spring-box/volumes/hazelcast-counter-service-2/logs:/logs
@@ -276,6 +290,8 @@ services:
             resources:
                 limits:
                     memory: 128M
+        networks:
+            - springbox-net
 
     # ----- Grafana monitoring --------------------------------------------------------------------
     grafana:
@@ -293,6 +309,8 @@ services:
             resources:
                 limits:
                     memory: 128M
+        networks:
+            - springbox-net
 
     # ----- Prometheus monitoring -----------------------------------------------------------------
     prometheus:
@@ -310,6 +328,8 @@ services:
             resources:
                 limits:
                     memory: 128M
+        networks:
+            - springbox-net
 
     # ----- Hazelcast -----------------------------------------------------------------------------
     hazelcast-1:
@@ -327,6 +347,8 @@ services:
             resources:
                 limits:
                     memory: 256M
+        networks:
+            - springbox-net
 
     hazelcast-2:
         image: springbox-hazelcast:0.8.0
@@ -343,6 +365,8 @@ services:
             resources:
                 limits:
                     memory: 256M
+        networks:
+            - springbox-net
 
     # ----- Kafka ---------------------------------------------------------------------------------
     #          When you operate Apache Kafka® in KRaft mode, you must set the process.roles
@@ -388,6 +412,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
 
     kafka-2:
         image: docker.io/apache/kafka:4.1.1
@@ -414,6 +440,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
 
     kafka-3:
         image: docker.io/apache/kafka:4.1.1
@@ -440,6 +468,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
 
     # ----- Kafka brokers -----
     kafka-4:
@@ -479,6 +509,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
 
     kafka-5:
         image: docker.io/apache/kafka:4.1.1
@@ -517,6 +549,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
 
     kafka-6:
         image: docker.io/apache/kafka:4.1.1
@@ -555,6 +589,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
 
     kafka-7:
         image: docker.io/apache/kafka:4.1.1
@@ -593,6 +629,8 @@ services:
             resources:
                 limits:
                     memory: 384M
+        networks:
+            - springbox-net
 
     # ----- Kafka UI -----
     kafka-ui:
@@ -622,6 +660,8 @@ services:
             resources:
                 limits:
                     memory: 256M
+        networks:
+            - springbox-net
 
     # ----- Private Certificate Authority Server --------------------------------------------------
     pki:
@@ -640,6 +680,12 @@ services:
             resources:
                 limits:
                     memory: 64M
+        networks:
+            - springbox-net
+
+networks:
+    springbox-net:
+        driver: bridge
 
 volumes:
     user-service-1-data:

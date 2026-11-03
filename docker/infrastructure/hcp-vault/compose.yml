@@ -1,0 +1,43 @@
+services:
+    # ----- HashiCorp Vault ------------------------------------------------------------------------
+    consul:
+        image: springbox-hashicorp-vault:0.8.0
+        container_name: vault.${DOMAIN_NAME}
+        hostname: vault.${DOMAIN_NAME}
+        entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
+        ports:
+            - "13102:22"   # SSH
+            - "13103:8200" # Vault web console, HTTP
+            - "13104:8201" # Vault web console, HTTPS
+        environment:
+            - PKI_HOST=pki.${DOMAIN_NAME}
+        deploy:
+            resources:
+                limits:
+                    memory: 128M
+        networks:
+            - springbox-net
+
+    # ----- Private Certificate Authority Server --------------------------------------------------
+    pki:
+        image: springbox-private-ca:0.8.0
+        container_name: pki.${DOMAIN_NAME}
+        hostname: pki.${DOMAIN_NAME}
+        ports:
+            - "12012:22"   # SSH
+        environment:
+            - EASYRSA_REQ_CN=${DOMAIN_NAME}
+            - EASYRSA_REQ_COUNTRY=${EASYRSA_REQ_COUNTRY}
+            - EASYRSA_REQ_PROVINCE=${EASYRSA_REQ_PROVINCE}
+            - EASYRSA_REQ_CITY=${EASYRSA_REQ_CITY}
+            - EASYRSA_REQ_ORG=${EASYRSA_REQ_ORG}
+        deploy:
+            resources:
+                limits:
+                    memory: 64M
+        networks:
+            - springbox-net
+
+networks:
+    springbox-net:
+        driver: bridge

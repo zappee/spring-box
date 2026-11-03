@@ -35,10 +35,7 @@ REMAL_BINARY_HOME="$HOME/Applications/tomcat/apache-tomcat-10.1.33/webapps/docke
 PROJECT_HOME="$HOME/Java/spring-box"
 
 BINARIES=(
-  "DS-7.3.0.zip;docker/infrastructure/forgerock-ds/bin"
-  "AM-7.3.0.war;docker/infrastructure/forgerock-am/bin"
-  "AM-SSOConfiguratorTools-5.1.3.18.zip;docker/infrastructure/forgerock-am/bin"
-  "apache-tomcat-9.0.71.tar.gz;docker/infrastructure/tomcat-9/bin"
+  "apache-tomcat-10.1.61.tar.gz;docker/infrastructure/tomcat-10/bin"
   "EasyRSA-3.2.5.tgz;docker/infrastructure/easy-rsa-pki/bin"
   "consul_1.22.5_linux_386.zip;docker/infrastructure/hcp-consul/bin"
   "vault_1.21.4_linux_386.zip;docker/infrastructure/hcp-vault/bin"
@@ -47,7 +44,7 @@ BINARIES=(
   "hazelcast-5.6.0-slim.tar.gz;docker/infrastructure/hazelcast-platform/bin"
 )
 
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Show the manual.
 # ------------------------------------------------------------------------------
 function show_manual() {
@@ -58,7 +55,7 @@ function show_manual() {
   printf "%s" "$COLOR_DEFAULT"
 }
 
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Show the usage.
 # ------------------------------------------------------------------------------
 function show_usage() {
@@ -72,7 +69,7 @@ function show_usage() {
   printf "PROJECT_HOME     : %s\n\n" "$PROJECT_HOME"
 }
 
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Show the user's selection.
 # ------------------------------------------------------------------------------
 function show_user_selection() {
@@ -81,7 +78,7 @@ function show_user_selection() {
   printf "%s" "$COLOR_DEFAULT"
 }
 
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Validate the user input.
 # ------------------------------------------------------------------------------
 function validate_user_input() {
@@ -92,7 +89,7 @@ function validate_user_input() {
   fi
 }
 
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Waiting for user's approval to continue.
 # ------------------------------------------------------------------------------
 function waiting_for_approval() {
@@ -104,7 +101,7 @@ function waiting_for_approval() {
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 COLOR_DEFAULT=$(tput sgr0)
 COLOR_ERROR=$(tput setaf 196)

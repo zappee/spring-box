@@ -1,7 +1,6 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Orchestrates container startup dependencies by blocking execution until the
-# specified target containers are fully up and ready to serve requests.
+# Start Apache Tomcat.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -16,12 +15,11 @@
 #   for commercial gain.
 # ******************************************************************************
 . /shared.sh
+. /tomcat-functions.sh
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
-wait_for_container "$PKI_HOST"
-wait_for_container "$AM_CONFIG_STORE_HOST"
-wait_for_container "$AM_USER_STORE_HOST"
+start_tomcat
 log_end "$0"

@@ -16,8 +16,10 @@
 # ******************************************************************************
 . /shared.sh
 
+# ------------------------------------------------------------------------------
+# Main program execution.
+# ------------------------------------------------------------------------------
 log_start "$0"
-
 FQDN=$(hostname -f)
 {
   printf "export %s=\"%s\"\n" "KEYSTORE_HOME" "$KEYSTORE_HOME"
@@ -28,6 +30,8 @@ FQDN=$(hostname -f)
   printf "export %s=\"%s\"\n" "VAULT_CACERT" "$KEYSTORE_HOME/ca.pem"
   printf "export %s=\"%s\"\n" "VAULT_CONFIG_FILE" "$VAULT_CONFIG_FILE"
   printf "export %s=\"%s\"\n" "VAULT_INIT_LOG" "$VAULT_INIT_LOG"
+  printf "export %s=\"%s\"\n" "VAULT_LOG" "$VAULT_LOG"
+  printf "export %s=\"%s\"\n" "VAULT_AUDIT_LOG" "$VAULT_AUDIT_LOG"
+  printf "cd %s\n" "/"
 } >> /etc/profile
-
 log_end "$0"

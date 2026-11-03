@@ -15,11 +15,16 @@
 #   for commercial gain.
 # ******************************************************************************
 . /shared.sh
+
+# ------------------------------------------------------------------------------
+# Main program execution.
+# ------------------------------------------------------------------------------
 log_start "$0"
+
 cd "$EASYRSA_HOME"
 
 # installing easy-rsa
-printf "%s | [INFO ] initializing easy-rsa...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+printf "%s | [INFO ] Initializing easy-rsa...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 ./easyrsa init-pki
 
 VARS="$EASYRSA_HOME/pki/vars"
@@ -37,15 +42,16 @@ cp vars.example "$VARS"
   printf "set_var EASYRSA_KEY_SIZE \"%s\"\n" "$EASYRSA_KEY_SIZE"
 } >> "$VARS"
 
-# generating the CA certificate
-printf "%s | [INFO ] generating the root CA key and certificate...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+# Generating the CA certificate.
+printf "%s | [INFO ] Generating the root CA key and certificate...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 ./easyrsa \
     --batch \
     --passin="pass:$EASYRSA_PASS" \
     --passout="pass:$EASYRSA_PASS" \
     build-ca
 
-# generating a server certificate for this server
+# Generating a server certificate for this server.
 FQDN=$(hostname -f)
 ./generate-cert.sh "server" "$FQDN" "DNS:$FQDN,DNS:localhost,IP:127.0.0.1"
+
 log_end "$0"

@@ -18,8 +18,10 @@
 . /grafana-functions.sh
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
+
 start_grafana
+
 log_end "$0"

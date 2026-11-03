@@ -1,6 +1,6 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Set environment variables, used during the Docker image build process.
+# Bash environment setup for a Docker container.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -14,7 +14,14 @@
 #   purposes, provided you give appropriate credit and do not use the material
 #   for commercial gain.
 # ******************************************************************************
-export IMAGE_FROM="springbox-openjdk-17:$1"
-export IMAGE_NAME="springbox-ds-7.3"
-export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Spring Box - ForgeRock Directory Server 7.3.0"
+. /shared.sh
+
+# ------------------------------------------------------------------------------
+# Main program execution.
+# ------------------------------------------------------------------------------
+log_start "$0"
+{
+  printf "export %s=\"%s\"\n" "CATALINA_HOME" "$CATALINA_HOME"
+  printf "cd %s\n" "$CATALINA_HOME"
+} >> /etc/profile
+log_end "$0"

@@ -1,4 +1,17 @@
-# Remal Image: OpenJDK 25
+# Remal Spring Box: OpenJDK 25 image
+
+## 1) Overview
+Image name: `springbox-openjdk`
+
+The platform supports production-ready runtimes for OpenJDK 25.
+
+⚠️ _**Important:**_
+_These core image is designed to serve as top layer for custom builds and are not recommended for running Java applications (*.jar) directly._
+_To deploy and execute your Java applications, we highly recommend using our specialized [Java Runner](https://github.com/zappee/spring-box/blob/main/docker/application/java-25-runner/README.md) container._
+
+#### 7.1) Features
+* OpenJDK 25 installation.
+* OpenSSL to deal with keystores.
 
 ## License and Copyright
 Contact:   arnold.somogyi@gmail.com

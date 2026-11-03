@@ -26,11 +26,11 @@ ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
 
-# environment variables
-ENV IMAGE_NAME="$IMAGE_NAME" \
-    IMAGE_TAG="$IMAGE_TAG" \
-    IMAGE_AUTHOR="$IMAGE_AUTHOR" \
-    IMAGE_DESCRIPTION="$IMAGE_DESCRIPTION" \
+# Environment configurations
+ENV IMAGE_NAME="${IMAGE_NAME}" \
+    IMAGE_TAG="${IMAGE_TAG}" \
+    IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
+    IMAGE_DESCRIPTION="${IMAGE_DESCRIPTION}" \
     \
     PKI_HOST="pki.remal.com" \
     KEYSTORE_HOME="/tmp" \
@@ -43,35 +43,35 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
     PROMETHEUS_LOG="/var/log/prometheus.log" \
     PROMETHEUS_STORAGE="/opt/prometheus/data"
 
-# set image metadata
-LABEL "com.remal.image.name"="$IMAGE_NAME" \
-      "com.remal.image.tag"="$IMAGE_TAG" \
-      "com.remal.image.author"="$IMAGE_AUTHOR" \
-      "com.remal.image.description"="$IMAGE_DESCRIPTION" \
+# Image metadata labels
+LABEL "com.remal.image.name"="${IMAGE_NAME}" \
+      "com.remal.image.tag"="${IMAGE_TAG}" \
+      "com.remal.image.author"="${IMAGE_AUTHOR}" \
+      "com.remal.image.description"="${IMAGE_DESCRIPTION}" \
       "com.remal.image.vendor"="Remal"
 
 
-# fat image
+# Fat image stage
 FROM base AS base-fat
-COPY "bin/$PROMETHEUS_INSTALL_KIT" "/tmp/"
+COPY "bin/${PROMETHEUS_INSTALL_KIT}" "/tmp/"
 RUN set -ue; \
-    tar -xvf "/tmp/$PROMETHEUS_INSTALL_KIT" -C "$(dirname "$PROMETHEUS_HOME")"; \
-    mv "$(dirname "$PROMETHEUS_HOME")/${PROMETHEUS_INSTALL_KIT/.tar.gz/}" "$PROMETHEUS_HOME"; \
-    rm "/tmp/$PROMETHEUS_INSTALL_KIT"
+    tar -xvf "/tmp/${PROMETHEUS_INSTALL_KIT}" -C "$(dirname "${PROMETHEUS_HOME}")"; \
+    mv "$(dirname "${PROMETHEUS_HOME}")/${PROMETHEUS_INSTALL_KIT/.tar.gz/}" "${PROMETHEUS_HOME}"; \
+    rm "/tmp/${PROMETHEUS_INSTALL_KIT}"
 
 
-# slim image
+# Slim image stage
 FROM base AS base-slim
 RUN set -ue; \
     host_ip="$(ip route | awk '/default/ { print $3 }')"; \
-    wget -O "/tmp/$PROMETHEUS_INSTALL_KIT" http://$host_ip:8080/docker-build/$PROMETHEUS_INSTALL_KIT; \
-    tar -xvf "/tmp/$PROMETHEUS_INSTALL_KIT" -C "$(dirname "$PROMETHEUS_HOME")"; \
-    mv "$(dirname "$PROMETHEUS_HOME")/${PROMETHEUS_INSTALL_KIT/.tar.gz/}" "$PROMETHEUS_HOME"; \
-    rm "/tmp/$PROMETHEUS_INSTALL_KIT"
+    wget -O "/tmp/${PROMETHEUS_INSTALL_KIT}" http://${host_ip}:8080/docker-build/${PROMETHEUS_INSTALL_KIT}; \
+    tar -xvf "/tmp/${PROMETHEUS_INSTALL_KIT}" -C "$(dirname "${PROMETHEUS_HOME}")"; \
+    mv "$(dirname "${PROMETHEUS_HOME}")/${PROMETHEUS_INSTALL_KIT/.tar.gz/}" "${PROMETHEUS_HOME}"; \
+    rm "/tmp/${PROMETHEUS_INSTALL_KIT}"
 
 
-# final image
-FROM base-$BUILD_TYPE AS final
+# Final image composition stage
+FROM base-${BUILD_TYPE} AS final
 RUN set -ue; \
-    mkdir -p "$PROMETHEUS_STORAGE"
-COPY config/*.yml "$PROMETHEUS_HOME/"
+    mkdir -p "${PROMETHEUS_STORAGE}"
+COPY config/*.yml "${PROMETHEUS_HOME}/"

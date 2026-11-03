@@ -16,14 +16,14 @@
 # ******************************************************************************
 . /shared.sh
 
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Prometheus server SSL configuration for the web console.
 # ------------------------------------------------------------------------------
 function configure_server_ssl() {
   local fqdn
   fqdn=$(hostname -f)
 
-  printf "%s | [INFO]  configuring Prometheus to use SSL (HTTPS) for the web console...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] Configuring Prometheus to use SSL (HTTPS) for web console...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]    PROMETHEUS_WEB_CONFIG: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_WEB_CONFIG"
   printf "%s | [DEBUG]                     FQDN: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fqdn"
   printf "%s | [DEBUG]            KEYSTORE_HOME: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$KEYSTORE_HOME"
@@ -32,7 +32,7 @@ function configure_server_ssl() {
   sed -i "s|\${FQDN}|$fqdn|g" "$PROMETHEUS_WEB_CONFIG"
 }
 
-# ----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Set up scrape_configs of the Prometheus server.
 # A scrape_config section specifies a set of targets and parameters describing
 # how to scrape them.
@@ -41,7 +41,7 @@ function configure_scrape() {
   local fqdn
   fqdn=$(hostname -f)
 
-  printf "%s | [INFO]  configuring how Prometheus scrapes targets...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [INFO ] Configuring how Prometheus scrapes targets...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]    PROMETHEUS_CONFIG: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_CONFIG"
   printf "%s | [DEBUG]          CONSUL_HOST: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$CONSUL_HOST"
   printf "%s | [DEBUG]                 FQDN: \"%s\"\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fqdn"
@@ -53,7 +53,7 @@ function configure_scrape() {
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 log_start "$0"
 configure_server_ssl

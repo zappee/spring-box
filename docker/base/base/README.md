@@ -1,4 +1,4 @@
-# Remal Spring Box Base image
+# Remal Spring Box: Base image
 
 ## 1) Overview
 This is the official _Remal Spring Box_ base Docker image, designed to provide core utilities and runtime configurations for all downstream images.
@@ -21,7 +21,7 @@ This is the official _Remal Spring Box_ base Docker image, designed to provide c
 * **1331 (TCP):** Readiness signal port
 
 ## License and Copyright
-Contact:   arnold.somogyi@gmail.com
+Contact: arnold.somogyi@gmail.com
 
 Copyright: Copyright (c) 2020-2026 Remal Software
 

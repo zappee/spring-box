@@ -1,7 +1,7 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Add the ca.crt to the Linux trust store.
-# This ensures curl and other command-line utilities trust the root CA.
+# Add the ca.crt to the Linux trust store. This ensures curl and other
+# command-line utilities trust the root CA.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -16,9 +16,11 @@
 #   for commercial gain.
 # ******************************************************************************
 . /shared.sh
-log_start "$0"
 
+# ------------------------------------------------------------------------------
+# Main program execution.
+# ------------------------------------------------------------------------------
+log_start "$0"
 cp /tmp/ca.crt /usr/local/share/ca-certificates/
 cat /usr/local/share/ca-certificates/ca.crt >> /etc/ssl/certs/ca-certificates.crt
-
 log_end "$0"

@@ -15,7 +15,12 @@
 #   for commercial gain.
 # ******************************************************************************
 . /shared.sh
+
+# ------------------------------------------------------------------------------
+# Main program execution.
+# ------------------------------------------------------------------------------
 log_start "$0"
+
 {
   printf "export %s=\"%s\"\n" "EASYRSA_HOME" "$EASYRSA_HOME"
   printf "export %s=\"%s\"\n" "EASYRSA_REQ_CN" "$EASYRSA_REQ_CN"
@@ -31,4 +36,5 @@ log_start "$0"
   printf "export %s=\"%s\"\n" "EASYRSA_PASS" "$EASYRSA_PASS"
   printf "cd %s\n" "$EASYRSA_HOME"
 } >> /etc/profile
+
 log_end "$0"

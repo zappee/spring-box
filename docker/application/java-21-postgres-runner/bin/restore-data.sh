@@ -37,33 +37,33 @@ function restore_docker_volume() {
       local color_info="\e[38;5;226m"
       local color_default="\033[0m"
       printf "%b*******************************************************************************\n" "$color_info"
-      printf "** restore a Docker volume...\n"
+      printf "** Restoring PostgreSQL data using a Docker volume...\n"
       printf "**    volume:      %s\n" "$volume_name"
       printf "**    backup-dir:  %s\n" "$dir"
       printf "**    data-file:   %s\n" "$data_file"
       printf "**    labels-file: %s\n" "$labels_file"
       printf "*******************************************************************************%b\n" "$color_default"
 
-      # create volume with labels
+      # create a Docker volume with labels
       local labels=()
       while IFS=$'\t' read -r key value; do
         labels+=(--label "$key=$value")
       done < <(cat "${dir}/${labels_file}" | jq -r 'to_entries[] | "\(.key)\t\(.value)"')
       docker volume create "$volume_name" "${labels[@]}"
 
-      # restore the data to volume
+      # open a shell, navigate into the volume directory, and extract the backup file located in the backup directory.
       docker run --rm \
         --volume "$volume_name":/volume \
         --volume "$dir":/backup \
         busybox sh -c "cd /volume && tar xzf /backup/$data_file"
 
-      printf "%bdone%b\n\n" "$color_info" "$color_default"
+      printf "%b%s%b\n\n" "$color_info" "done" "$color_default"
     fi
   fi
 }
 
 # ------------------------------------------------------------------------------
-# Main program starts here.
+# Main program execution.
 # ------------------------------------------------------------------------------
 VOLUMES=("service-1_data" "service-2_data")
 

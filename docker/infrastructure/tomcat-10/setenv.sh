@@ -1,6 +1,6 @@
 #!/bin/bash -ue
 # ******************************************************************************
-# Restore ForgeRock Directory Server configuration from a backup file.
+# Set environment variables, used during the Docker image build process.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -14,12 +14,7 @@
 #   purposes, provided you give appropriate credit and do not use the material
 #   for commercial gain.
 # ******************************************************************************
-. /shared.sh
-. /ds-functions.sh
-
-# ------------------------------------------------------------------------------
-# Main program starts here.
-# ------------------------------------------------------------------------------
-log_start "$0"
-if [ -n "$DS_CONFIG_RESTORE_FROM" ]; then restore_ds_config "$DS_CONFIG_RESTORE_FROM"; fi
-log_end "$0"
+export IMAGE_FROM="springbox-openjdk-11:$1"
+export IMAGE_NAME="springbox-tomcat-10"
+export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
+export IMAGE_DESCRIPTION="Remal Spring Box - Apache Tomcat 10 image"
