@@ -35,6 +35,8 @@ function docker_build() {
     --build-arg IMAGE_TAG="$IMAGE_TAG" \
     --build-arg IMAGE_AUTHOR="$IMAGE_AUTHOR" \
     --build-arg IMAGE_DESCRIPTION="$IMAGE_DESCRIPTION" \
+    --build-arg JAVA_HOME="${JAVA_HOME:-}" \
+    --build-arg ALPINE_PACKAGE_NAME="${ALPINE_PACKAGE_NAME:-}" \
     --tag "$IMAGE_NAME":"$IMAGE_TAG" \
     --progress plain \
     "$IMAGE_SRC"
@@ -82,15 +84,19 @@ function set_context() {
 # ------------------------------------------------------------------------------
 function show_build_context() {
   printf "Configuration details:\n"
-  printf "           IMAGE_SRC: '%s'\n" "$IMAGE_SRC"
-  printf "          BUILD_TYPE: '%s'\n" "$BUILD_TYPE"
-  printf "          IMAGE_FROM: '%s'\n" "$IMAGE_FROM"
-  printf "          IMAGE_NAME: '%s'\n" "$IMAGE_NAME"
-  printf "              SUFFIX: '%s'\n" "$SUFFIX"
-  printf "           IMAGE_TAG: '%s'\n" "$IMAGE_TAG"
-  printf "        IMAGE_AUTHOR: '%s'\n" "$IMAGE_AUTHOR"
-  printf "   IMAGE_DESCRIPTION: '%s'\n" "$IMAGE_DESCRIPTION"
-  printf "          PUSH_IMAGE: '%s'\n" "$PUSH_IMAGE"
+  printf "   --- required parameters ---------------------------------------------\n"
+  printf "             IMAGE_SRC: '%s'\n" "$IMAGE_SRC"
+  printf "            BUILD_TYPE: '%s'\n" "$BUILD_TYPE"
+  printf "            IMAGE_FROM: '%s'\n" "$IMAGE_FROM"
+  printf "            IMAGE_NAME: '%s'\n" "$IMAGE_NAME"
+  printf "                SUFFIX: '%s'\n" "$SUFFIX"
+  printf "             IMAGE_TAG: '%s'\n" "$IMAGE_TAG"
+  printf "          IMAGE_AUTHOR: '%s'\n" "$IMAGE_AUTHOR"
+  printf "     IMAGE_DESCRIPTION: '%s'\n" "$IMAGE_DESCRIPTION"
+  printf "            PUSH_IMAGE: '%s'\n" "$PUSH_IMAGE"
+  printf "   --- optional parameters ----------------------------------------------\n"
+  printf "             JAVA_HOME: '%s'\n" "${JAVA_HOME:-}"
+  printf "   ALPINE_PACKAGE_NAME: '%s'\n" "${ALPINE_PACKAGE_NAME:-}"
 }
 
 # ------------------------------------------------------------------------------

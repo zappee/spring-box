@@ -1,5 +1,5 @@
 # ******************************************************************************
-# Remal Spring Box OpenJDK 11 Docker image assemble and build file.
+# Remal Spring Box OpenJDK Docker image assemble and build file.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com
@@ -20,13 +20,16 @@ ARG IMAGE_NAME="N/A"
 ARG IMAGE_TAG="N/A"
 ARG IMAGE_AUTHOR="N/A"
 ARG IMAGE_DESCRIPTION="N/A"
+ARG JAVA_HOME="N/A"
+ARG ALPINE_PACKAGE_NAME="N/A"
 
 # Environment configurations
 ENV IMAGE_NAME="${IMAGE_NAME}" \
     IMAGE_TAG="${IMAGE_TAG}" \
     IMAGE_AUTHOR="${IMAGE_AUTHOR}" \
     IMAGE_DESCRIPTION="${IMAGE_DESCRIPTION}" \
-    JAVA_HOME="/usr/lib/jvm/java-11-openjdk"
+    JAVA_HOME="${JAVA_HOME}" \
+    ALPINE_PACKAGE_NAME="${ALPINE_PACKAGE_NAME}"
 
 # Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \
@@ -37,7 +40,7 @@ LABEL "com.remal.image.name"="${IMAGE_NAME}" \
 
 # Install system tools
 RUN set -ue; \
-    apk add --no-cache openssl java-cacerts openjdk11-jdk; \
+    apk add --no-cache openssl java-cacerts "${ALPINE_PACKAGE_NAME}"; \
 	java -version; \
 	javac -version; \
     printf "export %s=\"%s\"\n" "JAVA_HOME" "${JAVA_HOME}" >> /etc/profile

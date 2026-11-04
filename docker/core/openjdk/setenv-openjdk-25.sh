@@ -15,6 +15,9 @@
 #   for commercial gain.
 # ******************************************************************************
 export IMAGE_FROM="springbox-base:$1"
-export IMAGE_NAME="springbox-openjdk-17"
+export IMAGE_NAME="springbox-openjdk-25"
 export IMAGE_AUTHOR="Arnold Somogyi <arnold.somogyi@gmail.com>"
-export IMAGE_DESCRIPTION="Remal Spring Box - OpenJDK 17"
+export IMAGE_DESCRIPTION="Remal Spring Box - OpenJDK 25"
+
+export JAVA_HOME="/usr/lib/jvm/java-25-openjdk"
+export ALPINE_PACKAGE_NAME="openjdk25-jdk"
