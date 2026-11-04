@@ -25,8 +25,7 @@
 # Builds the Docker image using the specified configuration context.
 # ------------------------------------------------------------------------------
 function docker_build() {
-  show_build_info "Building the Docker image..."
-
+  show_build_context
   docker build \
     --build-arg "BUILDKIT_DOCKERFILE_CHECK=skip=SecretsUsedInArgOrEnv" \
     --no-cache \
@@ -66,8 +65,13 @@ function docker_push() {
 # Configures the environment variables by sourcing the target lifecycle script.
 # ------------------------------------------------------------------------------
 function set_context() {
-  local script_to_run="$IMAGE_SRC/setenv.sh"
-  printf "Sourcing the environment configuration script: '%s'...\n" "$script_to_run"
+  local script_to_run
+
+  if [[ -n "$SUFFIX" ]]; then
+    script_to_run="${IMAGE_SRC}/setenv-${SUFFIX}.sh"
+  else
+    script_to_run="${IMAGE_SRC}/setenv.sh"
+  fi
 
   # shellcheck disable=SC1090
   source "$script_to_run" "$IMAGE_TAG"
@@ -75,23 +79,18 @@ function set_context() {
 
 # ------------------------------------------------------------------------------
 # Displays the build configuration metadata and arguments for the Docker image.
-#
-# Arguments:
-#    $1: Header banner to display above the logs
 # ------------------------------------------------------------------------------
-function show_build_info() {
-  printf "%s\n" "$SEPARATOR"
-  printf "%s\n" "$1"
-  printf "%s\n" "$SEPARATOR"
+function show_build_context() {
   printf "Configuration details:\n"
-  printf "   Source code: '%s'\n" "$IMAGE_SRC"
-  printf "   Build type:  '%s'\n" "$BUILD_TYPE"
-  printf "   Base image:  '%s'\n" "$IMAGE_FROM"
-  printf "   Image name:  '%s'\n" "$IMAGE_NAME"
-  printf "   Image tag:   '%s'\n" "$IMAGE_TAG"
-  printf "   Author(s):   '%s'\n" "$IMAGE_AUTHOR"
-  printf "   Description: '%s'\n" "$IMAGE_DESCRIPTION"
-  printf "   Push image:  '%s'\n" "$PUSH_IMAGE"
+  printf "           IMAGE_SRC: '%s'\n" "$IMAGE_SRC"
+  printf "          BUILD_TYPE: '%s'\n" "$BUILD_TYPE"
+  printf "          IMAGE_FROM: '%s'\n" "$IMAGE_FROM"
+  printf "          IMAGE_NAME: '%s'\n" "$IMAGE_NAME"
+  printf "              SUFFIX: '%s'\n" "$SUFFIX"
+  printf "           IMAGE_TAG: '%s'\n" "$IMAGE_TAG"
+  printf "        IMAGE_AUTHOR: '%s'\n" "$IMAGE_AUTHOR"
+  printf "   IMAGE_DESCRIPTION: '%s'\n" "$IMAGE_DESCRIPTION"
+  printf "          PUSH_IMAGE: '%s'\n" "$PUSH_IMAGE"
 }
 
 # ------------------------------------------------------------------------------
@@ -101,9 +100,9 @@ function show_build_info() {
 #   $@: All input parameters passed to the script at initialization
 # ------------------------------------------------------------------------------
 function validate_arguments() {
-  if [ "$#" -ne 4 ]; then
+  if (( $# < 4 || $# > 5 )); then
     printf "[ERROR] Invalid number of arguments provided.\n"
-    printf "Usage: %s <src-home> <build-type> <image-tag> <push-image>\n\n" "${0##*/}"
+    printf "Usage: %s <src-home> <build-type> <image-tag> <push-image> [image.name-suffix]\n\n" "${0##*/}"
     exit 1
   fi
 }
@@ -117,6 +116,7 @@ IMAGE_SRC="$PATH_OF_CURRENT_SCRIPT/$1"
 BUILD_TYPE="$2"
 IMAGE_TAG="$3"
 PUSH_IMAGE="$4"
+SUFFIX="${5:-}"
 SEPARATOR="--------------------------------------------------------------------------------"
 
 validate_arguments "$@"

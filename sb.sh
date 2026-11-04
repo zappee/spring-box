@@ -36,10 +36,10 @@ LABEL_HAZELCAST_PLATFORM="Hazelcast Platform;infrastructure/hazelcast-platform"
 LABEL_PROMETHEUS="Prometheus;monitoring/prometheus"
 LABEL_GRAFANA="Grafana;monitoring/grafana"
 LABEL_JAVA_21_RUNNER="Java 21 Runner;application/java-21-runner"
-LABEL_JAVA_21_POSTGRES_RUNNER="Java 21 with Postgres Runner;application/java-21-postgres-runner"
+LABEL_JAVA_21_POSTGRES_RUNNER="Java 21 with Postgres Runner;application/java-postgres-runner;openjdk-21-runner"
 LABEL_JAVA_21_OMNI_RUNNER="Java 21 OMNI Runner;application/java-21-omni-runner"
 LABEL_JAVA_25_RUNNER="Java 25 Runner;application/java-25-runner"
-LABEL_JAVA_25_POSTGRES_RUNNER="Java 25 with Postgres Runner;application/java-25-postgres-runner"
+LABEL_JAVA_25_POSTGRES_RUNNER="Java 25 with Postgres Runner;application/java-postgres-runner;openjdk-25-runner"
 
 # ------------------------------------------------------------------------------
 # Initializes a shared host-to-container directory for file exchange.
@@ -188,16 +188,17 @@ function docker_containers_list {
 #   $2: Relative path to the source directory
 # ------------------------------------------------------------------------------
 function docker_image_build {
-  local _style_reset="\033[0m"
-  local _style_text="\e[38;5;226m"
-  local _separator="--------------------------------------------------------------------------------"
-  printf "%b%s\n" "$_style_text" "$_separator"
-  printf "Building the %s Docker image...\n" "$(get_name "$1")"
-  printf "%s%b\n" "$_separator" "$_style_reset"
+  local style_reset="\033[0m"
+  local style_text="\e[38;5;226m"
+  local separator="--------------------------------------------------------------------------------"
+  printf "%b%s\n" "$style_text" "$separator"
+  printf "Building the %s Docker image...\n" "$(get_label "$1")"
+  printf "%s%b\n" "$separator" "$style_reset"
 
-  local _path_to_src
-  _path_to_src=$(get_path "$1")
-  docker/build.sh "$_path_to_src" "$BUILD_TYPE" "$IMAGE_TAG" "$PUSH_IMAGE"
+  local path_to_src suffix
+  path_to_src=$(get_path "$1")
+  suffix=$(get_suffix "$1")
+  docker/build.sh "$path_to_src" "$BUILD_TYPE" "$IMAGE_TAG" "$PUSH_IMAGE" "$suffix"
 }
 
 # ------------------------------------------------------------------------------
@@ -247,29 +248,39 @@ function docker_volumes_remove {
 }
 
 # ------------------------------------------------------------------------------
-# Extracts the image name from a delimited label string.
+# Extracts the 1st field (Label) from a semicolon-separated string.
 #
 # Arguments:
-#   $1: Semicolon-delimited string (e.g., "Docker image name;/path/to/source")
-#
-# Outputs:
-#   Writes the name component (the text before the first semicolon) to stdout.
+#    $1: The full semicolon-separated input string.
 # ------------------------------------------------------------------------------
-function get_name {
-  echo "${1%%;*}"
+function get_label {
+  local IFS=';'
+  read -r label _ _ <<< "$1"
+  echo "$label"
 }
 
 # ------------------------------------------------------------------------------
-# Extracts the directory path from a delimited label string.
+# Extracts the 2nd field (Path) from a semicolon-separated string.
 #
 # Arguments:
-#   $1: Semicolon-delimited string (e.g., "Docker image name;/path/to/source")
-#
-# Outputs:
-#   Writes the path component (the text after the first semicolon) to stdout.
+#    $1: The full semicolon-separated input string.
 # ------------------------------------------------------------------------------
 function get_path {
-  echo "${1#*;}"
+  local IFS=';'
+  read -r _ path _ <<< "$1"
+  echo "$path"
+}
+
+# ------------------------------------------------------------------------------
+# Extracts the 3rd field (Image name suffix) from a semicolon-separated string.
+#
+# Arguments:
+#    $1: The full semicolon-separated input string.
+# ------------------------------------------------------------------------------
+function get_suffix {
+  local IFS=';'
+  read -r _ _ suffix <<< "$1"
+  echo "$suffix"
 }
 
 # ------------------------------------------------------------------------------
@@ -318,33 +329,33 @@ function show_help() {
     printf "Examples:\n"
     printf "   %s y       Remove all Remal images\n" "$_script"
     printf "   %s i1z     Start the Demo stack (i1) + Show the container log (z)\n" "$_script"
-    printf "   %s be4w    Build Core images (b) + build %s image (e4) + List Remal images (w)\n\n" "$_script" "$(get_name "$LABEL_JAVA_25_RUNNER")"
+    printf "   %s be4w    Build Core images (b) + build %s image (e4) + List Remal images (w)\n\n" "$_script" "$(get_label "$LABEL_JAVA_25_RUNNER")"
     printf "Environment:\n"
     printf "   BUILD_TYPE: %s\n" "$BUILD_TYPE"
     printf "   WORKSPACE:  %s\n\n" "$WORKSPACE"
     printf "Tasks:\n"
     print_task "a" "Base"
-    print_subtask "a1" "$(get_name $LABEL_BASE)"
+    print_subtask "a1" "$(get_label $LABEL_BASE)"
     print_task "b" "Core"
-    print_subtask "b1" "$(get_name "$LABEL_JAVA_11")"
-    print_subtask "b2" "$(get_name "$LABEL_JAVA_17")"
-    print_subtask "b3" "$(get_name "$LABEL_JAVA_21")"
-    print_subtask "b4" "$(get_name "$LABEL_JAVA_25")"
+    print_subtask "b1" "$(get_label "$LABEL_JAVA_11")"
+    print_subtask "b2" "$(get_label "$LABEL_JAVA_17")"
+    print_subtask "b3" "$(get_label "$LABEL_JAVA_21")"
+    print_subtask "b4" "$(get_label "$LABEL_JAVA_25")"
     print_task "c" "Infrastructure"
-    print_subtask "c1" "$(get_name "$LABEL_PKI")"
-    print_subtask "c2" "$(get_name "$LABEL_TOMCAT_10")"
-    print_subtask "c3" "$(get_name "$LABEL_HCP_CONSUL")"
-    print_subtask "c4" "$(get_name "$LABEL_HCP_VAULT")"
-    print_subtask "c5" "$(get_name "$LABEL_HAZELCAST_PLATFORM")"
+    print_subtask "c1" "$(get_label "$LABEL_PKI")"
+    print_subtask "c2" "$(get_label "$LABEL_TOMCAT_10")"
+    print_subtask "c3" "$(get_label "$LABEL_HCP_CONSUL")"
+    print_subtask "c4" "$(get_label "$LABEL_HCP_VAULT")"
+    print_subtask "c5" "$(get_label "$LABEL_HAZELCAST_PLATFORM")"
     print_task "d" "Monitoring"
-    print_subtask "d1" "$(get_name "$LABEL_PROMETHEUS")"
-    print_subtask "d2" "$(get_name "$LABEL_GRAFANA")"
+    print_subtask "d1" "$(get_label "$LABEL_PROMETHEUS")"
+    print_subtask "d2" "$(get_label "$LABEL_GRAFANA")"
     print_task "e" "Application"
-    print_subtask "e1" "$(get_name "$LABEL_JAVA_21_RUNNER")"
-    print_subtask "e2" "$(get_name "$LABEL_JAVA_21_POSTGRES_RUNNER")"
-    print_subtask "e3" "$(get_name "$LABEL_JAVA_21_OMNI_RUNNER")"
-    print_subtask "e4" "$(get_name "$LABEL_JAVA_25_RUNNER")"
-    print_subtask "e5" "$(get_name "$LABEL_JAVA_25_POSTGRES_RUNNER")"
+    print_subtask "e1" "$(get_label "$LABEL_JAVA_21_RUNNER")"
+    print_subtask "e2" "$(get_label "$LABEL_JAVA_21_POSTGRES_RUNNER")"
+    print_subtask "e3" "$(get_label "$LABEL_JAVA_21_OMNI_RUNNER")"
+    print_subtask "e4" "$(get_label "$LABEL_JAVA_25_RUNNER")"
+    print_subtask "e5" "$(get_label "$LABEL_JAVA_25_POSTGRES_RUNNER")"
     print_task_full_name "s" "start Docker environment"
     print_subtask "s1" "Demo Docker stack"
     print_task_full_name "u" "List Remal Docker containers"

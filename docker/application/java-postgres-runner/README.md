@@ -1,4 +1,4 @@
-# Remal Spring Box: OpenJDK 25 Runner with PostgreSQL image
+# Remal Spring Box: OpenJDK Runner with PostgreSQL image
 
 ## 1) Overview
 Image name: `springbox-openjdk-postgres-runner`
