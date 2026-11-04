@@ -40,7 +40,7 @@ services:
             - user-service-1-data:/var/lib/postgresql/data
 
     user-service-2:
-        image: springbox-openjdk-25-postgres-runner:0.8.0
+        image: springbox-openjdk-21-postgres-runner:0.8.0
         container_name: user-service-2.${DOMAIN_NAME}
         hostname: user-service-2.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]

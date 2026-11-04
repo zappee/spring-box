@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 * [#59](https://github.com/zappee/spring-box/issues/59): Remove ForgeRock DS 7.3.0 as it is no longer supported by ForgeRock.
 * [#60](https://github.com/zappee/spring-box/issues/60): Update Apache Tomcat 9 to 10.
 * [#2](https://github.com/zappee/spring-box/issues/2): Directory Server backup: save the correct profile.
+* [#64](https://github.com/zappee/spring-box/issues/64): Consolidate `java-21-postgres-runner`, `java-25-postgres-runner` image source code into one `java-postgres-runner`.
 
 #### Deprecated
 * [#51](https://github.com/zappee/spring-box/issues/51), **Update Java sample project**: The dependencies for the Java projects ([spring-box/projects](https://github.com/zappee/spring-box/tree/main/projects)) are currently outdated. As a solo maintainer, I cannot prioritize updating them at this time. Contributions and Pull Requests to update these examples are highly welcome!
@@ -48,7 +49,7 @@ All notable changes to this project will be documented in this file.
 #### Docker Images
 * When a Docker container is stopped and removed, then the certificate for that particular server remains in the PKI environment.
   This causes an issue when the container is started again.
-* New directories in the `Java-21` images to share logfiles betweeen the container and the host machine: `logs/heap-dump` and `logs/application`.
+* New directories in the `Java-21` images to share logfiles between the container and the host machine: `logs/heap-dump` and `logs/application`.
 * Limit the memory usage of Docker containers and JVMs.
 * Improvement in the main docker documentation.
 * Fixing a Kafka configuration issue in the `docker-compose.yml` that prevented to connect an external Kafka tool to the cluster using the external Docker ports.
@@ -145,7 +146,7 @@ If you have three or more nodes, you can use the default settings, otherwise you
 
 #### Docker Images
 * Update EasyRSA to version 3.2.1
-* Update Hashicorp Consul to version 1.20
+* Update HashiCorp Consul to version 1.20
 * Update Grafana to  version 11.4.0
 * Update Prometheus to version 3.0.1
 * Improved releasing process: the same image tag is used everywhere
