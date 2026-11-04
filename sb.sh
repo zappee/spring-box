@@ -35,11 +35,11 @@ LABEL_HCP_VAULT="HashiCorp Vault;infrastructure/hcp-vault"
 LABEL_HAZELCAST_PLATFORM="Hazelcast Platform;infrastructure/hazelcast-platform"
 LABEL_PROMETHEUS="Prometheus;monitoring/prometheus"
 LABEL_GRAFANA="Grafana;monitoring/grafana"
-LABEL_JAVA_21_RUNNER="Java 21 Runner;application/java-21-runner"
-LABEL_JAVA_21_POSTGRES_RUNNER="Java 21 with Postgres Runner;application/java-postgres-runner;openjdk-21-runner"
+LABEL_JAVA_21_RUNNER="Java 21 Runner;application/java-runner;openjdk-21"
+LABEL_JAVA_21_POSTGRES_RUNNER="Java 21 with Postgres Runner;application/java-postgres-runner;openjdk-21"
 LABEL_JAVA_21_OMNI_RUNNER="Java 21 OMNI Runner;application/java-21-omni-runner"
-LABEL_JAVA_25_RUNNER="Java 25 Runner;application/java-25-runner"
-LABEL_JAVA_25_POSTGRES_RUNNER="Java 25 with Postgres Runner;application/java-postgres-runner;openjdk-25-runner"
+LABEL_JAVA_25_RUNNER="Java 25 Runner;application/java-runner;openjdk-25"
+LABEL_JAVA_25_POSTGRES_RUNNER="Java 25 with Postgres Runner;application/java-postgres-runner;openjdk-25"
 
 # ------------------------------------------------------------------------------
 # Initializes a shared host-to-container directory for file exchange.

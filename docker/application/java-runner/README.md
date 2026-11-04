@@ -1,7 +1,7 @@
-# Remal Spring Box: OpenJDK 25 Runner image
+# Remal Spring Box: OpenJDK Runner image
 
 ## 1) Overview
-Image name: `springbox-openjdk-25-runner`
+Image name: `springbox-openjdk-runner`
 
 The Java Runner is an optimized Docker image designed specifically for running containerized Java applications, particularly Spring Boot executable JAR files. Its advanced design accelerates development velocity by providing pre-configured, enterprise-level infrastructure features out of the box:
 
