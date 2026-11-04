@@ -1,5 +1,5 @@
 # ******************************************************************************
-# Remal Spring Box OpenJDK 25 Runner Docker image assemble and build file.
+# Remal Spring Box OpenJDK Runner Docker image assemble and build file.
 #
 # Credits:
 #   Contact:   arnold.somogyi@gmail.com

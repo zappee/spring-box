@@ -19,7 +19,8 @@ All notable changes to this project will be documented in this file.
 * [#59](https://github.com/zappee/spring-box/issues/59): Remove ForgeRock DS 7.3.0 as it is no longer supported by ForgeRock.
 * [#60](https://github.com/zappee/spring-box/issues/60): Update Apache Tomcat 9 to 10.
 * [#2](https://github.com/zappee/spring-box/issues/2): Directory Server backup: save the correct profile.
-* [#64](https://github.com/zappee/spring-box/issues/64): Consolidate `java-21-postgres-runner`, `java-25-postgres-runner` image source code into one `java-postgres-runner`.
+* [#64](https://github.com/zappee/spring-box/issues/64): Consolidate `java-21-postgres-runner`, `java-25-postgres-runner` image source codes into one `java-postgres-runner`.
+* [#68](https://github.com/zappee/spring-box/issues/68): Consolidate `java-21-runner`, `java-25-runner` image source code into one `java-runner`.
 
 #### Deprecated
 * [#51](https://github.com/zappee/spring-box/issues/51), **Update Java sample project**: The dependencies for the Java projects ([spring-box/projects](https://github.com/zappee/spring-box/tree/main/projects)) are currently outdated. As a solo maintainer, I cannot prioritize updating them at this time. Contributions and Pull Requests to update these examples are highly welcome!
