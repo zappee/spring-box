@@ -37,7 +37,7 @@ LABEL_PROMETHEUS="Prometheus;monitoring/prometheus"
 LABEL_GRAFANA="Grafana;monitoring/grafana"
 LABEL_JAVA_21_RUNNER="Java 21 Runner;application/java-runner;openjdk-21"
 LABEL_JAVA_21_POSTGRES_RUNNER="Java 21 with Postgres Runner;application/java-postgres-runner;openjdk-21"
-LABEL_JAVA_21_OMNI_RUNNER="Java 21 OMNI Runner;application/java-21-omni-runner"
+LABEL_JAVA_21_OMNI_RUNNER="Java 21 OMNI Runner;application/java-omni-runner;openjdk-21"
 LABEL_JAVA_25_RUNNER="Java 25 Runner;application/java-runner;openjdk-25"
 LABEL_JAVA_25_POSTGRES_RUNNER="Java 25 with Postgres Runner;application/java-postgres-runner;openjdk-25"
 
