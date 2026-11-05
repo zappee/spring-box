@@ -29,7 +29,7 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     IMAGE_DESCRIPTION="${IMAGE_DESCRIPTION}" \
     \
     EASYRSA_HOME="/opt/easy-rsa" \
-    EASYRSA_INSTALL_KIT="EasyRSA-3.2.5.tgz" \
+    EASYRSA_INSTALL_KIT="EasyRSA-3.2.7.tgz" \
     \
     EASYRSA_REQ_CN="remal.com" \
     EASYRSA_REQ_COUNTRY="HU" \
