@@ -24,6 +24,7 @@ All notable changes to this project will be documented in this file.
 * [#69](https://github.com/zappee/spring-box/issues/69): Consolidate `java-21-omni-runner` image source code into one `java-omni-runner`.
 * [#63](https://github.com/zappee/spring-box/issues/63): Consolidate `openjdk-11`, `openjdk-17`, `openjdk-21`, `openjdk-25` image source code into one `openjdk`.
 * [#62](https://github.com/zappee/spring-box/issues/62): Remove unused branches from GitHub.
+* [#66](https://github.com/zappee/spring-box/issues/66): Update alpine 3.24.2 to 3.24.3.
 
 #### Deprecated
 * [#51](https://github.com/zappee/spring-box/issues/51), **Update Java sample project**: The dependencies for the Java projects ([spring-box/projects](https://github.com/zappee/spring-box/tree/main/projects)) are currently outdated. As a solo maintainer, I cannot prioritize updating them at this time. Contributions and Pull Requests to update these examples are highly welcome!
