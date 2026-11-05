@@ -1,8 +1,8 @@
 # Remal Image: HashiCorp Vault
 
 Start:
-* In the foreground: `OMAIN_NAME=remal.com docker compose up`
-* In the background: `OMAIN_NAME=remal.com docker compose up -d`
+* In the foreground: `docker compose --env-file remal.com.env up`
+* In the background: `docker compose --env-file remal.com.env up -d`
 * Login to container: `sshpass -p password ssh -oStrictHostKeyChecking=no root@vault.remal.com -p 13102`
 * Open this: https://localhost:13103
 * Search for the login `Root Token` in the docker log.

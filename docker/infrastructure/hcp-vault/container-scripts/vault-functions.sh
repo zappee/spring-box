@@ -54,7 +54,7 @@ function get_vault_unseal_key() {
 # Global dependencies:
 #    VAULT_AUDIT_LOG: Path to the Vault audit log file.
 # ------------------------------------------------------------------------------
-function show_audit_log() {
+function redirect_audit_log() {
   VAULT_AUDIT_LOG="${VAULT_AUDIT_LOG:-/vault/logs/vault-audit.log}"
   printf "%s | [INFO ] Redirecting HashiCorp Vault audit log ('%s') to stdout...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_AUDIT_LOG"
 
@@ -74,52 +74,65 @@ function show_audit_log() {
 }
 
 # ------------------------------------------------------------------------------
+# Logs the HashiCorp Vault configuration.
+# ------------------------------------------------------------------------------
+function log_context() {
+  printf "%s | [DEBUG]   --- General --------------------------------------\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]                      FQDN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$FQDN"
+  printf "%s | [DEBUG]         VAULT_CONFIG_FILE: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_CONFIG_FILE"
+  printf "%s | [DEBUG]          VAULT_FILE_STORE: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_FILE_STORE"
+  printf "%s | [DEBUG]        VAULT_CLUSTER_NAME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_CLUSTER_NAME"
+  printf "%s | [DEBUG]   --- Log ------------------------------------------\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]           VAULT_LOG_LEVEL: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_LOG_LEVEL"
+  printf "%s | [DEBUG]            VAULT_INIT_LOG: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_INIT_LOG"
+  printf "%s | [DEBUG]                 VAULT_LOG: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_LOG"
+  printf "%s | [DEBUG]           VAULT_AUDIT_LOG: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_AUDIT_LOG"
+  printf "%s | [DEBUG]   --- Communication --------------------------------\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]            VAULT_TCP_HOST: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_TCP_HOST"
+  printf "%s | [DEBUG]            VAULT_TCP_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_TCP_PORT"
+  printf "%s | [DEBUG]\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]        VAULT_API_PROTOCOL: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_API_PROTOCOL"
+  printf "%s | [DEBUG]            VAULT_API_HOST: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_API_HOST"
+  printf "%s | [DEBUG]            VAULT_API_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_API_PORT"
+  printf "%s | [DEBUG]\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]    VAULT_CLUSTER_PROTOCOL: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_CLUSTER_PROTOCOL"
+  printf "%s | [DEBUG]        VAULT_CLUSTER_HOST: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_CLUSTER_HOST"
+  printf "%s | [DEBUG]        VAULT_CLUSTER_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_CLUSTER_PORT"
+  printf "%s | [DEBUG]   --- Keystore -------------------------------------\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]             KEYSTORE_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$KEYSTORE_HOME"
+  printf "%s | [DEBUG]          ROOT_CA_BASENAME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$ROOT_CA_BASENAME"
+}
+
+# ------------------------------------------------------------------------------
 # Start HashiCorp Vault server daemon in the background.
-#
-# Global dependencies:
-#   KEYSTORE_HOME:     Directory containing TLS certificates.
-#   VAULT_API_PORT:    The network port where the Vault API is listening.
-#   VAULT_CONFIG_FILE: Local path to the json Vault configuration file.
-#   VAULT_LOG:         Log file to record server output.
-#   VAULT_AUDIT_LOG:   Path to Vault audit logfile.
-#   VAULT_CACERT:      Path to the trusted CA certificate.
-#   VAULT_ADDR:        API base URL for Vault CLI usage.
 # ------------------------------------------------------------------------------
 function start_vault() {
-  printf "%s | [INFO ] Starting HashiCorp Vault server daemon...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
-  
-  local fqdn vault_address vault_cacert
+  local fqdn
   fqdn=$(hostname -f)
-  vault_cacert="${KEYSTORE_HOME}/ca.pem"
-  vault_address="https://${fqdn}:${VAULT_API_PORT}"
 
-  printf "%s | [DEBUG]                 FQDN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fqdn"
-  printf "%s | [DEBUG]    VAULT_CONFIG_FILE: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_CONFIG_FILE"
-  printf "%s | [DEBUG]            VAULT_LOG: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_LOG"
-  printf "%s | [DEBUG]      VAULT_AUDIT_LOG: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_AUDIT_LOG"
-  printf "%s | [DEBUG]       VAULT_API_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_API_PORT"
-  printf "%s | [DEBUG]         VAULT_CACERT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$vault_cacert"
-  printf "%s | [DEBUG]           VAULT_ADDR: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$vault_address"
-
-  # These two environment variables configure the HashiCorp Vault CLI client so it knows how to locate and securely
-  # communicate with your Vault server.
-  # Every time you run a command like 'vault kv get', 'vault operator init', or 'vault audit enable', the CLI uses this
-  # URL to know where the Vault server is listening on the network.
+  # These two environment variables used by the Vault CLI client so it knows how to locate and securely communicate with
+  # your Vault server. Every time you run a command like 'vault kv get', 'vault operator init', or 'vault audit enable',
+  # the CLI uses VAULT_ADDR to know where the Vault server is listening on the network.
   #
   # VAULT_ADDR
-  #   The network API endpoint address of your HashiCorp Vault server.
-  #   Example value: "https://127.0.0.1:8200" or "https://example.com"
+  #   The API endpoint address of your HashiCorp Vault server. E.g. "https://127.0.0.1:8200" or "https://example.com"
   #
   # VAULT_CACERT
-  #  The path to the local PEM-encoded Certificate Authority (CA) certificate file used to verify the Vault server's
-  #  identity. Because Vault handles sensitive credentials, production environments force communication over secure
-  #  HTTPS (tls_enabled = true). When your local CLI reaches out to the server URL defined in VAULT_ADDR, it checks
-  #  this CA certificate to prove that the server is authentic and prevent middle-of-the-middle (MITM) security attacks.
-  export VAULT_CACERT="${vault_cacert}"
-  export VAULT_ADDR="${vault_address}"
+  #  Tells the Vault CLI client (or SDK) where to find the CA certificate file on disk so it can trust and verify the
+  #  TLS certificate presented by the Vault server.
+  export VAULT_ADDR="https://${fqdn}:${VAULT_API_PORT}"
+  export VAULT_CACERT="${KEYSTORE_HOME}/${ROOT_CA_BASENAME}.pem"
+
+  printf "%s | [INFO ] Starting HashiCorp Vault server daemon...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]                 FQDN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fqdn"
+  printf "%s | [DEBUG]           VAULT_ADDR: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_ADDR"
+  printf "%s | [DEBUG]         VAULT_CACERT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_CACERT"
+  printf "%s | [DEBUG]    VAULT_CONFIG_FILE: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_CONFIG_FILE"
+  printf "%s | [DEBUG]            VAULT_LOG: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_LOG"
+  printf "%s | [DEBUG]       VAULT_API_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_API_PORT"
 
   vault server -config="${VAULT_CONFIG_FILE}" 2>&1 | tee "${VAULT_LOG}" &
-  show_audit_log
+  redirect_audit_log
 
   printf "%s | [INFO] Waiting for Vault API endpoint to become responsive on port %s...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "${VAULT_API_PORT}"
   while ! nc -w 5 127.0.0.1 "$VAULT_API_PORT" 2>/dev/null; do

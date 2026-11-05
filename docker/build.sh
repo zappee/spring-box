@@ -84,7 +84,7 @@ function set_context() {
 # ------------------------------------------------------------------------------
 function show_build_context() {
   printf "Configuration details:\n"
-  printf "   --- required parameters ---------------------------------------------\n"
+  printf "   --- Required parameters ---------------------------------------------\n"
   printf "             IMAGE_SRC: '%s'\n" "$IMAGE_SRC"
   printf "            BUILD_TYPE: '%s'\n" "$BUILD_TYPE"
   printf "            IMAGE_FROM: '%s'\n" "$IMAGE_FROM"
@@ -93,7 +93,7 @@ function show_build_context() {
   printf "          IMAGE_AUTHOR: '%s'\n" "$IMAGE_AUTHOR"
   printf "     IMAGE_DESCRIPTION: '%s'\n" "$IMAGE_DESCRIPTION"
   printf "            PUSH_IMAGE: '%s'\n" "$PUSH_IMAGE"
-  printf "   --- optional parameters ----------------------------------------------\n"
+  printf "   --- Optional parameters ----------------------------------------------\n"
   printf "                SUFFIX: '%s'\n" "$SUFFIX"
   printf "             JAVA_HOME: '%s'\n" "${JAVA_HOME:-}"
   printf "   ALPINE_PACKAGE_NAME: '%s'\n" "${ALPINE_PACKAGE_NAME:-}"

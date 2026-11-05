@@ -21,16 +21,16 @@
 # Prepares the HashiCorp Vault environment.
 #
 # Global dependencies:
-#    FQDN:                    Fully Qualified Domain Name of the host.
-#    KEYSTORE_HOME:           Directory path containing the certificates.
-#    CA_CERTIFICATE_FILENAME: Base filename of the CA certificate.
-#    openssl:                 CLI tool used for cryptographic conversions.
+#    FQDN:             Fully Qualified Domain Name of the host.
+#    KEYSTORE_HOME:    Directory path containing the certificates.
+#    ROOT_CA_BASENAME: Base filename of the CA certificate.
+#    openssl:          CLI tool used for cryptographic conversions.
 # ------------------------------------------------------------------------------
 function prepare_vault_environment() {
   printf "%s | [INFO ] Preparing HashiCorp Vault environment...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
-  printf "%s | [DEBUG]                       FQDN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$FQDN"
-  printf "%s | [DEBUG]              KEYSTORE_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$KEYSTORE_HOME"
-  printf "%s | [DEBUG]    CA_CERTIFICATE_FILENAME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$CA_CERTIFICATE_FILENAME"
+  printf "%s | [DEBUG]                FQDN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$FQDN"
+  printf "%s | [DEBUG]       KEYSTORE_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$KEYSTORE_HOME"
+  printf "%s | [DEBUG]    ROOT_CA_BASENAME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$ROOT_CA_BASENAME"
   printf "%s | [DEBUG] Converting certificates and private keys to PEM format...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 
   printf "%s | [DEBUG] Converting public certificate to PEM format...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
@@ -48,54 +48,43 @@ function prepare_vault_environment() {
 
   printf "%s | [DEBUG] Converting CA certificate to PEM format...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   openssl x509 \
-    -in "$KEYSTORE_HOME/$CA_CERTIFICATE_FILENAME.crt" \
-    -out "$KEYSTORE_HOME/$CA_CERTIFICATE_FILENAME.pem" \
+    -in "$KEYSTORE_HOME/$ROOT_CA_BASENAME.crt" \
+    -out "$KEYSTORE_HOME/$ROOT_CA_BASENAME.pem" \
     -outform PEM
 
   printf "%s | [DEBUG] Updating the key permissions...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
-  chmod 0644 "$KEYSTORE_HOME/$CA_CERTIFICATE_FILENAME.pem" "$KEYSTORE_HOME/$FQDN.pem"
+  chmod 0644 "$KEYSTORE_HOME/$ROOT_CA_BASENAME.pem" "$KEYSTORE_HOME/$FQDN.pem"
   chmod 0640 "$KEYSTORE_HOME/$FQDN.key.pem"
 }
 
 # ------------------------------------------------------------------------------
 # Configures the HashiCorp Vault configuration file by replacing template placeholders.
 # Supported log levels: trace, debug, info, warn, and error
-#
-# Global dependencies:
-#    $KEYSTORE_HOME:     Directory path containing the certificates.
-#    $FQDN:              Fully Qualified Domain Name of the host.
-#    $VAULT_CONFIG_FILE: Path to the Vault configuration file.
-#    $VAULT_API_PORT:    Network port for the Vault API.
-#    $VAULT_FILE_STORE:  Storage directory path for Vault.
-#    $VAULT_LOG_LEVEL:   Logging level.
-#    sed:                Stream editor used for template string replacement.
 # ------------------------------------------------------------------------------
 function prepare_vault_config_file() {
-  local listening_host="0.0.0.0"
-  
-  local server_cert_file server_key_file ca_cert_file
-  server_cert_file="$KEYSTORE_HOME/$FQDN.pem"
-  server_key_file="$KEYSTORE_HOME/$FQDN.key.pem"
-  ca_cert_file="$KEYSTORE_HOME/$CA_CERTIFICATE_FILENAME.pem"
+  local tls_cert_file tls_key_file tls_ca_file
+  tls_cert_file="${KEYSTORE_HOME}/${FQDN}.pem"
+  tls_key_file="${KEYSTORE_HOME}/${FQDN}.key.pem"
+  tls_ca_file="${KEYSTORE_HOME}/${ROOT_CA_BASENAME}.pem"
 
   printf "%s | [INFO ] Updating HashiCorp Vault config file...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
-  printf "%s | [DEBUG]                   Config file: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_CONFIG_FILE"
-  printf "%s | [DEBUG]                Listening host: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$listening_host"
-  printf "%s | [DEBUG]                      API port: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_API_PORT"
-  printf "%s | [DEBUG]      Path to Vault file store: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_FILE_STORE"
-  printf "%s | [DEBUG]                     Log level: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_LOG_LEVEL"
-  printf "%s | [DEBUG]     Server public certificate: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$server_cert_file"
-  printf "%s | [DEBUG]    Server private certificate: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$server_key_file"
-  printf "%s | [DEBUG]                CA certificate: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$ca_cert_file"
+  log_context
 
   sed -i \
-    -e "s|\${LISTENING_HOST}|$listening_host|g" \
-    -e "s|\${API_PORT}|$VAULT_API_PORT|g" \
-    -e "s|\${SERVER_CERT_FILE}|$server_cert_file|g" \
-    -e "s|\${SERVER_KEY_FILE}|$server_key_file|g" \
-    -e "s|\${CA_CERT_FILE}|$ca_cert_file|g" \
+    -e "s|\${VAULT_CLUSTER_NAME}|$VAULT_CLUSTER_NAME|g" \
+    -e "s|\${VAULT_CLUSTER_PROTOCOL}|$VAULT_CLUSTER_PROTOCOL|g" \
+    -e "s|\${VAULT_CLUSTER_HOST}|$VAULT_CLUSTER_HOST|g" \
+    -e "s|\${VAULT_CLUSTER_PORT}|$VAULT_CLUSTER_PORT|g" \
+    -e "s|\${VAULT_API_PROTOCOL}|$VAULT_API_PROTOCOL|g" \
+    -e "s|\${VAULT_API_HOST}|$VAULT_API_HOST|g" \
+    -e "s|\${VAULT_API_PORT}|$VAULT_API_PORT|g" \
+    -e "s|\${VAULT_TCP_HOST}|$VAULT_TCP_HOST|g" \
+    -e "s|\${VAULT_TCP_PORT}|$VAULT_TCP_PORT|g" \
+    -e "s|\${VAULT_LOG_LEVEL}|$VAULT_LOG_LEVEL|g" \
     -e "s|\${VAULT_FILE_STORE}|$VAULT_FILE_STORE|g" \
-    -e "s|\${LOG_LEVEL}|$VAULT_LOG_LEVEL|g" \
+    -e "s|\${TLS_CERT_FILE}|$tls_cert_file|g" \
+    -e "s|\${TLS_KEY_FILE}|$tls_key_file|g" \
+    -e "s|\${TLS_CA_FILE}|$tls_ca_file|g" \
     "$VAULT_CONFIG_FILE"
 }
 
@@ -154,9 +143,9 @@ function initializing_kv_engine() {
   unseal_key_2=$(get_vault_unseal_key "2")
 
   printf "%s | [DEBUG]      VAULT_ADDR: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$VAULT_ADDR"
-  printf "%s | [DEBUG]    Unseal key 1: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$unseal_key_1"
-  printf "%s | [DEBUG]    Unseal key 2: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$unseal_key_2"
-  printf "%s | [DEBUG]      Root token: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$root_token"
+  printf "%s | [DEBUG]    Unseal Key-1: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$unseal_key_1"
+  printf "%s | [DEBUG]    Unseal Key-2: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$unseal_key_2"
+  printf "%s | [DEBUG]      Root Token: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$root_token"
   unseal_vault "$unseal_key_1"
   unseal_vault "$unseal_key_2"
 
@@ -170,17 +159,15 @@ function initializing_kv_engine() {
 log_start "$0"
 
 FQDN=$(hostname -f)
-CA_CERTIFICATE_FILENAME="ca"
-
 generate_certificate "server" "$FQDN" "DNS:$FQDN,DNS:localhost,IP:127.0.0.1"
 copy_from_remote_machine "$PKI_HOST" "$SSH_USER" "$SSH_PASSWORD" "/opt/easy-rsa/pki/private/$FQDN.key" "$KEYSTORE_HOME"
 copy_from_remote_machine "$PKI_HOST" "$SSH_USER" "$SSH_PASSWORD" "/opt/easy-rsa/pki/issued/$FQDN.crt" "$KEYSTORE_HOME"
-copy_from_remote_machine "$PKI_HOST" "$SSH_USER" "$SSH_PASSWORD" "/opt/easy-rsa/pki/$CA_CERTIFICATE_FILENAME.crt" "$KEYSTORE_HOME"
+copy_from_remote_machine "$PKI_HOST" "$SSH_USER" "$SSH_PASSWORD" "/opt/easy-rsa/pki/$ROOT_CA_BASENAME.crt" "$KEYSTORE_HOME"
 
 prepare_vault_environment
 prepare_vault_config_file
 
-start_vault 
+start_vault
 initialize_vault
 initializing_kv_engine
 initialize_audit_log
