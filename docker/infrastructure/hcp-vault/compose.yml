@@ -1,10 +1,12 @@
 services:
     # ----- HashiCorp Vault ------------------------------------------------------------------------
-    consul:
+    vault:
         image: springbox-hashicorp-vault:0.8.0
         container_name: vault.${DOMAIN_NAME}
         hostname: vault.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
+        cap_add:
+            - IPC_LOCK
         ports:
             - "13102:22"   # SSH
             - "13103:8200" # Vault web console, HTTP
@@ -14,7 +16,7 @@ services:
         deploy:
             resources:
                 limits:
-                    memory: 128M
+                    memory: 256M
         networks:
             - springbox-net
 

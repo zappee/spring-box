@@ -33,15 +33,28 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     \
     PKI_HOST="pki.remal.com" \
     KEYSTORE_HOME="/tmp" \
+    ROOT_CA_BASENAME="ca" \
+    VAULT_INSTALL_KIT="vault_2.2.1_linux_386.zip" \
     \
-    VAULT_INSTALL_KIT="vault_1.21.4_linux_386.zip" \
     VAULT_CONFIG_FILE="/etc/vault.hcl" \
     VAULT_FILE_STORE="/opt/vault/data" \
-    VAULT_API_PORT="8200" \
+    VAULT_CLUSTER_NAME="springbox-vault-cluster" \
+    \
     VAULT_LOG_LEVEL="info" \
     VAULT_INIT_LOG="/var/log/vault-tokens.txt" \
     VAULT_LOG="/var/log/vault.log" \
-    VAULT_AUDIT_LOG="/var/log/vault-audit.log"
+    VAULT_AUDIT_LOG="/var/log/vault-audit.log" \
+    \
+    VAULT_TCP_HOST="0.0.0.0" \
+    VAULT_TCP_PORT="8200" \
+    \
+    VAULT_API_PROTOCOL="https" \
+    VAULT_API_HOST="127.0.0.1" \
+    VAULT_API_PORT="8200" \
+    \
+    VAULT_CLUSTER_PROTOCOL="https" \
+    VAULT_CLUSTER_HOST="0.0.0.0" \
+    VAULT_CLUSTER_PORT="8201"
 
 # Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \
