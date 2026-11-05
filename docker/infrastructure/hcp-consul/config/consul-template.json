@@ -1,10 +1,10 @@
 {
-  "bootstrap": true,
+  "bootstrap_expect": 1,
   "server": true,
   "log_level": "info",
   "datacenter": "consul",
   "encrypt": "f502FprfDugOXiWqZUJpyAwgeXH+6qs6VNFjPxX8TgU=",
-  "bind_addr": "0.0.0.0",
+  "bind_addr": "{{GetPrivateInterfaces | attr \"address\"}}",
   "client_addr": "0.0.0.0",
   "node_name": "${CONSUL_NODE_NAME}",
   "server_name": "${FQDN}",

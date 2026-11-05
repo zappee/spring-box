@@ -37,7 +37,7 @@ PROJECT_HOME="$HOME/Java/spring-box"
 BINARIES=(
   "apache-tomcat-10.1.61.tar.gz;docker/infrastructure/tomcat-10/bin"
   "EasyRSA-3.2.7.tgz;docker/infrastructure/easy-rsa-pki/bin"
-  "consul_1.22.5_linux_386.zip;docker/infrastructure/hcp-consul/bin"
+  "consul_2.1.0_linux_386.zip;docker/infrastructure/hcp-consul/bin"
   "vault_1.21.4_linux_386.zip;docker/infrastructure/hcp-vault/bin"
   "prometheus-3.10.0.linux-amd64.tar.gz;docker/monitoring/prometheus/bin"
   "grafana-enterprise_12.4.0_22325204712_linux_amd64.tar.gz;docker/monitoring/grafana/bin"
