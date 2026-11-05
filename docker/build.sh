@@ -89,12 +89,12 @@ function show_build_context() {
   printf "            BUILD_TYPE: '%s'\n" "$BUILD_TYPE"
   printf "            IMAGE_FROM: '%s'\n" "$IMAGE_FROM"
   printf "            IMAGE_NAME: '%s'\n" "$IMAGE_NAME"
-  printf "                SUFFIX: '%s'\n" "$SUFFIX"
   printf "             IMAGE_TAG: '%s'\n" "$IMAGE_TAG"
   printf "          IMAGE_AUTHOR: '%s'\n" "$IMAGE_AUTHOR"
   printf "     IMAGE_DESCRIPTION: '%s'\n" "$IMAGE_DESCRIPTION"
   printf "            PUSH_IMAGE: '%s'\n" "$PUSH_IMAGE"
   printf "   --- optional parameters ----------------------------------------------\n"
+  printf "                SUFFIX: '%s'\n" "$SUFFIX"
   printf "             JAVA_HOME: '%s'\n" "${JAVA_HOME:-}"
   printf "   ALPINE_PACKAGE_NAME: '%s'\n" "${ALPINE_PACKAGE_NAME:-}"
 }

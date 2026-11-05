@@ -35,7 +35,7 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     \
     HAZELCAST_HOME="/opt/hazelcast" \
     HAZELCAST_CONFIG_TEMPLATE_DIR="/tmp/hazelcast-config-template" \
-    HAZELCAST_INSTALL_KIT="hazelcast-5.6.0-slim.tar.gz" \
+    HAZELCAST_INSTALL_KIT="hazelcast-5.7.0-slim.tar.gz" \
     HAZELCAST_CLUSTER_NAME="springbox-dev"
 
 # Image metadata labels
