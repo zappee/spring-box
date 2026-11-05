@@ -34,7 +34,7 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     PKI_HOST="pki.remal.com" \
     KEYSTORE_HOME="/tmp" \
     \
-    CONSUL_INSTALL_KIT="consul_1.22.5_linux_386.zip" \
+    CONSUL_INSTALL_KIT="consul_2.1.0_linux_386.zip" \
     CONSUL_CONFIG_TEMPLATE_DIR="/tmp/consul-config-template" \
     CONSUL_CONFIG_DIR="/tmp/consul-config" \
     CONSUL_DATA_DIR="/tmp/consul-data"
