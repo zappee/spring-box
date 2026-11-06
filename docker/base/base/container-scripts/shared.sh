@@ -381,3 +381,83 @@ wait_until_content_found() {
   grep -q "$required_string" <(tail -n +1 --pid "$pid" -F "$file_to_monitor")
   printf "%s | [DEBUG] Expected content \"%s\" detected, Continuing.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$required_string"
 }
+
+# ------------------------------------------------------------------------------
+# Polls a specified HTTP endpoint until the response contains the expected
+# status text or substring. Designed for readiness probes in CI/CD pipelines
+# and startup scripts.
+#
+# Arguments:
+#    $1: Must be set to "TRUE" (case-insensitive) to run.
+#    $2: The target URL to test.
+#    $3: The string to grep for (e.g., "200 OK").
+# ------------------------------------------------------------------------------
+wait_for_http_response() {
+  local enabled="${1:-}"
+  local health_check_uri="${2:-}"
+  local expected_content="${3:-}"
+  local health_check_cmd="curl -X GET -s \"$health_check_uri\" 2>&1 | grep -m 1 \"$expected_content\""
+
+  printf "%s | [INFO ] Initializing health check probe...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]           Enabled: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$enabled"
+  printf "%s | [DEBUG]        Target URI: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$health_check_uri"
+  printf "%s | [DEBUG]    Expected state: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$expected_content"
+  printf "%s | [DEBUG]           Command: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$health_check_cmd"
+
+  if [[ "${enabled^^}" == "TRUE" && -n "$health_check_uri" && -n "$expected_content" ]]; then
+    printf "%s | [INFO ] Waiting for health checks to pass...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+
+    # Temporarily disable 'exit on error' status flags to allow health checking polling.
+    set +e
+    until eval "$health_check_cmd"; do sleep 0.5 ; done
+    set -e
+
+    printf "%s | [INFO ] Health check successfully passed.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  else
+    printf "%s | [WARN ] Health check is either disabled or missing required variables. Skipping.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  fi
+}
+
+# ------------------------------------------------------------------------------
+# Polls a specified HTTP endpoint until it responds with the exact expected
+# HTTP status code (e.g., 200, 201, 302).
+#
+# Arguments:
+#    $1: Must be set to "TRUE" (case-insensitive) to run.
+#    $2: The target URL to test.
+#    $3: The expected numeric HTTP status code (e.g., "200").
+# ------------------------------------------------------------------------------
+wait_for_http_status_code() {
+  local enabled="${1:-}"
+  local health_check_uri="${2:-}"
+  local expected_status_code="${3:-}"
+
+  # Defined as an Array. This safely preserves quotes, flags, and spaces.
+  local status_check_cmd=(curl -s -o /dev/null -w "%{http_code}" "$health_check_uri")
+
+  printf "%s | [INFO ] Initializing health check probe...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]                 Enabled: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$enabled"
+  printf "%s | [DEBUG]              Target URI: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$health_check_uri"
+  printf "%s | [DEBUG]    Expected status code: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$expected_status_code"
+  printf "%s | [DEBUG]                 Command: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "${status_check_cmd[*]}"
+
+  if [[ "${enabled^^}" == "TRUE" && -n "$health_check_uri" && -n "$expected_status_code" ]]; then
+    printf "%s | [INFO ] Waiting for HTTP status to become %s...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$expected_status_code"
+
+    local current_status=""
+
+    # Temporarily disable 'exit on error' status flags to allow health checking polling.
+    set +e
+    until [[ "$current_status" == "$expected_status_code" ]]; do
+      current_status=$("${status_check_cmd[@]}")
+      if [[ "$current_status" != "$expected_status_code" ]]; then
+        sleep 0.5
+      fi
+    done
+    set -e
+
+    printf "%s | [INFO ] Health check successfully passed.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  else
+    printf "%s | [WARN ] Health check is either disabled or missing required variables. Skipping.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  fi
+}

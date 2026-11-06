@@ -45,7 +45,7 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     \
     HEALTH_CHECK="true" \
     HEALTH_CHECK_URI="https://localhost:8443/actuator/health" \
-    EXPECTED_HEALTH_CHECK_STATE='\"status\":\"UP\"'
+    HEALTH_CHECK_CONTENT='\"status\":\"UP\"'
 
 # Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \

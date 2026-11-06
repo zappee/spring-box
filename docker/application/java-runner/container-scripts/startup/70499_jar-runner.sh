@@ -54,20 +54,14 @@ jar_runner() {
     jvm_params="-Dapp.name=$app_name $JAVA_OPTS"
   fi
 
-  local health_check_cmd
-  health_check_cmd="curl -X GET -s $HEALTH_CHECK_URI 2>&1 | grep -m 1 '$EXPECTED_HEALTH_CHECK_STATE'"
-
   printf "%s | [INFO ] Preparing to execute '%s' JAR file...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$jar_file"
-  printf "%s | [DEBUG]                     JAVA_DEBUG: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$JAVA_DEBUG"
-  printf "%s | [DEBUG]                JAVA_DEBUG_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$JAVA_DEBUG_PORT"
-  printf "%s | [DEBUG]                     JVM PARAMS: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$jvm_params"
-  printf "%s | [DEBUG]                       JAR_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$JAR_HOME"
-  printf "%s | [DEBUG]                       JAR FILE: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$jar_file"
-  printf "%s | [DEBUG]                       app.name: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$app_name"
-  printf "%s | [DEBUG]               HEALTH_CHECK_URI: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$HEALTH_CHECK_URI"
-  printf "%s | [DEBUG]    EXPECTED_HEALTH_CHECK_STATE: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$EXPECTED_HEALTH_CHECK_STATE"
-  printf "%s | [DEBUG]           health check command: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$health_check_cmd"
-  printf "%s | [DEBUG]         CONSUL_SERVER_HOSTNAME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$CONSUL_SERVER_HOSTNAME"
+  printf "%s | [DEBUG]                JAVA_DEBUG: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$JAVA_DEBUG"
+  printf "%s | [DEBUG]           JAVA_DEBUG_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$JAVA_DEBUG_PORT"
+  printf "%s | [DEBUG]                JVM PARAMS: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$jvm_params"
+  printf "%s | [DEBUG]                  JAR_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$JAR_HOME"
+  printf "%s | [DEBUG]                  JAR FILE: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$jar_file"
+  printf "%s | [DEBUG]                  app.name: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$app_name"
+  printf "%s | [DEBUG]    CONSUL_SERVER_HOSTNAME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$CONSUL_SERVER_HOSTNAME"
   printf "%s | [DEBUG] Java version:\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   java -version
 
@@ -75,15 +69,7 @@ jar_runner() {
   printf "%s | [INFO ] Executing the %s Java application...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$jar_file"
   java $jvm_params -jar "$jar_file" 2>&1 &
 
-  if [[ "${HEALTH_CHECK^^}" == "TRUE" && -n "$HEALTH_CHECK_URI" && -n "$EXPECTED_HEALTH_CHECK_STATE" ]]; then
-    printf "%s | [INFO ] Waiting for health checks to pass...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
-
-    # Temporarily disable 'exit on error' status flags to allow health checking polling.
-    set +e
-    until eval "$health_check_cmd"; do sleep 0.5 ; done
-    set -e
-    printf "%s | [INFO ] The Java application is up and running.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
-  fi
+  wait_for_http_response "$HEALTH_CHECK" "$HEALTH_CHECK_URI" "$HEALTH_CHECK_CONTENT"
 }
 
 # ------------------------------------------------------------------------------

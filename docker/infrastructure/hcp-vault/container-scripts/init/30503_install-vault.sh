@@ -20,7 +20,7 @@
 # ------------------------------------------------------------------------------
 # Prepares the HashiCorp Vault environment.
 #
-# Global dependencies:
+# Global dependencies
 #    FQDN:             Fully Qualified Domain Name of the host.
 #    KEYSTORE_HOME:    Directory path containing the certificates.
 #    ROOT_CA_BASENAME: Base filename of the CA certificate.
@@ -91,7 +91,7 @@ function prepare_vault_config_file() {
 # ------------------------------------------------------------------------------
 # Enabling audit log for HashiCorp Vault.
 #
-# Global dependencies:
+# Global dependencies
 #    VAULT_AUDIT_LOG: File path where Vault audit logs will be written.
 #    vault:           HashiCorp Vault CLI binary executable.
 # ------------------------------------------------------------------------------
@@ -109,7 +109,7 @@ function initialize_audit_log() {
 # ------------------------------------------------------------------------------
 # Initializes the HashiCorp Vault cluster.
 #
-# Global dependencies:
+# Global dependencies
 #    VAULT_INIT_LOG: File path where initialization keys and root token are saved.
 #    vault:          HashiCorp Vault CLI binary executable.
 # ------------------------------------------------------------------------------
@@ -130,7 +130,7 @@ function initialize_vault() {
 # ------------------------------------------------------------------------------
 # Initializes the HashiCorp Vault Key-Value (KV) version 2 engine.
 #
-# Global dependencies:
+# Global dependencies
 #    VAULT_ADDR: Vault server API address.
 #    vault:      HashiCorp Vault CLI binary executable.
 # ------------------------------------------------------------------------------
