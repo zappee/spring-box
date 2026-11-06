@@ -1,10 +1,30 @@
 global:
-  scrape_interval: 5s
+  scrape_interval: 15s
+  evaluation_interval: 15s
   scrape_timeout: 5s
-  evaluation_interval: 5s
 
-# collecting the URLs to monitor from the service-registry
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
 scrape_configs:
+  - job_name: "prometheus"
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
+
+    static_configs:
+      - targets: ["localhost:9090"]
+        labels:
+          app: "prometheus"
+    scrape_native_histograms: true
+
   - job_name: "consul-service-discovery-job"
     metrics_path: /actuator/prometheus
     consul_sd_configs:
