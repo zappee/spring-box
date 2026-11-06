@@ -17,41 +17,36 @@
 . /shared.sh
 
 # ------------------------------------------------------------------------------
-# Create a Grafana data source via the Grafana REST API.
+# Add a Grafana data source using the HTTP API. No restart required.
 # ------------------------------------------------------------------------------
-function create_grafana_datasources() {
-  local json_files fqdn
-  json_files=("$GRAFANA_HOME"/customization/datasources/*.json)
-  fqdn=$(hostname -f)
+function add_grafana_data_sources() {
+  printf "%s | [INFO ] Adding a new Grafana data source...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]    PROMETHEUS_PROTOCOL: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_PROTOCOL"
+  printf "%s | [DEBUG]        PROMETHEUS_HOST: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_HOST"
+  printf "%s | [DEBUG]        PROMETHEUS_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_PORT"
 
+  curl -f -X POST "${GRAFANA_PROTOCOL}://${GRAFANA_USER}:${GRAFANA_PASSWORD}@localhost:${GRAFANA_PORT}/api/datasources" \
+    -H "Content-Type: application/json" \
+    -d "{
+      \"uid\": \"adinoft2gf56of\",
+      \"name\": \"${PROMETHEUS_HOST}\",
+      \"type\": \"prometheus\",
+      \"access\": \"proxy\",
+      \"url\": \"${PROMETHEUS_PROTOCOL}://${PROMETHEUS_HOST}:${PROMETHEUS_PORT}\",
+      \"basicAuth\": false,
+      \"isDefault\": true,
+      \"jsonData\": {
+        \"httpMethod\": \"POST\",
+        \"tlsSkipVerify\": true
+      }
+    }"
 
-  printf "%s | [INFO ] Creating Grafana data source...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
-  printf "%s | [DEBUG]        GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
-  printf "%s | [DEBUG]        GRAFANA_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PORT"
-  printf "%s | [DEBUG]          json_files: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "${json_files[*]}"
-  printf "%s | [DEBUG]        GRAFANA_USER: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_USER"
-  printf "%s | [DEBUG]    GRAFANA_PASSWORD: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PASSWORD"
-  printf "%s | [DEBUG]    GRAFANA_PROTOCOL: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PROTOCOL"
-  printf "%s | [DEBUG]                FQDN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fqdn"
-
-  # Check if any JSON files actually exist
-  if [ ! -e "${json_files[0]}" ]; then
-    printf "%s | [WARN ] No data source JSON files found.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  if [ $? -eq 0 ]; then
+    printf "%s | [INFO ] Grafana data source has been successfully added.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  else
+    printf "%s | [ERROR] Failed to add Grafana data source.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
     return 1
   fi
-
-  start_grafana
-  for file in "${json_files[@]}"; do
-    printf "%s | [DEBUG] Applying file: '%s'...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$file"
-    curl \
-      -X POST \
-      -H "Content-Type: application/json" \
-      --user "$GRAFANA_USER:$GRAFANA_PASSWORD" \
-      --data-binary @"$file" \
-      "$GRAFANA_PROTOCOL://$fqdn:$GRAFANA_PORT/api/datasources"
-    printf "\n"
-  done;
-  stop_grafana
 }
 
 # ------------------------------------------------------------------------------
@@ -63,55 +58,34 @@ function grafana_configuration() {
 
   printf "%s | [INFO ] Configuring Grafana server...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   printf "%s | [DEBUG]             GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
-  printf "%s | [DEBUG]             GRAFANA_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PORT"
-  printf "%s | [DEBUG]           GRAFANA_CONFIG: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_CONFIG"
+  printf "%s | [DEBUG]    GRAFANA_CUSTOM_CONFIG: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_CUSTOM_CONFIG"
+  printf "%s | [DEBUG]                     FQDN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fqdn"
   printf "%s | [DEBUG]          GRAFANA_STORAGE: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_STORAGE"
   printf "%s | [DEBUG]          GRAFANA_LOG_DIR: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_LOG_DIR"
   printf "%s | [DEBUG]          GRAFANA_PLUGINS: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PLUGINS"
   printf "%s | [DEBUG]     GRAFANA_PROVISIONING: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PROVISIONING"
-  printf "%s | [DEBUG]                     FQDN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fqdn"
-  printf "%s | [DEBUG]            KEYSTORE_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$KEYSTORE_HOME"
   printf "%s | [DEBUG]         GRAFANA_PROTOCOL: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PROTOCOL"
+  printf "%s | [DEBUG]             GRAFANA_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PORT"
+  printf "%s | [DEBUG]            KEYSTORE_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$KEYSTORE_HOME"
 
  # Validate that the configuration file exists before processing
-  if [ ! -f "$GRAFANA_CONFIG" ]; then
-    printf "%s | [ERROR] Grafana config file not found.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
-    return 1
+  if [ ! -f "$GRAFANA_CUSTOM_CONFIG" ]; then
+    printf "%s | [ERROR] Grafana custom config file not found.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    return 0
   fi
 
   sed -i \
+    -e "s|\${FQDN}|$fqdn|g" \
     -e "s|\${GRAFANA_STORAGE}|$GRAFANA_STORAGE|g" \
     -e "s|\${GRAFANA_LOG_DIR}|$GRAFANA_LOG_DIR|g" \
     -e "s|\${GRAFANA_PLUGINS}|$GRAFANA_PLUGINS|g" \
     -e "s|\${GRAFANA_PROVISIONING}|$GRAFANA_PROVISIONING|g" \
-    -e "s|\${GRAFANA_PORT}|$GRAFANA_PORT|g" \
-    -e "s|\${FQDN}|$fqdn|g" \
-    -e "s|\${KEYSTORE_HOME}|$KEYSTORE_HOME|g" \
     -e "s|\${GRAFANA_PROTOCOL}|$GRAFANA_PROTOCOL|g" \
-    "$GRAFANA_CONFIG"
-}
+    -e "s|\${GRAFANA_PORT}|$GRAFANA_PORT|g" \
+    -e "s|\${KEYSTORE_HOME}|$KEYSTORE_HOME|g" \
+    "$GRAFANA_CUSTOM_CONFIG"
 
-# ------------------------------------------------------------------------------
-# Interpolate environment variables into the Grafana data source JSON files.
-# ------------------------------------------------------------------------------
-function prepare_grafana_datasource_files() {
-  local json_files
-  json_files=("$GRAFANA_HOME"/customization/datasources/*.json)
-
-  printf "%s | [INFO ] Updating Grafana data source JSON files...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
-  printf "%s | [DEBUG]        PROMETHEUS_HOST: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_HOST"
-  printf "%s | [DEBUG]        PROMETHEUS_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_PORT"
-  printf "%s | [DEBUG]    PROMETHEUS_PROTOCOL: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$PROMETHEUS_PROTOCOL"
-  printf "%s | [DEBUG]             JSON files: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "${json_files[*]}"
-
-  for file in "${json_files[@]}"; do
-    printf "%s | [DEBUG] Updating file: '%s'...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$file"
-    sed -i \
-      -e "s|\${PROMETHEUS_HOST}|$PROMETHEUS_HOST|g" \
-      -e "s|\${PROMETHEUS_PORT}|$PROMETHEUS_PORT|g" \
-      -e "s|\${PROMETHEUS_PROTOCOL}|$PROMETHEUS_PROTOCOL|g" \
-      "$file"
-  done
+  printf "%s | [INFO ] Grafana server configured.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 }
 
 # ------------------------------------------------------------------------------
@@ -125,11 +99,19 @@ function start_grafana() {
   printf "%s | [DEBUG]    GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
   printf "%s | [DEBUG]        Log file: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$grafana_log"
 
-  cd "$GRAFANA_HOME" || return 1
-  ./bin/grafana server 2>&1 &
-
+  "${GRAFANA_HOME}/bin/grafana" server --homepath "${GRAFANA_HOME}" 2>&1 &
   tail -n +1 -F "$grafana_log" &
-  wait_until_content_found "$grafana_log" "Adding GroupVersion featuretoggle.grafana.app"
+
+  # Unfortunately Grafana’s '/api/health' endpoint only checks if the core
+  # process is alive and if the primary database is reachable. However, the
+  # Grafana API routing engine and plugins take a few additional seconds to
+  # fully initialize and begin accepting dynamic data source modifications.
+  #
+  # Parsing Grafana's logs is a highly reliable way to overcome this condition.
+  #
+  # wait_for_http_status_code "TRUE" "${GRAFANA_PROTOCOL}://localhost:${GRAFANA_PORT}/api/health" "200"
+  wait_until_content_found "$grafana_log" "HTTP Server Listen"
+
   printf "%s | [INFO ] Grafana server is fully started.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 }
 
@@ -159,4 +141,6 @@ function update_grafana_password() {
 
   cd "$GRAFANA_HOME" || return 1
   ./bin/grafana cli "$GRAFANA_USER" reset-admin-password "$GRAFANA_PASSWORD"
+
+  printf "%s | [INFO ] Grafana admin credentials updated.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 }

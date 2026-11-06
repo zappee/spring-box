@@ -24,7 +24,8 @@ log_start "$0"
 
 grafana_configuration
 update_grafana_password
-prepare_grafana_datasource_files
-create_grafana_datasources
+start_grafana
+add_grafana_data_sources
+stop_grafana
 
 log_end "$0"

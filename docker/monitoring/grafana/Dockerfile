@@ -36,11 +36,11 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     PROMETHEUS_PORT="9090" \
     PROMETHEUS_PROTOCOL="https" \
     \
-    GRAFANA_INSTALL_KIT="grafana-enterprise_12.4.0_22325204712_linux_amd64.tar.gz" \
+    GRAFANA_INSTALL_KIT="grafana-enterprise_13.3.0_40412481033_linux_amd64.tar.gz" \
     GRAFANA_HOME="/opt/grafana" \
     GRAFANA_PROTOCOL="https" \
     GRAFANA_PORT=3000 \
-    GRAFANA_CONFIG="/opt/grafana/conf/custom.ini" \
+    GRAFANA_CUSTOM_CONFIG="/opt/grafana/conf/custom.ini" \
     GRAFANA_PROVISIONING="/opt/grafana/conf/provisioning" \
     GRAFANA_STORAGE="/opt/grafana/data" \
     GRAFANA_LOG_DIR="/var/log/grafana" \
@@ -78,5 +78,4 @@ RUN set -ue; \
     mkdir -p "${GRAFANA_STORAGE}" "${GRAFANA_LOG_DIR}" "${GRAFANA_PLUGINS}"
 
 COPY container-scripts/grafana-functions.sh /
-COPY config/custom.ini "${GRAFANA_CONFIG}"
-COPY config/datasources/* "${GRAFANA_HOME}/customization/datasources/"
+COPY config/custom.ini "${GRAFANA_CUSTOM_CONFIG}"

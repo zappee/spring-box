@@ -19,7 +19,7 @@
 # ------------------------------------------------------------------------------
 # Extract the HashiCorp Vault Initial Root Token from the log.
 #
-# Global dependencies:
+# Global dependencies
 #    VAULT_INIT_LOG: Path to the file containing Vault init log.
 # ------------------------------------------------------------------------------
 function get_vault_root_token() {
@@ -34,7 +34,7 @@ function get_vault_root_token() {
 # Arguments:
 #    $1: The identifier of the unseal key to retrieve.
 #
-# Global dependencies:
+# Global dependencies
 #   mVAULT_INIT_LOG: Path to the file containing Vault init output.
 # ------------------------------------------------------------------------------
 function get_vault_unseal_key() {
@@ -51,7 +51,7 @@ function get_vault_unseal_key() {
 # log file before spinning up a new background tail process. This is ideal
 # for containerized environments (like Docker) to stream logs to stdout.
 #
-# Global dependencies:
+# Global dependencies
 #    VAULT_AUDIT_LOG: Path to the Vault audit log file.
 # ------------------------------------------------------------------------------
 function redirect_audit_log() {
