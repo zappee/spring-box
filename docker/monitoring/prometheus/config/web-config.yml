@@ -1,3 +1,6 @@
 tls_server_config:
   cert_file: ${KEYSTORE_HOME}/${FQDN}.crt
   key_file: ${KEYSTORE_HOME}/${FQDN}.pem
+
+http_server_config:
+  http2: true

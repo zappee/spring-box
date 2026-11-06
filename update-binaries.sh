@@ -39,7 +39,7 @@ BINARIES=(
   "EasyRSA-3.2.7.tgz;docker/infrastructure/easy-rsa-pki/bin"
   "consul_2.1.0_linux_386.zip;docker/infrastructure/hcp-consul/bin"
   "vault_2.2.1_linux_386.zip;docker/infrastructure/hcp-vault/bin"
-  "prometheus-3.10.0.linux-amd64.tar.gz;docker/monitoring/prometheus/bin"
+  "prometheus-3.16.0.linux-amd64.tar.gz;docker/monitoring/prometheus/bin"
   "grafana-enterprise_12.4.0_22325204712_linux_amd64.tar.gz;docker/monitoring/grafana/bin"
   "hazelcast-5.7.0-slim.tar.gz;docker/infrastructure/hazelcast-platform/bin"
 )
