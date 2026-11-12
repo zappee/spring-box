@@ -65,7 +65,7 @@
   }
 </style>
 
-skinparam backgroundcolor transparent
+skinparam backgroundcolor #f6f8fa
 skinparam ParticipantBackgroundColor transparent
 skinparam DatabaseBackgroundColor transparent
 skinparam ActorBackgroundColor transparent
