@@ -31,7 +31,7 @@ All notable changes to this project will be documented in this file.
 * [#79](https://github.com/zappee/spring-box/issues/79): Update `HashiCorp Vault 1.21.4` to `2.2.1`.
 * [#81](https://github.com/zappee/spring-box/issues/81): Update `Prometheus 3.10.0` to `3.16.0`.
 * [#80](https://github.com/zappee/spring-box/issues/80): Update `Grafana 12.4.0` to `13.3.0`.
-* [#65](https://github.com/zappee/spring-box/issues/65): Update all README.md files to reflect the features of the current release.
+* [#65](https://github.com/zappee/spring-box/issues/65): Update all `README.md` files to reflect the features of the current release.
 
 #### Major Known Issues
 * [#51](https://github.com/zappee/spring-box/issues/51), **Update Java sample project:** The dependencies for the Java projects ([spring-box/projects](https://github.com/zappee/spring-box/tree/main/projects)) are currently outdated. As a solo maintainer, I cannot prioritize updating them at this time. Contributions and Pull Requests to update these examples are highly welcome!
