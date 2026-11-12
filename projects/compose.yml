@@ -338,8 +338,8 @@ services:
         hostname: hazelcast-1.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
         ports:
-            - "13072:22"   # SSH
-            - "13073:5701" # Hazelcast client port
+            - "13062:22"   # SSH
+            - "13063:5701" # Hazelcast client port
         environment:
             - PKI_HOST=pki.${DOMAIN_NAME}
             - HAZELCAST_CLUSTER_NAME=springbox-dev
@@ -356,8 +356,8 @@ services:
         hostname: hazelcast-2.${DOMAIN_NAME}
         entrypoint: ["/wait-for-container.sh", "pki.${DOMAIN_NAME}"]
         ports:
-            - "13062:22"   # SSH
-            - "13063:5701" # Hazelcast client port
+            - "13072:22"   # SSH
+            - "13073:5701" # Hazelcast client port
         environment:
             - PKI_HOST=pki.${DOMAIN_NAME}
             - HAZELCAST_CLUSTER_NAME=springbox-dev
