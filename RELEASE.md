@@ -33,8 +33,9 @@ All notable changes to this project will be documented in this file.
 * [#80](https://github.com/zappee/spring-box/issues/80): Update `Grafana 12.4.0` to `13.3.0`.
 * [#65](https://github.com/zappee/spring-box/issues/65): Update all README.md files to reflect the features of the current release.
 
-#### Deprecated
-* [#51](https://github.com/zappee/spring-box/issues/51), **Update Java sample project**: The dependencies for the Java projects ([spring-box/projects](https://github.com/zappee/spring-box/tree/main/projects)) are currently outdated. As a solo maintainer, I cannot prioritize updating them at this time. Contributions and Pull Requests to update these examples are highly welcome!
+#### Major Known Issues
+* [#51](https://github.com/zappee/spring-box/issues/51), **Update Java sample project:** The dependencies for the Java projects ([spring-box/projects](https://github.com/zappee/spring-box/tree/main/projects)) are currently outdated. As a solo maintainer, I cannot prioritize updating them at this time. Contributions and Pull Requests to update these examples are highly welcome!
+* [#85](https://github.com/zappee/spring-box/issues/85), **Environment variables in compose.yml are ignored at runtime, only applied during image build:** Most environment variables are currently evaluated only during the Docker image build (`docker build`), making it impossible to override them at container runtime via `compose.yml`. While a few variables work dynamically when starting the container, most remain locked to the values set at build time.
 
 ## [0.7.1] - 27/Aug/2026
 
