@@ -81,7 +81,7 @@ services:
         entrypoint: ["/wait-for-container.sh", "consul.${DOMAIN_NAME}"]
         ports:
             - "13072:22"   # SSH
-            - "13073:9090" # HTTPS
+            - "13073:9090" # HTTPS Web console
         environment:
             - PKI_HOST=pki.${DOMAIN_NAME}
             - CONSUL_HOST=consul.${DOMAIN_NAME}
