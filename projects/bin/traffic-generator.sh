@@ -16,7 +16,7 @@
 #   purposes, provided you give appropriate credit and do not use the material
 #   for commercial gain.
 # ******************************************************************************
-DURATION_SECONDS=180  # Total run time
+DURATION_SECONDS=1800 # Total run time: 30 minutes
 
 MIN_THREADS=2         # Minimum concurrent threads
 MAX_THREADS=6         # Maximum concurrent threads
@@ -24,8 +24,8 @@ MAX_THREADS=6         # Maximum concurrent threads
 MIN_CALLS=1           # Minimum calls a thread makes before stopping
 MAX_CALLS=5           # Maximum calls a thread makes before stopping
 
-MIN_WAIT_MS=500       # Minimum wait between requests in milliseconds
-MAX_WAIT_MS=1500      # Maximum wait between requests in milliseconds
+MIN_WAIT_MS=200       # Minimum wait between requests in milliseconds
+MAX_WAIT_MS=5000      # Maximum wait between requests in milliseconds
 
 TARGET_SHIFT_SEC=15   # How often (in seconds) the target thread count shifts
 
