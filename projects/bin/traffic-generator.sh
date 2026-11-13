@@ -38,43 +38,84 @@ TARGET_SHIFT_SEC=15   # How often (in seconds) the target thread count shifts
 #    3-digit HTTP status code (e.g., 200)
 # ------------------------------------------------------------------------------
 call_endpoint_1()  {
-  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14214/api/welcome/joke
+  # user-service-1, get user details
+  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14114/api/user/zappee
 }
 
 call_endpoint_2()  {
-  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14214/api/welcome/joke
+  # user-service-2, get user details
+  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14124/api/user/zappee
 }
 
 call_endpoint_3()  {
-  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14214/api/welcome/joke
+  # welcome-service-1, get welcome message
+  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14214/api/welcome/welcome/zappee
 }
 
 call_endpoint_4()  {
+  # welcome-service-1, get a joke
   curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14214/api/welcome/joke
 }
 
 call_endpoint_5()  {
-  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14214/api/welcome/joke
+  # hazelcast-counter-service-1, show counter value
+  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14514/api/counter/show/zappee
 }
 
 call_endpoint_6()  {
-  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14214/api/welcome/joke
+  # hazelcast-counter-service-1, update counter
+  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14514/api/counter/update/zappee
 }
 
 call_endpoint_7()  {
-  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14214/api/welcome/joke
+  # hazelcast-counter-service-2, show counter value
+  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14524/api/counter/show/zappee
 }
 
 call_endpoint_8()  {
-  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14214/api/welcome/joke
+  # hazelcast-counter-service-2, update counter
+  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14514/api/counter/update/zappee
 }
 
 call_endpoint_9()  {
-  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14214/api/welcome/joke
+  # kafka-producer-service-1, send one message
+  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14314/api/kafka/send-one/a1
 }
 
 call_endpoint_10() {
-  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14214/api/welcome/joke
+  # kafka-producer-service-1, send five messages
+  curl -k -s --max-time 5 -o /dev/null -w "%{http_code}" https://localhost:14314/api/kafka/send-multiple/5
+}
+
+
+# ------------------------------------------------------------------------------
+# Initialize the services by calling REST endpoints.
+# ------------------------------------------------------------------------------
+initialize() {
+  log "INFO" "Main" "=== Initializing Services ==="
+
+  curl -k -X POST https://localhost:14114/api/user/ \
+    -H "Content-Type: application/json" \
+    -d '{
+      "username": "zappee",
+      "firstName": "Arnold",
+      "email": "arnold@gmail.com",
+      "description": "Java developer"
+    }'
+  log "DEBUG" "Main" "Initialized user-service-1"
+
+  # init user-service-2
+  curl -k -X POST https://localhost:14124/api/user/ \
+    -H "Content-Type: application/json" \
+    -d '{
+      "username": "zappee",
+      "firstName": "Arnold",
+      "email": "arnold@gmail.com",
+      "description": "Java developer"
+    }'
+  log "DEBUG" "Main" "Initialized user-service-2"
+
+  log "INFO" "Main" "=== Service Initialization Complete ==="
 }
 
 # ------------------------------------------------------------------------------
@@ -224,21 +265,23 @@ cleanup() {
 # Higher numbers = called proportionally more often (e.g., GET=90, DELETE=10)
 # ------------------------------------------------------------------------------
 WEIGHTED_METHODS=(
-  "call_endpoint_1:95"   # Frequent GET (users)
-  "call_endpoint_2:85"   # Frequent GET (orders)
-  "call_endpoint_3:90"   # Frequent GET (products)
-  "call_endpoint_4:25"   # Less frequent POST (create order)
-  "call_endpoint_5:60"   # Medium GET (inventory)
-  "call_endpoint_6:100"  # Very frequent GET (health check)
-  "call_endpoint_7:40"   # Occasional GET (reports)
-  "call_endpoint_8:50"   # Medium GET (metrics)
-  "call_endpoint_9:15"   # Rare PUT (update user)
-  "call_endpoint_10:10"  # Very rare DELETE (clear cache)
+  "call_endpoint_1:95"   # Frequent: user-service-1, get user details
+  "call_endpoint_2:85"   # Frequent: user-service-2, get user details
+  "call_endpoint_3:90"   # Frequent: welcome-service-1, get welcome message
+  "call_endpoint_4:25"   # Less frequent: welcome-service-1, get a joke
+  "call_endpoint_5:60"   # hazelcast-counter-service-1, show counter value
+  "call_endpoint_6:100"  # Very frequent: hazelcast-counter-service-1, update counter
+  "call_endpoint_7:40"   # Occasional: hazelcast-counter-service-2, show counter value
+  "call_endpoint_8:50"   # Medium: hazelcast-counter-service-2, update counter
+  "call_endpoint_9:15"   # Rare: kafka-producer-service-1, send one message
+  "call_endpoint_10:10"  # Very rare: kafka-producer-service-1, send five messages
 )
 
 # ------------------------------------------------------------------------------
 # Main program execution.
 # ------------------------------------------------------------------------------
+initialize
+
 # Parse method names and weights into parallel arrays
 METHODS=()
 WEIGHTS=()
