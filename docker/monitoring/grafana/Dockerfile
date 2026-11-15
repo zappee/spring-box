@@ -44,7 +44,7 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     GRAFANA_HOME="/opt/grafana"
 
 ENV GRAFANA_CUSTOM_CONFIG="${GRAFANA_HOME}/conf/custom.ini" \
-    GRAFANA_PROVISIONING="${GRAFANA_HOME}/conf/provisioning" \
+    GRAFANA_PROVISIONING_DIR="${GRAFANA_HOME}/conf/provisioning" \
     GRAFANA_STORAGE="/${GRAFANA_HOME}/data" \
     GRAFANA_PLUGINS_DIR="${GRAFANA_HOME}/data/plugins" \
     GRAFANA_DASHBOARDS_DIR="${GRAFANA_HOME}/dashboards/" \
