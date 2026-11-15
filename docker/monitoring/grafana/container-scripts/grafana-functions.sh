@@ -63,7 +63,7 @@ function configuring_grafana() {
   printf "%s | [DEBUG]                            FQDN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fqdn"
   printf "%s | [DEBUG]                 GRAFANA_STORAGE: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_STORAGE"
   printf "%s | [DEBUG]                 GRAFANA_LOG_DIR: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_LOG_DIR"
-  printf "%s | [DEBUG]                 GRAFANA_PLUGINS: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PLUGINS"
+  printf "%s | [DEBUG]             GRAFANA_PLUGINS_DIR: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PLUGINS_DIR"
   printf "%s | [DEBUG]            GRAFANA_PROVISIONING: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PROVISIONING"
   printf "%s | [DEBUG]                GRAFANA_PROTOCOL: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PROTOCOL"
   printf "%s | [DEBUG]                    GRAFANA_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PORT"
@@ -81,7 +81,7 @@ function configuring_grafana() {
     -e "s|\${FQDN}|$fqdn|g" \
     -e "s|\${GRAFANA_STORAGE}|$GRAFANA_STORAGE|g" \
     -e "s|\${GRAFANA_LOG_DIR}|$GRAFANA_LOG_DIR|g" \
-    -e "s|\${GRAFANA_PLUGINS}|$GRAFANA_PLUGINS|g" \
+    -e "s|\${GRAFANA_PLUGINS_DIR}|$GRAFANA_PLUGINS_DIR|g" \
     -e "s|\${GRAFANA_PROVISIONING}|$GRAFANA_PROVISIONING|g" \
     -e "s|\${GRAFANA_PROTOCOL}|$GRAFANA_PROTOCOL|g" \
     -e "s|\${GRAFANA_PORT}|$GRAFANA_PORT|g" \

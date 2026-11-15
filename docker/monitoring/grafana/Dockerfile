@@ -44,7 +44,7 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     GRAFANA_PROVISIONING="/opt/grafana/conf/provisioning" \
     GRAFANA_STORAGE="/opt/grafana/data" \
     GRAFANA_LOG_DIR="/var/log/grafana" \
-    GRAFANA_PLUGINS="/opt/grafana/data/plugins" \
+    GRAFANA_PLUGINS_DIR="/opt/grafana/data/plugins" \
     GRAFANA_USER="admin" \
     GRAFANA_PASSWORD="password" \
     \
@@ -79,7 +79,7 @@ RUN set -ue; \
 # --- Final image stage ---
 FROM base-${BUILD_TYPE} AS final
 RUN set -ue; \
-    mkdir -p "${GRAFANA_STORAGE}" "${GRAFANA_LOG_DIR}" "${GRAFANA_PLUGINS}"
+    mkdir -p "${GRAFANA_STORAGE}" "${GRAFANA_LOG_DIR}" "${GRAFANA_PLUGINS_DIR}"
 
 # Install system tools required by Grafana Image Renderer
 RUN set -ue; \
