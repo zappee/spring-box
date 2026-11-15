@@ -22,6 +22,7 @@
 # ------------------------------------------------------------------------------
 log_start "$0"
 
+start_grafana_image_renderer
 start_grafana
 
 log_end "$0"

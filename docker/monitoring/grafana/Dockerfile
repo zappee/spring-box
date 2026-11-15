@@ -46,7 +46,11 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     GRAFANA_LOG_DIR="/var/log/grafana" \
     GRAFANA_PLUGINS="/opt/grafana/data/plugins" \
     GRAFANA_USER="admin" \
-    GRAFANA_PASSWORD="password"
+    GRAFANA_PASSWORD="password" \
+    \
+    GRAFANA_IMAGE_RENDERER_BIN="grafana-image-renderer-linux-amd64-5.12.11" \
+    GRAFANA_IMAGE_RENDERER_PORT="8081" \
+    GRAFANA_IMAGE_RENDERER_TOKEN="secret-render-token"
 
 # Image metadata labels
 LABEL "com.remal.image.name"="${IMAGE_NAME}" \
@@ -77,5 +81,10 @@ FROM base-${BUILD_TYPE} AS final
 RUN set -ue; \
     mkdir -p "${GRAFANA_STORAGE}" "${GRAFANA_LOG_DIR}" "${GRAFANA_PLUGINS}"
 
+# Install system tools required by Grafana Image Renderer
+RUN set -ue; \
+    apk add --no-cache chromium nss freetype harfbuzz ca-certificates ttf-freefont udev
+
 COPY container-scripts/grafana-functions.sh /
 COPY config/custom.ini "${GRAFANA_CUSTOM_CONFIG}"
+COPY "bin/${GRAFANA_IMAGE_RENDERER_BIN}" "${GRAFANA_HOME}/bin"

@@ -52,21 +52,23 @@ function add_grafana_data_sources() {
 # ------------------------------------------------------------------------------
 # Configure the Grafana server.
 # ------------------------------------------------------------------------------
-function grafana_configuration() {
+function configuring_grafana() {
   local fqdn
   fqdn=$(hostname -f)
 
   printf "%s | [INFO ] Configuring Grafana server...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
-  printf "%s | [DEBUG]             GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
-  printf "%s | [DEBUG]    GRAFANA_CUSTOM_CONFIG: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_CUSTOM_CONFIG"
-  printf "%s | [DEBUG]                     FQDN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fqdn"
-  printf "%s | [DEBUG]          GRAFANA_STORAGE: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_STORAGE"
-  printf "%s | [DEBUG]          GRAFANA_LOG_DIR: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_LOG_DIR"
-  printf "%s | [DEBUG]          GRAFANA_PLUGINS: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PLUGINS"
-  printf "%s | [DEBUG]     GRAFANA_PROVISIONING: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PROVISIONING"
-  printf "%s | [DEBUG]         GRAFANA_PROTOCOL: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PROTOCOL"
-  printf "%s | [DEBUG]             GRAFANA_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PORT"
-  printf "%s | [DEBUG]            KEYSTORE_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$KEYSTORE_HOME"
+  printf "%s | [DEBUG]                    GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
+  printf "%s | [DEBUG]           GRAFANA_CUSTOM_CONFIG: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_CUSTOM_CONFIG"
+  printf "%s | [DEBUG]                            FQDN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fqdn"
+  printf "%s | [DEBUG]                 GRAFANA_STORAGE: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_STORAGE"
+  printf "%s | [DEBUG]                 GRAFANA_LOG_DIR: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_LOG_DIR"
+  printf "%s | [DEBUG]                 GRAFANA_PLUGINS: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PLUGINS"
+  printf "%s | [DEBUG]            GRAFANA_PROVISIONING: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PROVISIONING"
+  printf "%s | [DEBUG]                GRAFANA_PROTOCOL: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PROTOCOL"
+  printf "%s | [DEBUG]                    GRAFANA_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PORT"
+  printf "%s | [DEBUG]                   KEYSTORE_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$KEYSTORE_HOME"
+  printf "%s | [DEBUG]    GRAFANA_IMAGE_RENDERER_TOKEN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_IMAGE_RENDERER_TOKEN"
+  printf "%s | [DEBUG]     GRAFANA_IMAGE_RENDERER_PORT: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_IMAGE_RENDERER_PORT"
 
  # Validate that the configuration file exists before processing
   if [ ! -f "$GRAFANA_CUSTOM_CONFIG" ]; then
@@ -83,9 +85,27 @@ function grafana_configuration() {
     -e "s|\${GRAFANA_PROTOCOL}|$GRAFANA_PROTOCOL|g" \
     -e "s|\${GRAFANA_PORT}|$GRAFANA_PORT|g" \
     -e "s|\${KEYSTORE_HOME}|$KEYSTORE_HOME|g" \
+    -e "s|\${GRAFANA_IMAGE_RENDERER_TOKEN}|$GRAFANA_IMAGE_RENDERER_TOKEN|g" \
+    -e "s|\${GRAFANA_IMAGE_RENDERER_PORT}|$GRAFANA_IMAGE_RENDERER_PORT|g" \
     "$GRAFANA_CUSTOM_CONFIG"
 
   printf "%s | [INFO ] Grafana server configured.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+}
+
+# ------------------------------------------------------------------------------
+# Configure the Grafana Image Renderer service.
+#
+# This function is especially important when upgrading the
+# grafana-image-renderer binary to a new version, because release files
+# downloaded from GitHub (https://github.com/grafana/grafana-image-renderer/releases)
+# do not have the executable permission flag set by default.
+# ------------------------------------------------------------------------------
+function configuring_grafana_image_renderer() {
+  printf "%s | [INFO ] Configuring Grafana Image Renderer...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]                  GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
+  printf "%s | [DEBUG]    GRAFANA_IMAGE_RENDERER_BIN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_IMAGE_RENDERER_BIN"
+
+  chmod +x "${GRAFANA_HOME}/bin/${GRAFANA_IMAGE_RENDERER_BIN}"
 }
 
 # ------------------------------------------------------------------------------
@@ -113,6 +133,39 @@ function start_grafana() {
   wait_until_content_found "$grafana_log" "HTTP Server Listen"
 
   printf "%s | [INFO ] Grafana server is fully started.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+}
+
+# ------------------------------------------------------------------------------
+# Install Grafana Image Renderer service.
+#
+# Test the renderer:
+#    curl -H "X-Auth-Token: secret-render-token" "http://localhost:8081/render?url=https://localhost:3000/login" -o /tmp/test.png
+# ------------------------------------------------------------------------------
+function start_grafana_image_renderer() {
+  local grafana_renderer_log
+  grafana_renderer_log="$GRAFANA_LOG_DIR/grafana-renderer.log"
+
+  printf "%s | [INFO ] Starting Grafana Image Renderer...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]                      GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
+  printf "%s | [DEBUG]        GRAFANA_IMAGE_RENDERER_BIN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_IMAGE_RENDERER_BIN"
+  printf "%s | [DEBUG]      GRAFANA_IMAGE_RENDERER_TOKEN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_IMAGE_RENDERER_TOKEN"
+  printf "%s | [DEBUG]                   GRAFANA_LOG_DIR: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_LOG_DIR"
+  printf "%s | [DEBUG]    Grafana-Image-Renderer logfile: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$grafana_renderer_log"
+
+  "${GRAFANA_HOME}/bin/${GRAFANA_IMAGE_RENDERER_BIN}" \
+    server \
+    --browser.path=/usr/bin/chromium-browser \
+    --browser.flag="--ignore-certificate-errors" \
+    --server.auth-token="${GRAFANA_IMAGE_RENDERER_TOKEN}" > "${grafana_renderer_log}" 2>&1 &
+
+  tail -n +1 -F "${grafana_renderer_log}" &
+
+  if [ $? -eq 0 ]; then
+    printf "%s | [INFO ] Grafana Image Renderer has been successfully started.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  else
+    printf "%s | [ERROR] Failed to start Grafana Image Renderer.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    return 1
+  fi
 }
 
 # ------------------------------------------------------------------------------

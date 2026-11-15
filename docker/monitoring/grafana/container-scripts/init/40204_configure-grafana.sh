@@ -22,8 +22,10 @@
 # ------------------------------------------------------------------------------
 log_start "$0"
 
-grafana_configuration
+configuring_grafana_image_renderer
+configuring_grafana
 update_grafana_password
+
 start_grafana
 add_grafana_data_sources
 stop_grafana
