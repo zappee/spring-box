@@ -37,16 +37,18 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
     PROMETHEUS_PROTOCOL="https" \
     \
     GRAFANA_INSTALL_KIT="grafana-enterprise_13.3.0_40412481033_linux_amd64.tar.gz" \
-    GRAFANA_HOME="/opt/grafana" \
     GRAFANA_PROTOCOL="https" \
     GRAFANA_PORT=3000 \
-    GRAFANA_CUSTOM_CONFIG="/opt/grafana/conf/custom.ini" \
-    GRAFANA_PROVISIONING="/opt/grafana/conf/provisioning" \
-    GRAFANA_STORAGE="/opt/grafana/data" \
-    GRAFANA_LOG_DIR="/var/log/grafana" \
-    GRAFANA_PLUGINS_DIR="/opt/grafana/data/plugins" \
     GRAFANA_USER="admin" \
     GRAFANA_PASSWORD="password" \
+    GRAFANA_HOME="/opt/grafana"
+
+ENV GRAFANA_CUSTOM_CONFIG="${GRAFANA_HOME}/conf/custom.ini" \
+    GRAFANA_PROVISIONING="${GRAFANA_HOME}/conf/provisioning" \
+    GRAFANA_STORAGE="/${GRAFANA_HOME}/data" \
+    GRAFANA_PLUGINS_DIR="${GRAFANA_HOME}/data/plugins" \
+    GRAFANA_DASHBOARDS_DIR="${GRAFANA_HOME}/dashboards/" \
+    GRAFANA_LOG_DIR="/var/log/grafana" \
     \
     GRAFANA_IMAGE_RENDERER_BIN="grafana-image-renderer-linux-amd64-5.12.11" \
     GRAFANA_IMAGE_RENDERER_PORT="8081" \
@@ -79,7 +81,7 @@ RUN set -ue; \
 # --- Final image stage ---
 FROM base-${BUILD_TYPE} AS final
 RUN set -ue; \
-    mkdir -p "${GRAFANA_STORAGE}" "${GRAFANA_LOG_DIR}" "${GRAFANA_PLUGINS_DIR}"
+    mkdir -p "${GRAFANA_STORAGE}" "${GRAFANA_LOG_DIR}" "${GRAFANA_PLUGINS_DIR}" "${GRAFANA_DASHBOARDS_DIR}"
 
 # Install system tools required by Grafana Image Renderer
 RUN set -ue; \
