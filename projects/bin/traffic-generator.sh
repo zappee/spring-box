@@ -24,8 +24,8 @@ MAX_THREADS=6         # Maximum concurrent threads
 MIN_CALLS=1           # Minimum calls a thread makes before stopping
 MAX_CALLS=5           # Maximum calls a thread makes before stopping
 
-MIN_WAIT_MS=200       # Minimum wait between requests in milliseconds
-MAX_WAIT_MS=5000      # Maximum wait between requests in milliseconds
+MIN_WAIT_MS=100       # Minimum wait between requests in milliseconds
+MAX_WAIT_MS=2000      # Maximum wait between requests in milliseconds
 
 TARGET_SHIFT_SEC=15   # How often (in seconds) the target thread count shifts
 

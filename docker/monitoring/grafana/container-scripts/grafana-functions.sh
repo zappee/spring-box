@@ -37,7 +37,8 @@ function add_grafana_data_sources() {
       \"isDefault\": true,
       \"jsonData\": {
         \"httpMethod\": \"POST\",
-        \"tlsSkipVerify\": true
+        \"tlsSkipVerify\": true,
+        \"timeInterval\": \"1s\"
       }
     }"
 
@@ -106,6 +107,19 @@ function configuring_grafana_image_renderer() {
   printf "%s | [DEBUG]    GRAFANA_IMAGE_RENDERER_BIN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_IMAGE_RENDERER_BIN"
 
   chmod +x "${GRAFANA_HOME}/bin/${GRAFANA_IMAGE_RENDERER_BIN}"
+}
+
+# ------------------------------------------------------------------------------
+# Add a '1s' refresh interval option to Grafana dashboards.
+#
+# By default, the smallest refresh interval available in the Grafana UI is 5s.
+# This adds a 1s interval option strictly for testing purposes.
+# ------------------------------------------------------------------------------
+function configuring_grafana_interval() {
+  printf "%s | [INFO ] Configuring Grafana refresh interval for dashboards...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]    GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
+
+  grep -rl '"5s","10s","30s"' "$GRAFANA_HOME/public/build/" | xargs -r -t sed -i 's/"5s","10s","30s"/"1s","5s","10s","30s"/g'
 }
 
 # ------------------------------------------------------------------------------

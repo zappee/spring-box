@@ -25,7 +25,8 @@ scrape_configs:
           app: "prometheus"
     scrape_native_histograms: true
 
-  - job_name: "consul-service-discovery-job"
+  - job_name: "remal-discovery-job"
+    scrape_interval: 1s
     metrics_path: /actuator/prometheus
     consul_sd_configs:
       - server: "${CONSUL_HOST}:8500"
