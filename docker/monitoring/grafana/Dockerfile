@@ -45,7 +45,7 @@ ENV IMAGE_NAME="${IMAGE_NAME}" \
 
 ENV GRAFANA_CUSTOM_CONFIG="${GRAFANA_HOME}/conf/custom.ini" \
     GRAFANA_PROVISIONING_DIR="${GRAFANA_HOME}/conf/provisioning" \
-    GRAFANA_STORAGE="/${GRAFANA_HOME}/data" \
+    GRAFANA_STORAGE_DIR="/${GRAFANA_HOME}/data" \
     GRAFANA_PLUGINS_DIR="${GRAFANA_HOME}/data/plugins" \
     GRAFANA_DASHBOARDS_DIR="${GRAFANA_HOME}/dashboards/" \
     GRAFANA_LOG_DIR="/var/log/grafana" \
@@ -81,7 +81,7 @@ RUN set -ue; \
 # --- Final image stage ---
 FROM base-${BUILD_TYPE} AS final
 RUN set -ue; \
-    mkdir -p "${GRAFANA_STORAGE}" "${GRAFANA_LOG_DIR}" "${GRAFANA_PLUGINS_DIR}" "${GRAFANA_DASHBOARDS_DIR}"
+    mkdir -p "${GRAFANA_STORAGE_DIR}" "${GRAFANA_LOG_DIR}" "${GRAFANA_PLUGINS_DIR}" "${GRAFANA_DASHBOARDS_DIR}"
 
 # Install system tools required by Grafana Image Renderer
 RUN set -ue; \

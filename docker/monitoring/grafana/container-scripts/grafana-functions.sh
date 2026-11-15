@@ -61,7 +61,7 @@ function configuring_grafana() {
   printf "%s | [DEBUG]                    GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
   printf "%s | [DEBUG]           GRAFANA_CUSTOM_CONFIG: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_CUSTOM_CONFIG"
   printf "%s | [DEBUG]                            FQDN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$fqdn"
-  printf "%s | [DEBUG]                 GRAFANA_STORAGE: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_STORAGE"
+  printf "%s | [DEBUG]             GRAFANA_STORAGE_DIR: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_STORAGE_DIR"
   printf "%s | [DEBUG]                 GRAFANA_LOG_DIR: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_LOG_DIR"
   printf "%s | [DEBUG]             GRAFANA_PLUGINS_DIR: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PLUGINS_DIR"
   printf "%s | [DEBUG]        GRAFANA_PROVISIONING_DIR: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_PROVISIONING_DIR"
@@ -79,7 +79,7 @@ function configuring_grafana() {
 
   sed -i \
     -e "s|\${FQDN}|$fqdn|g" \
-    -e "s|\${GRAFANA_STORAGE}|$GRAFANA_STORAGE|g" \
+    -e "s|\${GRAFANA_STORAGE_DIR}|$GRAFANA_STORAGE_DIR|g" \
     -e "s|\${GRAFANA_LOG_DIR}|$GRAFANA_LOG_DIR|g" \
     -e "s|\${GRAFANA_PLUGINS_DIR}|$GRAFANA_PLUGINS_DIR|g" \
     -e "s|\${GRAFANA_PROVISIONING_DIR}|$GRAFANA_PROVISIONING_DIR|g" \
