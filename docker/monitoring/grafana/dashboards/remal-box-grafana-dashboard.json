@@ -649,7 +649,7 @@
     "tags": [],
     "timeSettings": {
       "timezone": "browser",
-      "from": "now-6h",
+      "from": "now-5m",
       "to": "now",
       "autoRefresh": "1s",
       "autoRefreshIntervals": [
