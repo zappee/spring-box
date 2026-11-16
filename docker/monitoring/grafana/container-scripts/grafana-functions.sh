@@ -43,6 +43,7 @@ function add_grafana_data_sources() {
     }"
 
   if [ $? -eq 0 ]; then
+    printf "\n"
     printf "%s | [INFO ] Grafana data source has been successfully added.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
   else
     printf "%s | [ERROR] Failed to add Grafana data source.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
@@ -107,6 +108,8 @@ function configuring_grafana_image_renderer() {
   printf "%s | [DEBUG]    GRAFANA_IMAGE_RENDERER_BIN: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_IMAGE_RENDERER_BIN"
 
   chmod +x "${GRAFANA_HOME}/bin/${GRAFANA_IMAGE_RENDERER_BIN}"
+
+  printf "%s | [INFO ] Grafana Image Renderer configured.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 }
 
 # ------------------------------------------------------------------------------
@@ -120,6 +123,23 @@ function configuring_grafana_interval() {
   printf "%s | [DEBUG]    GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
 
   grep -rl '"5s","10s","30s"' "$GRAFANA_HOME/public/build/" | xargs -r -t sed -i 's/"5s","10s","30s"/"1s","5s","10s","30s"/g'
+
+  printf "%s | [INFO ] Grafana refresh interval configured.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+}
+
+# ------------------------------------------------------------------------------
+# Prepare Grafana Dashboards configuration file.
+# ------------------------------------------------------------------------------
+function configuring_grafana_dashboards() {
+  printf "%s | [INFO ] Configuring Grafana Dashboards...\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+  printf "%s | [DEBUG]    GRAFANA_HOME: '%s'\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$GRAFANA_HOME"
+
+  find "${GRAFANA_PROVISIONING_DIR}/dashboards" -type f -exec \
+    sed -i \
+      -e "s|\${GRAFANA_DASHBOARDS_DIR}|${GRAFANA_DASHBOARDS_DIR}|g" \
+    {} +
+
+  printf "%s | [INFO ] Grafana Dashboards configured.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
 }
 
 # ------------------------------------------------------------------------------

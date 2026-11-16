@@ -26,6 +26,7 @@ configuring_grafana_image_renderer
 
 configuring_grafana
 configuring_grafana_interval
+configuring_grafana_dashboards
 update_grafana_password
 
 start_grafana

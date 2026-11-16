@@ -47,7 +47,7 @@ ENV GRAFANA_CUSTOM_CONFIG="${GRAFANA_HOME}/conf/custom.ini" \
     GRAFANA_PROVISIONING_DIR="${GRAFANA_HOME}/conf/provisioning" \
     GRAFANA_STORAGE_DIR="/${GRAFANA_HOME}/data" \
     GRAFANA_PLUGINS_DIR="${GRAFANA_HOME}/data/plugins" \
-    GRAFANA_DASHBOARDS_DIR="${GRAFANA_HOME}/dashboards/" \
+    GRAFANA_DASHBOARDS_DIR="${GRAFANA_HOME}/dashboards" \
     GRAFANA_LOG_DIR="/var/log/grafana" \
     \
     GRAFANA_IMAGE_RENDERER_BIN="grafana-image-renderer-linux-amd64-5.12.11" \
@@ -87,6 +87,8 @@ RUN set -ue; \
 RUN set -ue; \
     apk add --no-cache chromium nss freetype harfbuzz ca-certificates ttf-freefont udev
 
-COPY container-scripts/grafana-functions.sh /
 COPY config/custom.ini "${GRAFANA_CUSTOM_CONFIG}"
+COPY config/provisioning/dashboards/default.yaml "${GRAFANA_PROVISIONING_DIR}/dashboards/"
+COPY dashboards/*.json "${GRAFANA_DASHBOARDS_DIR}/"
+COPY container-scripts/grafana-functions.sh /
 COPY "bin/${GRAFANA_IMAGE_RENDERER_BIN}" "${GRAFANA_HOME}/bin"
