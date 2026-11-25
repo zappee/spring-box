@@ -35,6 +35,7 @@ All notable changes to this project will be documented in this file.
 * [#86](https://github.com/zappee/spring-box/issues/86): Install grafana-image-renderer in `springbox-grafana` image.
 * [#87](https://github.com/zappee/spring-box/issues/87): Change the refresh interval from 15 sec to 1 sec in the Prometheus job.
 * [#89](https://github.com/zappee/spring-box/issues/89): Add a demo Grafana dashboard.
+* [#90](https://github.com/zappee/spring-box/issues/90): `springbox-openjdk-21-postgres-runner` fails if there is no `*.jar` in the `/jar-to-run` directory
 
 #### Major Known Issues
 * [#51](https://github.com/zappee/spring-box/issues/51), **Update Java sample project:** The dependencies for the Java projects ([spring-box/projects](https://github.com/zappee/spring-box/tree/main/projects)) are currently outdated. As a solo maintainer, I cannot prioritize updating them at this time. Contributions and Pull Requests to update these examples are highly welcome!

@@ -137,28 +137,27 @@ get_kv_context() {
 #    $2: Return value, the resolved file path
 # ------------------------------------------------------------------------------
 get_first_jar() {
-  local jars_home
-  jars_home="$1"
+  local jars_home="$1"
+  local return_var="$2"
 
   printf "%s | [INFO ] Searching for a JAR file in the '%s' directory...\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$jars_home"
 
-  local -a files
+  local -a files=()
   mapfile -d '' files < <(find "$jars_home" -type f -name "*.jar" -print0)
 
-  local number_of_files
-  number_of_files=${#files[@]}
+  local number_of_files=${#files[@]}
   printf "%s | [DEBUG] Found %d file(s) in the directory.\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$number_of_files"
 
   if [[ "$number_of_files" -eq 0 ]]; then
-    printf "%s | [WARN ] No *.jar files found in the directory.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    printf "%s | [ERROR] No *.jar files found in the directory.\n" "$(date +"%Y-%m-%d %H:%M:%S")"
+    exit 1
   elif [[ "$number_of_files" -gt 1 ]]; then
     printf "%s | [ERROR] Ambiguous configuration: multiple JAR files found:\n" "$(date +"%Y-%m-%d %H:%M:%S")"
     printf "%s\n" "${files[@]}"
     exit 1
   fi
 
- # Assign the single found JAR file to the provided return variable
-  local return_var="$2"
+  # Assign the single found JAR file to the provided return variable
   printf -v "$return_var" "%s" "${files[0]}"
 }
 
