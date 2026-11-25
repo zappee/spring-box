@@ -34,9 +34,9 @@ services:
         networks:
             - springbox-net
         volumes:
-            - $HOME/Java/spring-box/volumes/user-service-1/jar-to-run:/jar-to-run
-            - $HOME/Java/spring-box/volumes/user-service-1/logs:/logs
-            - $HOME/Java/spring-box/volumes/user-service-1/heap-dump:/heap-dump
+            - ${PROJECT_HOME}/volumes/user-service-1/jar-to-run:/jar-to-run
+            - ${PROJECT_HOME}/volumes/user-service-1/logs:/logs
+            - ${PROJECT_HOME}/volumes/user-service-1/heap-dump:/heap-dump
             - user-service-1-data:/var/lib/postgresql/data
 
     user-service-2:
@@ -73,9 +73,9 @@ services:
         networks:
             - springbox-net
         volumes:
-            - $HOME/Java/spring-box/volumes/user-service-2/jar-to-run:/jar-to-run
-            - $HOME/Java/spring-box/volumes/user-service-2/logs:/logs
-            - $HOME/Java/spring-box/volumes/user-service-2/heap-dump:/heap-dump
+            - ${PROJECT_HOME}/volumes/user-service-2/jar-to-run:/jar-to-run
+            - ${PROJECT_HOME}/volumes/user-service-2/logs:/logs
+            - ${PROJECT_HOME}/volumes/user-service-2/heap-dump:/heap-dump
             - user-service-2-data:/var/lib/postgresql/data
 
     # ----- welcome-services ----------------------------------------------------------------------
@@ -108,9 +108,9 @@ services:
         networks:
             - springbox-net
         volumes:
-            - $HOME/Java/spring-box/volumes/welcome-service-1/jar-to-run:/jar-to-run
-            - $HOME/Java/spring-box/volumes/welcome-service-1/logs:/logs
-            - $HOME/Java/spring-box/volumes/welcome-service-1/heap-dump:/heap-dump
+            - ${PROJECT_HOME}/volumes/welcome-service-1/jar-to-run:/jar-to-run
+            - ${PROJECT_HOME}/volumes/welcome-service-1/logs:/logs
+            - ${PROJECT_HOME}/volumes/welcome-service-1/heap-dump:/heap-dump
 
     # ----- kafka-producer-services ---------------------------------------------------------------
     kafka-producer-service-1:
@@ -142,9 +142,9 @@ services:
         networks:
             - springbox-net
         volumes:
-                - $HOME/Java/spring-box/volumes/kafka-producer-service-1/jar-to-run:/jar-to-run
-                - $HOME/Java/spring-box/volumes/kafka-producer-service-1/logs:/logs
-                - $HOME/Java/spring-box/volumes/kafka-producer-service-1/heap-dump:/heap-dump
+                - ${PROJECT_HOME}/volumes/kafka-producer-service-1/jar-to-run:/jar-to-run
+                - ${PROJECT_HOME}/volumes/kafka-producer-service-1/logs:/logs
+                - ${PROJECT_HOME}/volumes/kafka-producer-service-1/heap-dump:/heap-dump
         depends_on:
             kafka-4:
                 condition: service_healthy
@@ -190,9 +190,9 @@ services:
         networks:
             - springbox-net
         volumes:
-            - $HOME/Java/spring-box/volumes/kafka-consumer-service-1/jar-to-run:/jar-to-run
-            - $HOME/Java/spring-box/volumes/kafka-consumer-service-1/logs:/logs
-            - $HOME/Java/spring-box/volumes/kafka-consumer-service-1/heap-dump:/heap-dump
+            - ${PROJECT_HOME}/volumes/kafka-consumer-service-1/jar-to-run:/jar-to-run
+            - ${PROJECT_HOME}/volumes/kafka-consumer-service-1/logs:/logs
+            - ${PROJECT_HOME}/volumes/kafka-consumer-service-1/heap-dump:/heap-dump
             - kafka-consumer-service-1-data:/var/lib/postgresql/data
         depends_on:
             kafka-4:
@@ -236,9 +236,9 @@ services:
         networks:
             - springbox-net
         volumes:
-            - $HOME/Java/spring-box/volumes/hazelcast-counter-service-1/jar-to-run:/jar-to-run
-            - $HOME/Java/spring-box/volumes/hazelcast-counter-service-1/logs:/logs
-            - $HOME/Java/spring-box/volumes/hazelcast-counter-service-1/heap-dump:/heap-dump
+            - ${PROJECT_HOME}/volumes/hazelcast-counter-service-1/jar-to-run:/jar-to-run
+            - ${PROJECT_HOME}/volumes/hazelcast-counter-service-1/logs:/logs
+            - ${PROJECT_HOME}/volumes/hazelcast-counter-service-1/heap-dump:/heap-dump
 
     hazelcast-counter-service-2:
         image: springbox-openjdk-25-runner:0.8.0
@@ -271,9 +271,9 @@ services:
         networks:
             - springbox-net
         volumes:
-            - $HOME/Java/spring-box/volumes/hazelcast-counter-service-2/jar-to-run:/jar-to-run
-            - $HOME/Java/spring-box/volumes/hazelcast-counter-service-2/logs:/logs
-            - $HOME/Java/spring-box/volumes/hazelcast-counter-service-2/heap-dump:/heap-dump
+            - ${PROJECT_HOME}/volumes/hazelcast-counter-service-2/jar-to-run:/jar-to-run
+            - ${PROJECT_HOME}/volumes/hazelcast-counter-service-2/logs:/logs
+            - ${PROJECT_HOME}/volumes/hazelcast-counter-service-2/heap-dump:/heap-dump
 
     # ----- HashiCorp Consul ----------------------------------------------------------------------
     consul:
