@@ -36,13 +36,13 @@ PROJECT_HOME="$HOME/Java/spring-box"
 
 BINARIES=(
   "apache-tomcat-10.1.61.tar.gz;docker/infrastructure/tomcat-10/bin"
-  "EasyRSA-3.2.7.tgz;docker/infrastructure/easy-rsa-pki/bin"
   "consul_2.1.0_linux_386.zip;docker/infrastructure/hcp-consul/bin"
-  "vault_2.2.1_linux_386.zip;docker/infrastructure/hcp-vault/bin"
-  "prometheus-3.16.0.linux-amd64.tar.gz;docker/monitoring/prometheus/bin"
+  "EasyRSA-3.2.7.tgz;docker/infrastructure/easy-rsa-pki/bin"
   "grafana-enterprise_13.3.0_40412481033_linux_amd64.tar.gz;docker/monitoring/grafana/bin"
   "grafana-image-renderer-linux-amd64-5.12.11;docker/monitoring/grafana/bin"
   "hazelcast-5.7.0-slim.tar.gz;docker/infrastructure/hazelcast-platform/bin"
+  "prometheus-3.16.0.linux-amd64.tar.gz;docker/monitoring/prometheus/bin"
+  "vault_2.2.1_linux_386.zip;docker/infrastructure/hcp-vault/bin"
 )
 
 # ------------------------------------------------------------------------------
