@@ -135,6 +135,7 @@ This lets start-ups and small-to-medium teams to eliminate configuration overhea
   <img src="docs/images/icons/icon-code.png" /> Source Code
 </a>
 
+
 This ultra-minimal `Base image` serves as the foundation for the entire **Remal Spring Box** ecosystem.
 It contains only essential system utilities and bootstrap configurations.
 
