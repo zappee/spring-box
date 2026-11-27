@@ -128,7 +128,7 @@ This lets start-ups and small-to-medium teams to eliminate configuration overhea
 ### 6) Docker Containers in the _Spring Box_ Ecosystem
 ![Spring-Box image hierarchy](docs/images/remal-springbox-image-hierarchy.png)
 
-### 7) <span class="rect-space color-base"></span> The Spring-Box Base Image
+### 7) <img src="docs/images/box-base.png" width="16" height="20" /> The Spring-Box Base Image
 Image name: `springbox-base`
 {: .docker-link }
 
