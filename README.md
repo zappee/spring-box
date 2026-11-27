@@ -30,7 +30,7 @@ Already familiar with *Docker* and *Remal Spring Box* and want to jump straight 
 2. **Prepare the installation archives**
    
    * Download the required server archives [from here](https://drive.google.com/drive/u/0/folders/1RUkp1vwSX0aTdlQ2zgyOUKQexHovHY77), host them on your local Tomcat server under `webapps/docker-build`.
-   * Configure the paths in [update-binaries.sh](https://github.com/zappee/spring-box/blob/main/update-binaries.sh), and run:
+   * Configure the paths in [update-binaries.sh](update-binaries.sh), and run:
 
      ```bash
      ./update-binaries.sh 1
@@ -62,11 +62,11 @@ Already familiar with *Docker* and *Remal Spring Box* and want to jump straight 
    
 7. **Generate HTTP traffic (optional)**
    
-   Run [projects/bin/traffic-generator.sh](https://github.com/zappee/spring-box/blob/main/projects/bin/traffic-generator.sh){: .src-link target="_blank" rel="noopener" } to simulate realistic HTTP load and inspect real-time metrics.
+   Run [projects/bin/traffic-generator.sh](projects/bin/traffic-generator.sh) to simulate realistic HTTP load and inspect real-time metrics.
    
 8. **Explore the services & Dashboards**
 
-   Open [projects/index.html](https://github.com/zappee/spring-box/blob/main/projects/index.html){: .src-link target="_blank" rel="noopener" } in your browser for a directory of all running endpoints, or jump straight to the [Grafana Dashboard](https://localhost:13093){: target="_blank" rel="noopener" } (admin / password).
+   Open [projects/index.html](projects/index.html) in your browser for a directory of all running endpoints, or jump straight to the [Grafana Dashboard](https://localhost:13093) (admin / password).
 
 **Detailed Guides**
 * [How to build the Docker images](#19-how-to-build-the-docker-images)
