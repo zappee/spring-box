@@ -132,7 +132,7 @@ This lets start-ups and small-to-medium teams to eliminate configuration overhea
 <img src="docs/images/icons/logo-docker.png" width="18" height="18" /> Image name: `springbox-base`
 
 <a href="docker/base/base">
-  <img src="docs/images/icons/icon-code-16.png" /> Source Code
+  <img src="docs/images/icons/icon-code-16x.png" /> Source Code
 </a>
 
 This ultra-minimal `Base image` serves as the foundation for the entire **Remal Spring Box** ecosystem.
