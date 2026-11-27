@@ -66,7 +66,7 @@ Already familiar with *Docker* and *Remal Spring Box* and want to jump straight 
    
 8. **Explore the services & Dashboards**
 
-   Open [projects/index.html](projects/index.html) in your browser for a directory of all running endpoints, or jump straight to the [Grafana Dashboard](https://localhost:13093) (admin / password).
+   Open [projects/index.html](https://htmlpreview.github.io/?https://github.com/zappee/spring-box/blob/65-update-readme/projects/index.html) in your browser for a directory of all running endpoints, or jump straight to the [Grafana Dashboard](https://localhost:13093) (admin / password).
 
 **Detailed Guides**
 * [How to build the Docker images](#19-how-to-build-the-docker-images)
