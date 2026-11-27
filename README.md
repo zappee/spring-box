@@ -131,7 +131,11 @@ This lets start-ups and small-to-medium teams to eliminate configuration overhea
 ### 7) <img src="docs/images/icons/box-base.png" width="16" height="20" /> The Spring-Box Base Image
 <img src="docs/images/icons/logo-docker.png" width="18" height="18" /> Image name: `springbox-base`
 
-[Source Code](https://github.com/zappee/spring-box/tree/main/docker/base/base){: .src-link target="_blank" rel="noopener" }
+<a href="docker/base/base">
+  <img src="docs/images/icons/icon-code.png" width="16" height="16" /> Source Code
+</a>
+
+[Source Code](https://github.com/zappee/spring-box/tree/main/docker/base/base)
 
 This ultra-minimal `Base image` serves as the foundation for the entire **Remal Spring Box** ecosystem.
 It contains only essential system utilities and bootstrap configurations.
