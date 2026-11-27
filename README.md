@@ -4,7 +4,7 @@
 ![GitHub Issues](https://img.shields.io/github/issues/zappee/spring-box)
 ![GitHub Release](https://img.shields.io/github/v/release/zappee/spring-box)
 
-#### ⭐⭐ Like this project? Support my work by giving it a star on [GitHub](https://github.com/zappee/spring-box/){: target="_blank" rel="noopener" } ⭐⭐
+#### ⭐⭐ Like this project? Support my work by giving it a star on [GitHub](https://github.com/zappee/spring-box/) ⭐⭐
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/zappee/spring-box?style=flat)
 
@@ -29,8 +29,8 @@ Already familiar with *Docker* and *Remal Spring Box* and want to jump straight 
 
 2. **Prepare the installation archives**
    
-   * Download the required server archives [from here](https://drive.google.com/drive/u/0/folders/1RUkp1vwSX0aTdlQ2zgyOUKQexHovHY77){: target="_blank" rel="noopener" }, host them on your local Tomcat server under `webapps/docker-build`.
-   * Configure the paths in [update-binaries.sh](https://github.com/zappee/spring-box/blob/main/update-binaries.sh){: .src-link target="_blank" rel="noopener" }, and run:
+   * Download the required server archives [from here](https://drive.google.com/drive/u/0/folders/1RUkp1vwSX0aTdlQ2zgyOUKQexHovHY77), host them on your local Tomcat server under `webapps/docker-build`.
+   * Configure the paths in [update-binaries.sh](https://github.com/zappee/spring-box/blob/main/update-binaries.sh), and run:
 
      ```bash
      ./update-binaries.sh 1
@@ -52,7 +52,7 @@ Already familiar with *Docker* and *Remal Spring Box* and want to jump straight 
    
 5. **Configure the environment**
    
-   Open [remal.com.env](https://github.com/zappee/spring-box/blob/main/projects/remal.com.env){: .src-link target="_blank" rel="noopener" } environment file and set `PROJECT_HOME` to your local repository path (for example, `$HOME/Java/spring-box`).
+   Open [remal.com.env](projects/remal.com.env) environment file and set `PROJECT_HOME` to your local repository path (for example, `$HOME/Java/spring-box`).
    
 6. **Start the demo stack**
 
