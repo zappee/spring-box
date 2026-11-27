@@ -129,8 +129,7 @@ This lets start-ups and small-to-medium teams to eliminate configuration overhea
 ![Spring-Box image hierarchy](docs/images/remal-springbox-image-hierarchy.png)
 
 ### 7) <img src="docs/images/icons/box-base.png" width="16" height="20" /> The Spring-Box Base Image
-<img src="docs/images/icons/logo-docker-16.png" width="18" height="18" /> Image name: `springbox-base`
-
+<img src="docs/images/icons/logo-docker.png" width="18" height="18" /> Image name: `springbox-base`
 <a href="docker/base/base">
   <img src="docs/images/icons/icon-code.png" /> Source Code
 </a>
