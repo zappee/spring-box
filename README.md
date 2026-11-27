@@ -4,7 +4,7 @@
 ![GitHub Issues](https://img.shields.io/github/issues/zappee/spring-box)
 ![GitHub Release](https://img.shields.io/github/v/release/zappee/spring-box)
 
-#### ⭐⭐ Like this project? Support my work by giving it a star on [GitHub](https://github.com/zappee/spring-box/) ⭐⭐
+#### ⭐⭐ Like this project? Support my work by giving it a star on [GitHub](https://github.com/zappee/spring-box) ⭐⭐
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/zappee/spring-box?style=flat)
 
@@ -30,7 +30,7 @@ Already familiar with *Docker* and *Remal Spring Box* and want to jump straight 
 2. **Prepare the installation archives**
    
    * Download the required server archives [from here](https://drive.google.com/drive/u/0/folders/1RUkp1vwSX0aTdlQ2zgyOUKQexHovHY77), host them on your local Tomcat server under `webapps/docker-build`.
-   * Configure the paths in [update-binaries.sh](update-binaries.sh), and run:
+   * Configure the paths in <img src="docs/images/icons/icon-code.png" /> [update-binaries.sh](update-binaries.sh), and run:
 
      ```bash
      ./update-binaries.sh 1
@@ -129,7 +129,8 @@ This lets start-ups and small-to-medium teams to eliminate configuration overhea
 ![Spring-Box image hierarchy](docs/images/remal-springbox-image-hierarchy.png)
 
 ### 7) <img src="docs/images/icons/box-base.png" width="16" height="20" /> The Spring-Box Base Image
-<img src="docs/images/icons/logo-docker.png" width="18" height="18" /> Image name: `springbox-base`
+<img src="docs/images/icons/logo-docker.png"> Image name: `springbox-base`
+
 <a href="docker/base/base">
   <img src="docs/images/icons/icon-code.png" /> Source Code
 </a>
