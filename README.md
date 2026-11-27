@@ -52,7 +52,7 @@ Already familiar with *Docker* and *Remal Spring Box* and want to jump straight 
    
 5. **Configure the environment**
    
-   Open [remal.com.env](projects/remal.com.env) environment file and set `PROJECT_HOME` to your local repository path (for example, `$HOME/Java/spring-box`).
+   Open <img src="docs/images/icons/icon-code.png" /> [remal.com.env](projects/remal.com.env) environment file and set `PROJECT_HOME` to your local repository path (for example, `$HOME/Java/spring-box`).
    
 6. **Start the demo stack**
 
@@ -62,11 +62,11 @@ Already familiar with *Docker* and *Remal Spring Box* and want to jump straight 
    
 7. **Generate HTTP traffic (optional)**
    
-   Run [projects/bin/traffic-generator.sh](projects/bin/traffic-generator.sh) to simulate realistic HTTP load and inspect real-time metrics.
+   Run <img src="docs/images/icons/icon-code.png" /> [projects/bin/traffic-generator.sh](projects/bin/traffic-generator.sh) to simulate realistic HTTP load and inspect real-time metrics.
    
 8. **Explore the services & Dashboards**
 
-   Open [projects/index.html](https://htmlpreview.github.io/?https://github.com/zappee/spring-box/blob/65-update-readme/projects/index.html) in your browser for a directory of all running endpoints, or jump straight to the [Grafana Dashboard](https://localhost:13093) (admin / password).
+   Open <img src="docs/images/icons/icon-code.png" /> [projects/index.html](https://htmlpreview.github.io/?https://github.com/zappee/spring-box/blob/65-update-readme/projects/index.html) in your browser for a directory of all running endpoints, or jump straight to the [Grafana Dashboard](https://localhost:13093) (admin / password).
 
 **Detailed Guides**
 * [How to build the Docker images](#19-how-to-build-the-docker-images)
